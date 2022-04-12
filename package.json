@@ -6,7 +6,8 @@
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview --host 0.0.0.0",
-    "prepare": "svelte-kit sync"
+    "prepare": "svelte-kit sync",
+    "postbuild": "npx svelte-sitemap --domain https://daallesio.eu.org"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
