@@ -2,16 +2,32 @@
   "name": "daallesio",
   "version": "0.0.1",
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "svelte-kit dev --host 0.0.0.0",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
-    "preview": "svelte-kit preview",
+    "preview": "svelte-kit preview --host 0.0.0.0",
     "prepare": "svelte-kit sync"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-static": "^1.0.0-next.29",
     "@sveltejs/kit": "next",
-    "svelte": "^3.44.0"
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.4",
+    "html-minifier": "^4.0.0",
+    "mdsvex": "^0.10.5",
+    "postcss": "^8.4.12",
+    "rehype-accessible-emojis": "^0.3.2",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-external-links": "^1.0.1",
+    "rehype-slug": "^5.0.1",
+    "svelte": "^3.44.0",
+    "svelte-lazy": "^1.1.0",
+    "svelte-preprocess": "^4.10.5",
+    "svelte-sitemap": "^2.5.0",
+    "tailwindcss": "^3.0.23",
+    "vite-imagetools": "^4.0.3"
   },
   "type": "module"
 }
