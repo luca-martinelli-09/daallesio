@@ -18,5 +18,5 @@ and fetch this data before page actually loads -->
 </script>
 
 {#each posts as post}
-  <h1>{post.title}</h1>
+  <h1><a href="/ricette/{post.id}">{post.title}</a></h1>
 {/each}
