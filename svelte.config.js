@@ -17,7 +17,8 @@ const config = {
 		}),
 		mdsvex({
 			layout: {
-				recipe: './src/lib/layouts/recipe-layout.svelte'
+				recipe: './src/lib/layouts/recipe-layout.svelte',
+				ingredient: './src/lib/layouts/ingredient-layout.svelte'
 			},
 			extensions: extensions,
 			rehypePlugins: [

@@ -1,9 +1,9 @@
-import posts from '$lib/recipes';
+import ingredients from '$lib/ingredients';
 
 export async function get() {
-  const body = Object.keys(posts).map((id) => ({
+  const body = Object.keys(ingredients).map((id) => ({
     id,
-    ...posts[id],
+    ...ingredients[id],
   }));
 
   return {

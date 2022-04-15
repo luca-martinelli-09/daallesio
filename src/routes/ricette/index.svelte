@@ -1,5 +1,3 @@
-<!-- By using context="module", I declare that this code will run on the server 
-and fetch this data before page actually loads -->
 <script context="module">
 	export async function load({ fetch }) {
 		const url = '/ricette.json';

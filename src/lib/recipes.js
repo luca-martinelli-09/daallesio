@@ -1,19 +1,18 @@
-const imports = import.meta.globEager('./recipes/*.md');
+const allRecipes = import.meta.globEager('./recipes/*.md');
 
-const posts = [];
-for (const path in imports) {
-  const post = imports[path];
-  if (post) {
-    posts.push({
-      ...post.metadata,
-      ...post.default.render()
+const recipes = [];
+for (const path in allRecipes) {
+  const recipe = allRecipes[path];
+  if (recipe) {
+    recipes.push({
+      ...recipe.metadata,
+      ...recipe.default.render()
     });
   }
 }
 
-// Filter the post and order them by published date
-const filteredPosts = posts
-  .filter((post) => !post.hidden)
+const filteredRecipes = recipes
+  .filter((recipe) => !recipe.hidden)
   .sort((a, b) =>
     new Date(a.date).getTime() > new Date(b.date).getTime()
       ? -1
@@ -23,4 +22,4 @@ const filteredPosts = posts
   )
 
 
-export default filteredPosts;
+export default filteredRecipes;

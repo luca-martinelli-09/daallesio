@@ -3,7 +3,6 @@
   export let title;
   export let image;
   export let description;
-  export let ingredients;
 </script>
 
 <svelte:head>
@@ -26,23 +25,19 @@
 </svelte:head>
 
 <main>
-  <article class="prose">
-    {#if title}
-      <div class="header">
-        <h1>{title}</h1>
-      </div>
-    {/if}
+	<article class="prose">
+		{#if title}
+			<div class="header">
+				<h1>{title}</h1>
+			</div>
+		{/if}
 
-    {#if image}
-      <div class="cover-image" />
-    {/if}
+		{#if image}
+			<div class="cover-image" />
+		{/if}
 
-    {#each ingredients as ingredient}
-      <h3>{ingredient.id}</h3>
-    {/each}
-
-    <div class="content">
-      <slot />
-    </div>
-  </article>
+		<div class="content">
+			<slot />
+		</div>
+	</article>
 </main>

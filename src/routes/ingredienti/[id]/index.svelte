@@ -1,28 +1,28 @@
 <script context="module">
-  // Get posts info
-	const allPosts = import.meta.globEager(`$lib/recipes/*.md`);
+  // Get ingredients info
+	const allIngredients = import.meta.globEager('$lib/ingredients/*.md');
 
-	let posts = [];
-  // Get the posts' ids
-	for (let path in allPosts) {
-		const post = allPosts[path];
-		const id = post.metadata.id;
-		const p = { post, id };
-		posts.push(p);
+	let ingredients = [];
+  // Get the ingredients' ids
+	for (let path in allIngredients) {
+		const ingredient = allIngredients[path];
+		const id = ingredient.metadata.id;
+		const p = { ingredient, id };
+		ingredients.push(p);
 	}
 
 	export function load({ params }) {
 		const { id } = params;
 
-    // Find the post with the id
-		const filteredPost = posts.find((p) => {
+    // Find the ingredient with the id
+		const ingredient = ingredients.find((p) => {
 			return p.id.toLowerCase() === id.toLowerCase();
 		});
 
 		return {
 			props: {
-        // Tell page to load that post's module
-				page: filteredPost.post.default
+        // Tell page to load that ingredient's module
+				page: ingredient.ingredient.default
 			}
 		};
 	};
@@ -33,5 +33,5 @@
 	export let page;
 </script>
 
-<!--Here we'll load the component of the blog post page itself -->
+<!--Here we'll load the component of the blog ingredient page itself -->
 <svelte:component this = { page } />
