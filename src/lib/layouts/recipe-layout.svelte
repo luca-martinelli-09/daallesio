@@ -38,7 +38,7 @@
     {/if}
 
     {#each ingredients as ingredient}
-      <h3>{ingredient.id}</h3>
+      <h3>{ingredient.name}</h3>
     {/each}
 
     <div class="content">

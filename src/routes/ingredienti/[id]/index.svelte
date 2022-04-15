@@ -22,7 +22,7 @@
 		return {
 			props: {
         // Tell page to load that ingredient's module
-				page: ingredient.ingredient.default
+				page: ingredient.default
 			}
 		};
 	};
