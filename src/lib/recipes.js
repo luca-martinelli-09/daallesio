@@ -9,6 +9,13 @@ for (const path in allIngredients) {
   }
 }
 
+async function getIngredientNutritionalData(foodID) {
+  const res = await fetch("https://api.nal.usda.gov/fdc/v1/food/" + foodID + "?api_key=DMbAaQsgKG7ZndAHkTfFFSfiVU5mlDtpMkSNchME");
+  const data = await res.json();
+
+  return data;
+}
+
 const recipes = [];
 for (const path in allRecipes) {
   const recipe = allRecipes[path];
@@ -24,7 +31,11 @@ for (const path in allRecipes) {
           ...ingredientInfo[0]
         };
     }
-    
+
+    getIngredientNutritionalData(171893).then((res) => {
+      console.log(res);
+    });
+
     recipes.push({
       ...recipe.metadata,
       ...recipe.default.render(),

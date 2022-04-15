@@ -7,8 +7,13 @@ export async function get({ params }) {
     return p.id.toLowerCase() === id.toLowerCase();
   });
 
+  var headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+
   return {
     status: 200,
+    headers: headers,
     body: JSON.stringify(recipe)
   };
 }

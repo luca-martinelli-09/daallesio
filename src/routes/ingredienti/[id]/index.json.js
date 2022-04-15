@@ -9,6 +9,9 @@ export async function get({ params }) {
 
   return {
     status: 200,
+    head: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(ingredient)
   };
 }
