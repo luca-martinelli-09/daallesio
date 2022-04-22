@@ -1,5 +1,7 @@
 <script>
   import { siteBaseUrl } from "$lib/meta";
+  import Navbar from "$lib/components/Navbar.svelte";
+  
   export let title;
   export let image;
   export let description;
@@ -24,6 +26,8 @@
     <meta name="twitter:image" content="{siteBaseUrl}/images/{image.path}/{image.filename}.png" />
   {/if}
 </svelte:head>
+
+<Navbar />
 
 <main>
   <article class="prose">

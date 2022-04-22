@@ -12,8 +12,12 @@
 </script>
 
 <script>
+  import Navbar from "$lib/components/Navbar.svelte";
+
 	export let posts;
 </script>
+
+<Navbar selected="ricette" />
 
 {#each posts as post}
   <h1><a href="/ricette/{post.id}">{post.title}</a></h1>

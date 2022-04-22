@@ -14,6 +14,7 @@ difficulty: 3
 time:
   preparation: 30
   cook: 15
+units: 1
 ingredients:
   - id: pasta
     amount: 100

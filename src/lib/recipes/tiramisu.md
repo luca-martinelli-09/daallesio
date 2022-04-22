@@ -14,6 +14,7 @@ difficulty: 1
 time:
   preparation: 20
   rest: 1800
+units: 6
 ingredients:
   - id: uovo
     amount: 4
