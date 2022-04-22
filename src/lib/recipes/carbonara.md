@@ -27,4 +27,5 @@ ingredients:
     amount: 40
     unit: g
   - id: pepe
+  - id: sale
 ---

@@ -13,7 +13,7 @@ const recipes = {};
 for (const path in allRecipes) {
   const recipe = allRecipes[path];
 
-  if (recipe && !recipe.metadata.hidden) {
+  if (recipe && !recipe.metadata.draft) {
     const recipeIngredients = recipe.metadata.ingredients;
     for (const i in recipeIngredients) {
       const ingredient = recipeIngredients[i];
