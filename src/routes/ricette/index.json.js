@@ -1,11 +1,6 @@
-import recipes from '$lib/recipes';
+import { recipes } from '$lib/recipes';
 
 export async function get() {
-  const allRecipes = Object.keys(recipes).map((id) => ({
-    id,
-    ...recipes[id],
-  }));
-
   var headers = new Headers({
     'Content-Type': 'application/json'
   });
@@ -13,6 +8,6 @@ export async function get() {
   return {
     status: 200,
     headers: headers,
-    body: JSON.stringify(allRecipes)
+    body: JSON.stringify(recipes)
   };
 }

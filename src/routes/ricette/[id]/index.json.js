@@ -1,19 +1,25 @@
-import recipes from '$lib/recipes';
+import { recipes } from '$lib/recipes';
 
 export async function get({ params }) {
   const { id } = params;
 
-  const recipe = recipes.find((p) => {
-    return p.id.toLowerCase() === id.toLowerCase();
-  });
+  const recipe = recipes[id];
 
   var headers = new Headers({
     'Content-Type': 'application/json'
   });
 
+  if (recipe) {
+    return {
+      status: 200,
+      headers: headers,
+      body: JSON.stringify(recipe)
+    };
+  }
+
   return {
-    status: 200,
+    status: 404,
     headers: headers,
-    body: JSON.stringify(recipe)
+    body: JSON.stringify({ message: 'Recipe not found' })
   };
 }
