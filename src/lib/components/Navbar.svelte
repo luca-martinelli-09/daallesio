@@ -14,7 +14,7 @@
       </a>
     </li>
     <li><a href="/ricette" class={selected == "ricette" ? selectedClass : null} sveltekit:prefetch>Ricette</a></li>
-    <li><a href="/blog" class={selected == "blog" ? selectedClass : null} sveltekit:prefetch>Blog</a></li>
-    <li><a href="/social" class={selected == "social" ? selectedClass : null} sveltekit:prefetch>Social</a></li>
+    <li><a href="/" class={selected == "blog" ? selectedClass : null} sveltekit:prefetch>Blog</a></li>
+    <li><a href="/" class={selected == "social" ? selectedClass : null} sveltekit:prefetch>Social</a></li>
   </ul>
 </nav>
