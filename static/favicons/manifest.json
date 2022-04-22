@@ -8,7 +8,7 @@
   "theme_color": "#00aae7",
   "dir": "ltr",
   "display": "standalone",
-  "orientation": "landscape",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/favicons/app-icon-192x192.png",
