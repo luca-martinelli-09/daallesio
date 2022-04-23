@@ -20,5 +20,5 @@
 <Navbar selected="ricette" />
 
 {#each posts as post}
-  <h1><a href="/ricette/{post.id}">{post.title}</a></h1>
+  <h1><a href="/ricette/{post.id}" sveltekit:prefetch>{post.title}</a></h1>
 {/each}

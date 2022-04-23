@@ -1,7 +1,7 @@
 <script>
   import { siteBaseUrl } from "$lib/meta";
   import Navbar from "$lib/components/Navbar.svelte";
-  
+
   export let title;
   export let image;
   export let description;
@@ -27,7 +27,7 @@
   {/if}
 </svelte:head>
 
-<Navbar />
+<Navbar selected="ricette" />
 
 <main>
   <article class="prose">

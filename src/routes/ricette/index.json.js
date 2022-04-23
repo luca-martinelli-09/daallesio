@@ -10,9 +10,7 @@ export async function get() {
     const recipe = recipes[i];
 
     delete recipe.ingredients;
-    delete recipe.html;
-    delete recipe.css;
-    delete recipe.head;
+    delete recipe.default;
 
     smallRecipes.push({
       ...recipe

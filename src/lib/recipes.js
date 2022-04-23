@@ -28,8 +28,8 @@ for (const path in allRecipes) {
 
     recipes[recipe.metadata.id] = {
       ...recipe.metadata,
-      ...recipe.default.render(),
-      ingredients: recipeIngredients
+      ingredients: recipeIngredients,
+      default: recipe.default,
     };
   }
 }

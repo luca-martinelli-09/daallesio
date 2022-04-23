@@ -1,11 +1,14 @@
 <script context="module">
-  export async function load({ params, fetch }) {
-    const url = params.id + ".json";
-    const res = await fetch(url);
+  import { recipes } from "$lib/recipes";
+
+  export function load({ params }) {
+    const { id } = params;
+
+    const recipe = recipes[id];
 
     return {
       props: {
-        page: await res.json(),
+        page: recipe.default,
       },
     };
   }
@@ -15,12 +18,4 @@
   export let page;
 </script>
 
-<svelte:head>
-	{@html page.head}
-
-	<style>
-		{@html page.css}
-	</style>
-</svelte:head>
-
-{@html page.html}
+<svelte:component this={page} />

@@ -4,7 +4,13 @@ module.exports = {
     fontFamily: {
       'sans': ['Montserrat', 'sans-serif'],
       'body': ['Montserrat', 'sans-serif'],
-      'serif': ['Cooper', 'serif']
+      'serif': ['Cooper Black', 'serif']
+    },
+    extend: {
+      colors: {
+        'background': '#FFEDED',
+        'accent': '#FF00E4',
+      }
     }
   },
   plugins: [
