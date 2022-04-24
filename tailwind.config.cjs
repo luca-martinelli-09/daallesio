@@ -4,12 +4,13 @@ module.exports = {
     fontFamily: {
       'sans': ['Montserrat', 'sans-serif'],
       'body': ['Montserrat', 'sans-serif'],
-      'serif': ['"Cooper Black"', 'serif']
+      'serif': ['cooper-black-std', 'serif']
     },
     extend: {
       colors: {
-        'background': '#FFEDED',
-        'accent': '#FF00E4',
+        'background': '#FFF0F5',
+        'accent': '#FA26A0',
+        'accent-dark': '#381460',
       }
     }
   },

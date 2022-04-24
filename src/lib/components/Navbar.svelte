@@ -18,7 +18,7 @@
 
 <Cursor />
 
-<nav class="fixed top-0 left-0 right-0 bg-background px-10 py-5 border-b-2 border-black flex items-center">
+<nav class="fixed z-10 top-0 left-0 right-0 bg-background px-10 py-5 border-b-2 border-black flex items-center">
   <a href="/" class="flex items-center w-10 z-10">
     <Logo />
     <h4 class="hidden font-bold font-serif text-4xl ml-5">Da Allesio</h4>
@@ -40,7 +40,7 @@
       </a>
     </li>
   </ul>
-  <div class="z-10 flex items-center justify-end flex-1 gap-3 md:flex-none">
+  <div class="z-20 flex items-center justify-end flex-1 gap-3 md:flex-none">
     <a href="/ricette" class="w-10 flex justify-center items-center" sveltekit:prefetch>
       <Icon icon="bx:search" width={32} height={32} /><span class="hidden">Cerca</span>
     </a>
