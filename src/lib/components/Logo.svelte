@@ -1,6 +1,6 @@
 <script>
   export let color = "#000";
-  export let size = 50;
+  export let size = "100%";
 </script>
 
 <svg viewBox="0 0 512 512" width={size} height={size}>
