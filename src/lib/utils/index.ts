@@ -1,4 +1,4 @@
-import type { Ingredient, Recipe } from './d';
+import type { Ingredient, Recipe } from './utils';
 
 export const fetchIngredients = async () => {
 	const allIngredientsFiles = import.meta.glob('../../res/ingredients/*.md');
@@ -32,7 +32,10 @@ export const fetchRecipes = async (id: string | null = null) => {
 				...x
 			}));
 
-			return recipe;
+			let vegetarian = recipe.ingredients.map((i) => i.vegetarian).reduce((a, b) => a && b);
+			let vegan = recipe.ingredients.map((i) => i.vegan).reduce((a, b) => a && b);
+
+			return { ...recipe, vegetarian, vegan };
 		})
 	);
 
@@ -44,4 +47,19 @@ export const fetchRecipes = async (id: string | null = null) => {
 	}
 
 	return allRecipes;
+};
+
+export const toHours = (minutes: number | undefined) => {
+	if (!minutes) return 'n.d.';
+
+	const hours = Math.floor(minutes / 60);
+	minutes = minutes % 60;
+
+	const stack = [];
+
+	if (hours) stack.push(hours + ' ore');
+
+	if (minutes > 0) stack.push(minutes + ' minuti');
+
+	return stack.join(' e ');
 };

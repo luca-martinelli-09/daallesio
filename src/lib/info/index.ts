@@ -1,5 +1,5 @@
-export const baseURI: string = 'https://daallesio.eu.org';
-export const keywords: string[] = [
+export const baseURI = 'https://daallesio.eu.org';
+export const keywords = [
 	'Da Allesio',
 	'Allesio',
 	'Ristorante',
@@ -8,7 +8,8 @@ export const keywords: string[] = [
 	'Cucina',
 	'Pasticceria'
 ];
-export const description: string =
+export const description =
 	'Il blog ufficiale con tante ricette dal vostro ristorante preferito Da Allesio.';
-export const title: string = 'Da Allesio';
-export const image: string = ''; // `${baseURI}/images/site-preview.png`;
+export const title = 'Da Allesio';
+export const image = ''; // `${baseURI}/images/site-preview.png`;
+export const author = 'Luca Martinelli';

@@ -6,16 +6,30 @@ export interface Ingredient {
 	vegetarian: boolean;
 	amount?: number;
 	unit?: string;
+	fixed: boolean = false;
 }
 
 interface OriginPlace {
-	name: string;
-	maps?: string;
+	city: string;
+	region?: string;
+	nation: string;
+	area?:
+		| 'Nord Europa'
+		| 'Europa Mediterranea'
+		| 'Europa Orientale'
+		| 'Nord America'
+		| 'Sud America'
+		| 'Asia Orientale'
+		| 'Asia Occidentale';
+	continent: 'Asia' | 'Africa' | 'Europa' | 'Andartide' | 'America' | 'Oceania';
+	lat?: number;
+	lon?: number;
 }
 
 interface PreparationTime {
-	preparation?: number;
+	preparation: number;
 	rest?: number;
+	cook?: number;
 }
 
 interface Source {
@@ -27,7 +41,6 @@ export interface Recipe {
 	id: string;
 	date: Date;
 	draft: boolean;
-	tags?: string[];
 	type:
 		| 'antipasto'
 		| 'primo'
@@ -41,10 +54,13 @@ export interface Recipe {
 		| 'liquore';
 	title: string;
 	description: string;
+	image: string;
 	originPlace?: OriginPlace;
 	difficulty: 1 | 2 | 3 | 4 | 5;
 	time: PreparationTime;
 	units: number;
 	ingredients: Ingredient[];
 	references: Source[];
+	vegan?: boolean;
+	vegetarian?: boolean;
 }
