@@ -12,7 +12,7 @@
 			rel="noopener noreferrer">Luca Martinelli</a
 		>
 	</p>
-	<p class="flex flex-col gap-1 lg:gap-3">
+	<p class="flex gap-3 items-center">
 		<strong>Puoi trovarci anche su</strong>
 		<a href="https://instagram.com/daallesio" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1">
 			<span class="text-2xl"><Icon icon="ion:logo-instagram" /></span><span>daallesio</span>
