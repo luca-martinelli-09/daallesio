@@ -19,6 +19,10 @@ time:
   preparation: 20
   rest: 180
 units: 6
+references:
+  - name: Ricetta.it
+    ref: https://ricetta.it/tiramisu
+    type: blog
 ingredients:
   - id: uovo
     amount: 4

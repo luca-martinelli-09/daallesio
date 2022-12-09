@@ -35,6 +35,7 @@ interface PreparationTime {
 interface Source {
 	type: 'youtube' | 'tiktok' | 'instagram' | 'blog' | 'book';
 	ref: string;
+	name: string;
 }
 
 export interface Recipe {
@@ -63,4 +64,8 @@ export interface Recipe {
 	references: Source[];
 	vegan?: boolean;
 	vegetarian?: boolean;
+}
+
+interface SearchOptions {
+	
 }

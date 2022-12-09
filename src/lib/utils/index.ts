@@ -1,4 +1,4 @@
-import type { Ingredient, Recipe } from './utils';
+import type { Ingredient, Recipe, SearchOptions } from './utils';
 
 export const fetchIngredients = async () => {
 	const allIngredientsFiles = import.meta.glob('../../res/ingredients/*.md');
@@ -47,6 +47,23 @@ export const fetchRecipes = async (id: string | null = null) => {
 	}
 
 	return allRecipes;
+};
+
+export const queryRecipes = async (query: string, options: SearchOptions | null = null) => {
+	const allRecipes = <Recipe[]>await fetchRecipes();
+	query = query.toLowerCase();
+
+	let searchResults = allRecipes?.filter((r: Recipe) => {
+		return r.title.toLowerCase().includes(query);
+	});
+
+	if (options) {
+		searchResults = searchResults.filter((r: Recipe) => {
+			return true;
+		});
+	}
+
+	return searchResults;
 };
 
 export const toHours = (minutes: number | undefined) => {

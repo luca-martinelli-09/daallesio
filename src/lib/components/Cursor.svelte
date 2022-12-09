@@ -37,7 +37,7 @@
 
 <svelte:window on:mousemove={onMouseMove} />
 
-<div bind:this={cursor} class="hidden lg:block fixed top-0 left-0 pointer-events-none mix-blend-difference text-white">
+<div bind:this={cursor} class="hidden lg:block fixed top-0 left-0 pointer-events-none mix-blend-difference text-white z-50">
 	<svg height="30" width="30" viewBox="0 0 30 30">
 		<circle cx="15" cy="15" r="12" stroke-width="0" fill="currentColor" />
 	</svg>

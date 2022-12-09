@@ -105,5 +105,36 @@
 
 		<h2>Procedimento</h2>
 		<svelte:component this={data.default} />
+
+		{#if info.references}
+			<h3>Fonti</h3>
+			<div class="flex flex-cold md:flex-row gap-2 md:gap-4">
+				{#each info.references as source}
+					<a
+						href={source.ref}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-sm flex gap-2 items-center no-underline"
+					>
+						{#if source.type === 'blog'}
+							<span class="text-lg"><Icon icon="ion:globe-outline" /></span>
+							<span>{source.name}</span>
+						{:else if source.type === 'instagram'}
+							<span class="text-lg"><Icon icon="ion:logo-instagram" /></span>
+							<span>{source.name || 'Instagram'}</span>
+						{:else if source.type === 'youtube'}
+							<span class="text-lg"><Icon icon="ion:logo-youtube" /></span>
+							<span>{source.name || 'YouTube'}</span>
+						{:else if source.type === 'tiktok'}
+							<span class="text-lg"><Icon icon="fa-brands:tiktok" /></span>
+							<span>{source.name || 'TikTok'}</span>
+						{:else if source.type === 'book'}
+							<span class="text-lg"><Icon icon="ion:bookmark-outline" /></span>
+							<span>{source.name}</span>
+						{/if}
+					</a>
+				{/each}
+			</div>
+		{/if}
 	</article>
 </main>
