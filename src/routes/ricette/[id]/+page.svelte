@@ -3,6 +3,7 @@
 	import type { Recipe } from '$lib/utils/utils';
 	import Icon from '@iconify/svelte';
 	import { toHours } from '$lib/utils';
+	import SearchResult from '$lib/components/SearchResult.svelte';
 
 	export let data: any;
 
@@ -106,9 +107,20 @@
 		<h2>Procedimento</h2>
 		<svelte:component this={data.default} />
 
+		{#if info.related && info.related.length > 0}
+			<h2>Correlate</h2>
+			<div class="flex flex-col md:flex-row gap-5 md:gap-10">
+				{#each info.related as related}
+					{#if typeof related === 'object'}
+						<SearchResult recipe={related} />
+					{/if}
+				{/each}
+			</div>
+		{/if}
+
 		{#if info.references}
-			<h3>Fonti</h3>
-			<div class="flex flex-cold md:flex-row gap-2 md:gap-4">
+			<h3 class="mt-20">Fonti</h3>
+			<div class="flex flex-col md:flex-row gap-2 md:gap-4">
 				{#each info.references as source}
 					<a
 						href={source.ref}

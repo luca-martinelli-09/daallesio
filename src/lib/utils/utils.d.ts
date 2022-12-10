@@ -10,18 +10,18 @@ export interface Ingredient {
 }
 
 interface OriginPlace {
-	city: string;
+	city?: string;
 	region?: string;
-	nation: string;
+	nation?: string;
 	area?:
-		| 'Nord Europa'
-		| 'Europa Mediterranea'
-		| 'Europa Orientale'
-		| 'Nord America'
-		| 'Sud America'
-		| 'Asia Orientale'
-		| 'Asia Occidentale';
-	continent: 'Asia' | 'Africa' | 'Europa' | 'Andartide' | 'America' | 'Oceania';
+		| 'nord europa'
+		| 'europa mediterranea'
+		| 'europa orientale'
+		| 'nord america'
+		| 'sud america'
+		| 'asia orientale'
+		| 'asia occidentale';
+	continent: 'asia' | 'africa' | 'europa' | 'america' | 'oceania';
 	lat?: number;
 	lon?: number;
 }
@@ -38,34 +38,43 @@ interface Source {
 	name: string;
 }
 
+export type RecipeType =
+	| 'antipasto'
+	| 'primo'
+	| 'secondo'
+	| 'dolce'
+	| 'contorno'
+	| 'pane'
+	| 'salsa'
+	| 'condimento'
+	| 'cocktail'
+	| 'liquore';
+
+export type Difficulty = 1 | 2 | 3 | 4 | 5;
+
 export interface Recipe {
 	id: string;
 	date: Date;
 	draft: boolean;
-	type:
-		| 'antipasto'
-		| 'primo'
-		| 'secondo'
-		| 'dolce'
-		| 'contorno'
-		| 'pane'
-		| 'salsa'
-		| 'condimento'
-		| 'cocktail'
-		| 'liquore';
+	type: RecipeType;
 	title: string;
 	description: string;
 	image: string;
 	originPlace?: OriginPlace;
-	difficulty: 1 | 2 | 3 | 4 | 5;
+	difficulty: Difficulty;
 	time: PreparationTime;
 	units: number;
 	ingredients: Ingredient[];
 	references: Source[];
 	vegan?: boolean;
 	vegetarian?: boolean;
+	related?: Recipe[] | string[];
 }
 
-interface SearchOptions {
-	
+export interface SearchOptions {
+	type?: RecipeType;
+	difficulty?: Difficulty;
+	vegan?: boolean;
+	vegetarian?: boolean;
+	originPlace?: OriginPlace;
 }

@@ -3,15 +3,15 @@ id: tiramisu
 date: 2022-12-01
 draft: false
 type: dolce
-title: "Tiramisù"
-description: "Il Tiramisù è un dolce fresco ed è una delle ricette più conosciute e antiche d’Italia. Ci sono stati molti dibattiti sulla sua origine, ma le varie fonti ormai decretano il Veneto, precisamente Treviso, come la città dove questo dolce ha visto la luce."
+title: 'Tiramisù'
+description: 'Il Tiramisù è un dolce fresco ed è una delle ricette più conosciute e antiche d’Italia. Ci sono stati molti dibattiti sulla sua origine, ma le varie fonti ormai decretano il Veneto, precisamente Treviso, come la città dove questo dolce ha visto la luce.'
 image: https://primochef.it/wp-content/uploads/2019/06/SH_tiramisu.jpg
 originPlace:
-  city: Treviso
-  region: Veneto
-  nation: Italia
-  area: Europa Mediterranea
-  continent: Europa
+  city: treviso
+  region: veneto
+  nation: italia
+  area: europa mediterranea
+  continent: europa
   lat: 45.665278
   lon: 12.244444
 difficulty: 1

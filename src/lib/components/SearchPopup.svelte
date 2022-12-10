@@ -49,7 +49,7 @@
 			class="bg-white dark:bg-black w-full max-w-screen-md p-5 mx-auto rounded-xl flex flex-col gap-5"
 			on:click={(e) => e.stopPropagation()}
 		>
-			<div class="flex gap-2 items-center border-2 border-black px-3 rounded-lg">
+			<div class="flex gap-2 items-center border-2 border-black dark:border-white px-3 rounded-full">
 				<span class="text-xl"><Icon icon="ion:search-outline" /></span>
 				<input
 					class="flex-1 outline-none py-2 bg-transparent"

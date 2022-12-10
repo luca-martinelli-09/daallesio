@@ -43,13 +43,23 @@ export const fetchRecipes = async (id: string | null = null) => {
 	allRecipes = allRecipes.filter((a) => !a.draft);
 
 	if (id) {
+		allRecipes = allRecipes.map((r) => {
+			let related: Recipe[] = [];
+			for (let recipeID of r.related || []) {
+				const relatedRecipe = allRecipes.filter((a) => a.id === recipeID).pop();
+				if (relatedRecipe) related.push(relatedRecipe);
+			}
+			r.related = related;
+			return r;
+		});
+
 		return allRecipes.filter((a) => a.id === id).pop();
 	}
 
 	return allRecipes;
 };
 
-export const queryRecipes = async (query: string, options: SearchOptions | null = null) => {
+export const queryRecipes = async (query: string = '', options: SearchOptions | null = null) => {
 	const allRecipes = <Recipe[]>await fetchRecipes();
 	query = query.toLowerCase();
 
@@ -59,7 +69,14 @@ export const queryRecipes = async (query: string, options: SearchOptions | null 
 
 	if (options) {
 		searchResults = searchResults.filter((r: Recipe) => {
-			return true;
+			let res = true;
+			if (options.type) res = res && r.type === options.type;
+			if (options.difficulty) res = res && r.difficulty === options.difficulty;
+			if (options.originPlace)
+				res = res && r.originPlace?.continent === options.originPlace.continent;
+			if (options.vegan) res = res && (r.vegan || false);
+			if (options.vegetarian) res = res && (r.vegetarian || false);
+			return res;
 		});
 	}
 

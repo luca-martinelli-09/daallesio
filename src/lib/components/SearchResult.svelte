@@ -4,14 +4,14 @@
 	export let recipe: Recipe;
 </script>
 
-<a class="flex gap-3" href="/ricette/{recipe.id}">
+<a class="flex gap-3 no-underline" href="/ricette/{recipe.id}">
 	<img
 		src={recipe.image}
 		alt={recipe.title}
-		class="w-28 rounded-lg aspect-video object-cover object-center"
+		class="w-28 rounded-lg aspect-video object-cover object-center m-0"
 	/>
 	<div class="flex flex-col gap-1">
-		<h4 class="font-serif font-bold text-2xl">{recipe.title}</h4>
+		<h4 class="font-serif font-bold text-2xl m-0">{recipe.title}</h4>
 		<span class="text-sm opacity-70">
 			{new Date(recipe.date).toLocaleDateString(undefined, {
 				day: 'numeric',
