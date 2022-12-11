@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Ingredient } from '$lib/utils/utils';
+	import type { IngredientsGroup } from '$lib/utils/utils';
 	import Icon from '@iconify/svelte';
 
-	export let ingredients: Ingredient[];
+	export let ingredients: IngredientsGroup[];
 	export let units: number;
 
 	let currentUnits = units;
@@ -29,18 +29,26 @@
 	<span>{currentUnits > 1 ? 'persone' : 'persona'}:</span>
 </div>
 
-<ul>
-	{#each ingredients as ingredient}
-		<li>
-			{ingredient.amount
-				? !ingredient.fixed
-					? Math.ceil((ingredient.amount * currentUnits) / units)
-					: ingredient.amount
-				: 'q.b.'}
-			{ingredient.unit || ''}
-			<strong class="lowercase"
-				>{(ingredient.amount || 1) > 1 ? ingredient.plural : ingredient.name}</strong
-			>
-		</li>
-	{/each}
-</ul>
+{#each ingredients as ingredientGroup}
+	{#if ingredientGroup.name}
+		<h3>{ingredientGroup.name}</h3>
+	{/if}
+	<ul>
+		{#each ingredientGroup.ingredients as ingredient}
+			<li>
+				{ingredient.amount
+					? !ingredient.fixed
+						? Math.ceil((ingredient.amount * currentUnits) / units)
+						: ingredient.amount
+					: 'q.b.'}
+				{ingredient.unit || ''}
+				<strong class="lowercase">
+					{(ingredient.amount || 1) > 1 ? ingredient.plural : ingredient.name}
+				</strong>
+				{#if ingredient.info}
+					<span class="lowercase">({ingredient.info})</span>
+				{/if}
+			</li>
+		{/each}
+	</ul>
+{/each}

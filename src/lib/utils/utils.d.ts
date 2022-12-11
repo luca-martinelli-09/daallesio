@@ -1,3 +1,8 @@
+export interface IngredientsGroup {
+	name?: string;
+	ingredients: Ingredient[];
+}
+
 export interface Ingredient {
 	id: string;
 	name: string;
@@ -7,6 +12,7 @@ export interface Ingredient {
 	amount?: number;
 	unit?: string;
 	fixed: boolean = false;
+	info?: string;
 }
 
 interface OriginPlace {
@@ -64,7 +70,7 @@ export interface Recipe {
 	difficulty: Difficulty;
 	time: PreparationTime;
 	units: number;
-	ingredients: Ingredient[];
+	ingredients: IngredientsGroup[];
 	references: Source[];
 	vegan?: boolean;
 	vegetarian?: boolean;

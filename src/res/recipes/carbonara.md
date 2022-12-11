@@ -3,7 +3,7 @@ id: carbonara
 date: 2022-12-10
 draft: false
 type: primo
-title: 'Carbonara'
+title: 'Pasta alla carbonara'
 description: "La pasta alla carbonara è un piatto caratteristico del Lazio e più in particolare di Roma, preparato con ingredienti popolari e dal gusto intenso. I tipi di pasta tradizionalmente più usati sono gli spaghetti e i rigatoni. Le origini del piatto sono incerte e al riguardo esistono diverse ipotesi, la più accreditata delle quali riconduce la sua comparsa ad un'origine laziale."
 image: https://blog.giallozafferano.it/dulcisinforno/wp-content/uploads/2021/03/Carbonara-ricetta-5328.jpg
 originPlace:
@@ -20,21 +20,23 @@ time:
   cook: 12
 units: 1
 ingredients:
-  - id: pasta
-    amount: 100
-    unit: g
-  - id: tuorlo
-    amount: 1
-  - id: tuorlo
-    amount: 1
-    fixed: true
-  - id: pecorino
-    amount: 30
-    unit: g
-  - id: guanciale
-    amount: 40
-    unit: g
-  - id: pepe
+  - ingredients:
+      - id: pasta
+        amount: 100
+        unit: g
+      - id: tuorlo
+        amount: 1
+      - id: tuorlo
+        amount: 1
+        fixed: true
+      - id: pecorino
+        amount: 30
+        unit: g
+        info: Grattuggiato
+      - id: guanciale
+        amount: 40
+        unit: g
+      - id: pepe
 ---
 
 Iniziare preparando il guanciale. Innanzitutto eliminare la cotenna, tenendola da parte. Tagliarlo poi a listarelle non troppo spesse (un paio di centimetri circa).

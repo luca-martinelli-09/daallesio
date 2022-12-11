@@ -26,14 +26,21 @@ export const fetchRecipes = async (id: string | null = null) => {
 	let allRecipes = await Promise.all(
 		iterableRecipesFiles.map(async ([_, resolver]) => {
 			const recipe = <Recipe>(<any>await resolver()).metadata;
+			
+			for (const ingredientsGroup of recipe.ingredients) {
+				ingredientsGroup.ingredients = ingredientsGroup.ingredients.map((i) => ({
+					...allIngredients[i.id],
+					...i
+				}));
+			}
 
-			recipe.ingredients = recipe.ingredients.map((x) => ({
-				...allIngredients[x.id],
-				...x
-			}));
+			const ingredients = recipe.ingredients.reduce(
+				(pi, ci) => pi.concat(ci.ingredients),
+				[] as Ingredient[]
+			);
 
-			let vegetarian = recipe.ingredients.map((i) => i.vegetarian).reduce((a, b) => a && b);
-			let vegan = recipe.ingredients.map((i) => i.vegan).reduce((a, b) => a && b);
+			let vegetarian = ingredients.map((i) => i.vegetarian).reduce((a, b) => a && b);
+			let vegan = ingredients.map((i) => i.vegan).reduce((a, b) => a && b);
 
 			return { ...recipe, vegetarian, vegan };
 		})

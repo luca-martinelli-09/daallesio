@@ -24,25 +24,28 @@ references:
     ref: https://ricetta.it/tiramisu
     type: blog
 ingredients:
-  - id: uovo
-    amount: 4
-  - id: zucchero
-    amount: 100
-    unit: g
-  - id: mascarpone
-    amount: 500
-    unit: g
-  - id: savoiardi
-    amount: 300
-    unit: g
-  - id: caffe
-  - id: cacao
+  - ingredients:
+      - id: uovo
+        amount: 4
+      - id: zucchero
+        amount: 100
+        unit: g
+      - id: mascarpone
+        amount: 500
+        unit: g
+      - id: savoiardi
+        amount: 300
+        unit: g
+      - id: caffe
+      - id: cacao
 ---
 
-1. Dividere i tuorli dagli albumi. Unire i tuorli allo zucchero e montarli.
-1. Dopodiché unire il mascarpone e amalgamare bene.
-1. A parte, montare a neve gli albumi.
-1. Unire gli albumi montati alla crema, amalgamando lentamente con movimento dal basso verso l'alto.
-1. Preparare e lasciar raffreddare il caffè, con, facoltativo, del marsala.
-1. Disporre i savoiardi inzuppati nel caffè freddo sul fondo di una pirofila e coprire con uno strato di crema. Ripetere queste due operazioni finché non finisce la crema, che dovrà comporre l'ultimo strato.
-1. Lasciar riposare in frigo per almeno tre ore e infine ricoprire il tiramisù con del cacao amaro in polvere.
+Per prima cosa, bisogna preparare la crema al mascarpone. Per prima cosa, dividere i tuorli dagli albumi. I tuorli vanno quindi montati assieme allo zucchero.
+
+Quando il composto di tuorli e zucchero assume un colore chiaro e una consistenza cremosa, aggiungere il mascarpone amalgamando per bene. A questo punto, montare gli albumi a neve e aggiungerli alla crema di mascarpone amalgamando con movimenti lenti dal basso verso l'alto, per non far smontare gli albumi.
+
+Nel frattempo, va preparato il caffè e lasciato raffreddare. A scelta, si può aggiungere del marsala al caffè.
+
+A questo punto, è tempo di comporre il tiramisù. Per farlo, bisogna disporre su una pirofila i savoiardi inzuppati nel caffè (circa 2/3 secondi per lato) e poi coprirli con uno strato di crema. Queste operazioni vanno quindi ripetute finché non si raggiunge l'altezza della pirofila, terminando con uno strato di crema.
+
+Infine, lasciar riposare in frigo per almeno tre ore e ricoprire il tiramisù con il cacao amaro in polvere.
