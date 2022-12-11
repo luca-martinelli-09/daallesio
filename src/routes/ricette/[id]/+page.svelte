@@ -41,9 +41,10 @@
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{info.originPlace.city}{info.originPlace.region
+							{info.originPlace.city || info.originPlace.region || ''}{info.originPlace.city && info.originPlace.region
 								? ' (' + info.originPlace.region + ')'
-								: ''}, {info.originPlace.nation}
+								: ''}{info.originPlace.city || info.originPlace.region ? ',' : ''}
+							{info.originPlace.nation}
 						</a>
 					</div>
 				{/if}

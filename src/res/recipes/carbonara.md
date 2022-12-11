@@ -32,7 +32,7 @@ ingredients:
       - id: pecorino
         amount: 30
         unit: g
-        info: Grattuggiato
+        info: Grattugiato
       - id: guanciale
         amount: 40
         unit: g

@@ -38,7 +38,7 @@
 			<li>
 				{ingredient.amount
 					? !ingredient.fixed
-						? Math.ceil((ingredient.amount * currentUnits) / units)
+						? Math.round((ingredient.amount * currentUnits) * 100 / units) / 100
 						: ingredient.amount
 					: 'q.b.'}
 				{ingredient.unit || ''}
