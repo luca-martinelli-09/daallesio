@@ -37,19 +37,26 @@
 </a>
 
 {#if opened}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div
 		class="fixed inset-0 bg-opacity-50 dark:bg-opacity-30 bg-black dark:bg-white z-20 p-5 overflow-y-auto"
 		on:click={() => {
 			opened = false;
 			document.body.classList.remove('lock');
 		}}
+		role="button"
+		tabindex="0"
+		on:keypress={() => {}}
 	>
 		<div
 			class="bg-white dark:bg-black w-full max-w-screen-md p-5 mx-auto rounded-xl flex flex-col gap-5"
 			on:click={(e) => e.stopPropagation()}
+			role="button"
+			tabindex="-1"
+			on:keypress={() => {}}
 		>
-			<div class="flex gap-2 items-center border-2 border-black dark:border-white px-3 rounded-full">
+			<div
+				class="flex gap-2 items-center border-2 border-black dark:border-white px-3 rounded-full"
+			>
 				<span class="text-xl"><Icon icon="ion:search-outline" /></span>
 				<input
 					class="flex-1 outline-none py-2 bg-transparent"

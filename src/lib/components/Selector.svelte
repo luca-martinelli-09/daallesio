@@ -24,6 +24,10 @@
 	<div
 		class="iconed-span cursor-pointer select-none {bordered ? 'md:border-r md:pr-3' : ''}"
 		on:click={() => (opened = !opened)}
+		role="combobox"
+		aria-expanded={opened}
+		aria-controls={options.join(',')}
+		tabindex="0"
 	>
 		<span>{title}</span>
 		<span class="font-normal">({selected || 'Nessuno'})</span>
@@ -35,9 +39,21 @@
 	{#if opened}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div class="flex flex-col gap-2 text-sm capitalize cursor-pointer">
-			<span on:click={() => select(null)} class={selected ? '' : 'font-bold'}>Nessuno</span>
+			<span
+				on:click={() => select(null)}
+				class={selected ? '' : 'font-bold'}
+				role="option"
+				aria-selected={!selected}
+				tabindex="0">Nessuno</span
+			>
 			{#each options as option}
-				<span on:click={() => select(option)} class={selected === option ? 'font-bold' : ''}>
+				<span
+					on:click={() => select(option)}
+					class={selected === option ? 'font-bold' : ''}
+					role="option"
+					aria-selected={selected === option}
+					tabindex="0"
+				>
 					{option}
 				</span>
 			{/each}
