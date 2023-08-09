@@ -36,6 +36,7 @@ interface PreparationTime {
 	preparation: number;
 	rest?: number;
 	cook?: number;
+	leavening?: number;
 }
 
 interface Source {

@@ -78,12 +78,14 @@
 					<thead>
 						<th>Preparazione</th>
 						<th>Cottura</th>
+						<th>Lievitazione</th>
 						<th>Riposo</th>
 					</thead>
 					<tbody>
 						<tr>
 							<td>{toHours(info.time.preparation)}</td>
 							<td>{toHours(info.time.cook)}</td>
+							<td>{toHours(info.time.leavening)}</td>
 							<td>{toHours(info.time.rest)}</td>
 						</tr>
 					</tbody>
