@@ -131,3 +131,14 @@ export const formatIngredientAmount = (
 export const formatIngredientName = (ingredient: Ingredient) => {
 	return (ingredient.amount || 1) > 1 ? ingredient.plural : ingredient.name;
 };
+
+export const formatOriginPlace = (recipe: Recipe) => {
+	return (
+		(recipe.originPlace?.city || recipe.originPlace?.region || '') +
+			(recipe.originPlace?.city && recipe.originPlace.region
+				? ' (' + recipe.originPlace.region + ')'
+				: '') +
+			(recipe.originPlace?.city || recipe.originPlace?.region ? ',' : '') +
+			recipe.originPlace?.nation || ''
+	);
+};

@@ -6,6 +6,7 @@
 		formatDuration,
 		formatIngredientAmount,
 		formatIngredientName,
+		formatOriginPlace,
 		toHours
 	} from '$lib/utils';
 	import type { Ingredient, Recipe } from '$lib/utils/utils';
@@ -31,7 +32,7 @@
 		},
 		datePublished: formatDate(info.date),
 		description: info.description,
-		recipeCuisine: info.originPlace?.area,
+		recipeCuisine: formatOriginPlace(info),
 		prepTime: formatDuration(info.time.preparation),
 		cookTime: formatDuration(info.time.cook || 0),
 		keywords: [info.vegan ? 'vegana' : null, info.vegetarian ? 'vegetariana' : null].filter(
@@ -101,11 +102,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{info.originPlace.city || info.originPlace.region || ''}{info.originPlace.city &&
-							info.originPlace.region
-								? ' (' + info.originPlace.region + ')'
-								: ''}{info.originPlace.city || info.originPlace.region ? ',' : ''}
-							{info.originPlace.nation}
+							{formatOriginPlace(info)}
 						</a>
 					</div>
 				{/if}
