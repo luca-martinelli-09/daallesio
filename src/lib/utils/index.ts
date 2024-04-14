@@ -111,7 +111,7 @@ export const formatDate = (date: Date) => {
 };
 
 export const formatDuration = (minutes: number) => {
-	return (minutes < 10 ? '0' : '') + minutes + 'M';
+	return 'PT' + minutes + 'M';
 };
 
 export const formatIngredientAmount = (
