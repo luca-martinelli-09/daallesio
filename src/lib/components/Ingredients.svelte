@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { formatIngredientAmount, formatIngredientName } from '$lib/utils';
 	import type { IngredientsGroup } from '$lib/utils/utils';
 	import Icon from '@iconify/svelte';
 
@@ -36,14 +37,9 @@
 	<ul>
 		{#each ingredientGroup.ingredients as ingredient}
 			<li>
-				{ingredient.amount
-					? !ingredient.fixed
-						? Math.round((ingredient.amount * currentUnits) * 100 / units) / 100
-						: ingredient.amount
-					: 'q.b.'}
-				{ingredient.unit || ''}
+				{formatIngredientAmount(ingredient, currentUnits, units)}
 				<strong class="lowercase">
-					{(ingredient.amount || 1) > 1 ? ingredient.plural : ingredient.name}
+					{formatIngredientName(ingredient)}
 				</strong>
 				{#if ingredient.info}
 					<span class="lowercase">({ingredient.info})</span>

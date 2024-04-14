@@ -25,6 +25,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Scopri - Da Allesio</title>
+</svelte:head>
+
 <section
 	class="main-container min-h-screen p-5 md:p-10 bg-[#EDEDED] dark:bg-[#020205] dark:text-white md:mx-5 flex flex-col gap-5 md:gap-10 lg:gap-12 md:rounded-xl"
 >

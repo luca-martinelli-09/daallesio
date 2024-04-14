@@ -1,14 +1,74 @@
 <script lang="ts">
 	import Ingredients from '$lib/components/Ingredients.svelte';
-	import type { Recipe } from '$lib/utils/utils';
-	import Icon from '@iconify/svelte';
-	import { toHours } from '$lib/utils';
 	import SearchResult from '$lib/components/SearchResult.svelte';
+	import {
+		formatDate,
+		formatDuration,
+		formatIngredientAmount,
+		formatIngredientName,
+		toHours
+	} from '$lib/utils';
+	import type { Ingredient, Recipe } from '$lib/utils/utils';
+	import Icon from '@iconify/svelte';
 
 	export let data: any;
 
 	const info = <Recipe>data.info;
+
+	const allIngredients = info.ingredients.reduce(
+		(pi, ci) => pi.concat(ci.ingredients),
+		[] as Ingredient[]
+	);
+
+	const schemaOrg = {
+		'@context': 'https://schema.org/',
+		'@type': 'Recipe',
+		name: info.title,
+		image: [info.image],
+		author: {
+			'@type': 'Organization',
+			name: 'Da Allesio'
+		},
+		datePublished: formatDate(info.date),
+		description: info.description,
+		recipeCuisine: info.originPlace?.area,
+		prepTime: formatDuration(info.time.preparation),
+		cookTime: formatDuration(info.time.cook || 0),
+		keywords: [info.vegan ? 'vegana' : null, info.vegetarian ? 'vegetariana' : null].filter(
+			(e) => e
+		),
+		recipeCategory: info.type,
+		recipeIngredient: allIngredients.map(
+			(i) =>
+				formatIngredientAmount(i, info.units, info.units) +
+				' ' +
+				formatIngredientName(i) +
+				(i.info ? ' (' + i.info + ')' : '')
+		),
+		recipeYield: info.units,
+		totalTime: formatDuration(
+			(info.time.cook || 0) +
+				(info.time.leavening || 0) +
+				info.time.preparation +
+				(info.time.rest || 0)
+		)
+	};
 </script>
+
+<svelte:head>
+	<title>{info.title} - Da Allesio</title>
+
+	<meta name="description" content={info.description} />
+
+	<meta property="og:title" content={info.title} />
+	<meta property="og:description" content={info.description} />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="Da Allesio" />
+	<meta property="og:image" content={info.image} />
+	<meta property="og:locale" content="it_IT" />
+
+	{@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</script>`}
+</svelte:head>
 
 <main class="mb-7 border-b border-b-gray-200 dark:border-b-gray-900 print:border-none">
 	<section
@@ -41,7 +101,8 @@
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{info.originPlace.city || info.originPlace.region || ''}{info.originPlace.city && info.originPlace.region
+							{info.originPlace.city || info.originPlace.region || ''}{info.originPlace.city &&
+							info.originPlace.region
 								? ' (' + info.originPlace.region + ')'
 								: ''}{info.originPlace.city || info.originPlace.region ? ',' : ''}
 							{info.originPlace.nation}

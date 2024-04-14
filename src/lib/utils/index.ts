@@ -26,7 +26,7 @@ export const fetchRecipes = async (id: string | null = null) => {
 	let allRecipes = await Promise.all(
 		iterableRecipesFiles.map(async ([_, resolver]) => {
 			const recipe = <Recipe>(<any>await resolver()).metadata;
-			
+
 			for (const ingredientsGroup of recipe.ingredients) {
 				ingredientsGroup.ingredients = ingredientsGroup.ingredients.map((i) => ({
 					...allIngredients[i.id],
@@ -103,4 +103,31 @@ export const toHours = (minutes: number | undefined) => {
 	if (minutes > 0) stack.push(minutes + ' minuti');
 
 	return stack.join(' e ');
+};
+
+export const formatDate = (date: Date) => {
+	date = new Date(date);
+	return date.toISOString().substring(0, 10).replace(/-/g, '-');
+};
+
+export const formatDuration = (minutes: number) => {
+	return (minutes < 10 ? '0' : '') + minutes + 'M';
+};
+
+export const formatIngredientAmount = (
+	ingredient: Ingredient,
+	currentUnits: number,
+	units: number
+) => {
+	let amount = ingredient.amount
+		? !ingredient.fixed
+			? Math.round((ingredient.amount * currentUnits * 100) / units) / 100
+			: ingredient.amount
+		: 'q.b.';
+
+	return amount + (ingredient.unit || '');
+};
+
+export const formatIngredientName = (ingredient: Ingredient) => {
+	return (ingredient.amount || 1) > 1 ? ingredient.plural : ingredient.name;
 };
