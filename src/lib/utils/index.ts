@@ -55,7 +55,8 @@ export const fetchRecipes = async (url: URL, id: string | null = null) => {
 					recipe.scrSet = [
 						'/cdn-cgi/image/width=320,format=auto' + image + ' 320w',
 						'/cdn-cgi/image/width=480,format=auto' + image + ' 480w',
-						'/cdn-cgi/image/width=640,format=auto' + image + ' 640w'
+						'/cdn-cgi/image/width=640,format=auto' + image + ' 640w',
+						'/cdn-cgi/image/width=720,format=auto' + image + ' 720w'
 					].join(', ');
 				}
 
