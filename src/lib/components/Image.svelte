@@ -29,7 +29,7 @@
 			<source bind:this={imageSource} srcset={srcSet} {src} on:error={onError} />
 		{/if}
 		<img
-			class="{$$restProps.class} object-cover object-center"
+			class="{$$restProps.class} w-full h-full object-cover object-center"
 			{src}
 			{alt}
 			loading="lazy"
