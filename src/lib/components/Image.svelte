@@ -8,21 +8,25 @@
 
 	let picture: HTMLElement;
 	let image: HTMLImageElement;
-	let srcError: boolean = false;
+	let imageSource: HTMLSourceElement;
 
-	function loaded() {
+	function onLoaded() {
 		picture.classList.remove('img-loading');
 	}
 
 	onMount(() => {
-		if (image.complete) loaded();
+		if (image.complete) onLoaded();
 	});
+
+	function onError() {
+		imageSource.srcset = imageSource.src;
+	}
 </script>
 
 <div class={$$restProps.class}>
 	<picture class="img-loading" bind:this={picture} style="background-image: url({thumb})">
-		{#if srcSet && srcError}
-			<source srcset={srcSet} on:error={() => (srcError = true)} />
+		{#if srcSet}
+			<source bind:this={imageSource} srcset={srcSet} {src} on:error={onError} />
 		{/if}
 		<img
 			class="{$$restProps.class} object-cover object-center"
@@ -30,7 +34,8 @@
 			{alt}
 			loading="lazy"
 			bind:this={image}
-			on:load={loaded}
+			on:load={onLoaded}
+			on:error={onError}
 		/>
 	</picture>
 </div>
