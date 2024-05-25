@@ -13,6 +13,7 @@ export interface Ingredient {
 	unit?: string;
 	fixed: boolean = false;
 	info?: string;
+	recipe?: boolean
 }
 
 interface OriginPlace {
@@ -48,6 +49,7 @@ interface Source {
 export type RecipeType =
 	| 'antipasto'
 	| 'primo'
+	| 'zuppa'
 	| 'secondo'
 	| 'dolce'
 	| 'contorno'

@@ -96,16 +96,20 @@
 				{#if info.originPlace}
 					<div class="iconed-span text-[#145374] dark:text-[#88E1F2]">
 						<span class="text-base"><Icon icon="ion:earth-outline" /></span>
-						<a
-							href={'https://maps.google.com/?q=' +
-								info.originPlace.lat +
-								',' +
-								info.originPlace.lon}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							{formatOriginPlace(info)}
-						</a>
+						{#if info.originPlace.lat && info.originPlace.lon}
+							<a
+								href={'https://maps.google.com/?q=' +
+									info.originPlace.lat +
+									',' +
+									info.originPlace.lon}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{formatOriginPlace(info)}
+							</a>
+						{:else}
+							<span>{formatOriginPlace(info)}</span>
+						{/if}
 					</div>
 				{/if}
 			</div>

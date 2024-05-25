@@ -17,6 +17,7 @@
 			'antipasto',
 			'primo',
 			'secondo',
+			'zuppa',
 			'dolce',
 			'contorno',
 			'pane',

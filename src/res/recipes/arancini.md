@@ -5,7 +5,6 @@ draft: false
 type: primo
 title: 'Arancini siciliani'
 description: 'Gli arancini di riso (o arancine), vanto della cucina siciliana, sono dei piccoli timballi adatti ad essere consumati sia come spuntino che come antipasto, primo piatto o addirittura piatto unico.'
-image: https://www.giallozafferano.it/images/2-247/Arancini-di-riso_650x433_wm.jpg
 originPlace:
   region: sicilia
   nation: italia

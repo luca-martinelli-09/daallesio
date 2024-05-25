@@ -21,10 +21,6 @@ export const fetchRecipes = async (url: URL, id: string | null = null) => {
 	const allRecipesFiles = import.meta.glob('../../res/recipes/*.md');
 	let iterableRecipesFiles = Object.entries(allRecipesFiles);
 
-	if (id) {
-		iterableRecipesFiles = iterableRecipesFiles.filter(([e, f]) => e.endsWith(id + '.md'));
-	}
-
 	const allIngredients = Object.fromEntries((await fetchIngredients()).map((x: any) => [x.id, x]));
 
 	let allRecipes = await Promise.all(
@@ -32,10 +28,14 @@ export const fetchRecipes = async (url: URL, id: string | null = null) => {
 			const recipe = <Recipe>(<any>await resolver()).metadata;
 
 			for (const ingredientsGroup of recipe.ingredients) {
-				ingredientsGroup.ingredients = ingredientsGroup.ingredients.map((i) => ({
-					...allIngredients[i.id],
-					...i
-				}));
+				ingredientsGroup.ingredients = ingredientsGroup.ingredients.map((i) => {
+					let ingredientInfo = allIngredients[i.id];
+
+					return {
+						...ingredientInfo,
+						...i
+					};
+				});
 			}
 
 			const ingredients = recipe.ingredients.reduce(
