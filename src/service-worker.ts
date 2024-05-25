@@ -1,17 +1,21 @@
+/// <reference types="@sveltejs/kit" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
 import { build, files, version } from '$service-worker';
 
+const sw = self as unknown as ServiceWorkerGlobalScope;
+
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
-const worker = self as unknown as ServiceWorkerGlobalScope;
 
 const ASSETS = [
 	...build, // the app itself
 	...files // everything in `static`
 ];
 
-worker.addEventListener('install', (event) => {
+sw.addEventListener('install', (event) => {
 	// Create a new cache and add all files to it
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
@@ -21,7 +25,7 @@ worker.addEventListener('install', (event) => {
 	event.waitUntil(addFilesToCache());
 });
 
-worker.addEventListener('activate', (event) => {
+sw.addEventListener('activate', (event) => {
 	// Remove previous cached data from disk
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
@@ -32,7 +36,7 @@ worker.addEventListener('activate', (event) => {
 	event.waitUntil(deleteOldCaches());
 });
 
-worker.addEventListener('fetch', (event) => {
+sw.addEventListener('fetch', (event) => {
 	// ignore POST requests etc
 	if (event.request.method !== 'GET') return;
 
@@ -42,7 +46,11 @@ worker.addEventListener('fetch', (event) => {
 
 		// `build`/`files` can always be served from the cache
 		if (ASSETS.includes(url.pathname)) {
-			return cache.match(event.request);
+			const response = await cache.match(url.pathname);
+
+			if (response) {
+				return response;
+			}
 		}
 
 		// for everything else, try the network first, but
@@ -50,13 +58,27 @@ worker.addEventListener('fetch', (event) => {
 		try {
 			const response = await fetch(event.request);
 
+			// if we're offline, fetch can return a value that is not a Response
+			// instead of throwing - and we can't pass this non-Response to respondWith
+			if (!(response instanceof Response)) {
+				throw new Error('invalid response from fetch');
+			}
+
 			if (response.status === 200) {
 				cache.put(event.request, response.clone());
 			}
 
 			return response;
-		} catch {
-			return cache.match(event.request);
+		} catch (err) {
+			const response = await cache.match(event.request);
+
+			if (response) {
+				return response;
+			}
+
+			// if there's no cache, then just error out
+			// as there is nothing we can do to respond to this request
+			throw err;
 		}
 	}
 
