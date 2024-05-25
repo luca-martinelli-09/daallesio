@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Recipe } from '$lib/utils/utils';
-	import Button from './Button.svelte';
 	import Icon from '@iconify/svelte';
+	import Button from './Button.svelte';
+	import Image from './Image.svelte';
 
 	export let recipe: Recipe | undefined;
 	export let mini = false;
@@ -10,9 +11,11 @@
 {#if recipe}
 	{#if mini}
 		<div class="flex flex-col bg-[#F7F5F2] dark:bg-[#060608] rounded-xl overflow-hidden">
-			<img
+			<Image
 				class="w-full aspect-video object-cover object-center"
 				src={recipe.image}
+				srcSet={recipe.scrSet}
+				thumb={recipe.thumb}
 				alt={recipe.title}
 			/>
 			<div class="flex flex-col gap-4 p-5">
@@ -37,13 +40,17 @@
 			</div>
 		</div>
 	{:else}
-		<div class="flex flex-col md:flex-row gap-0 md:gap-5 bg-[#F7F5F2] dark:bg-[#060608] rounded-xl overflow-hidden">
-			<img
-				class="w-full md:w-2/5 aspect-video object-cover object-center"
+		<div
+			class="flex flex-col md:flex-row gap-0 md:gap-5 bg-[#F7F5F2] dark:bg-[#060608] rounded-xl overflow-hidden"
+		>
+			<Image
+				class="flex-1 aspect-video object-cover object-center"
 				src={recipe.image}
+				srcSet={recipe.scrSet}
+				thumb={recipe.thumb}
 				alt={recipe.title}
 			/>
-			<div class="flex flex-col gap-4 md:gap-6 p-5 md:pt-10 md:pb-5">
+			<div class="flex-1 flex flex-col gap-4 md:gap-6 p-5 md:pt-10 md:pb-5">
 				<h2 class="text-4xl md:text-5xl lg:text-6xl font-serif">{recipe.title}</h2>
 				<div>
 					<Button

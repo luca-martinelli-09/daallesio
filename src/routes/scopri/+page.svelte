@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
+	import { page } from '$app/stores';
 	import FiltersCard from '$lib/components/FiltersCard.svelte';
 	import RecipeCard from '$lib/components/RecipeCard.svelte';
 	import { queryRecipes } from '$lib/utils';
 	import type { Recipe, SearchOptions } from '$lib/utils/utils';
 	import Icon from '@iconify/svelte';
-
+	
 	let results: Recipe[];
 	let filterOptions: SearchOptions;
 	let query: string;
@@ -20,7 +20,7 @@
 			filterOptions.vegetarian ||
 			query?.length >= 3
 		)
-			results = await queryRecipes(query, filterOptions);
+			results = await queryRecipes($page.url, query, filterOptions);
 		else results = [];
 	}
 </script>
@@ -33,7 +33,7 @@
 	class="main-container min-h-screen p-5 md:p-10 bg-[#EDEDED] dark:bg-[#020205] dark:text-white md:mx-5 flex flex-col gap-5 md:gap-10 lg:gap-12 md:rounded-xl"
 >
 	<div
-		class="w-full max-w-screen-md mx-auto flex gap-2 items-center border-2 border-black dark:border-white px-3 bg-white dark:bg-black rounded-full"
+		class="w-full max-w-screen-md mx-auto flex gap-2 items-center border-2 border-gray-200 dark:border-gray-800 px-3 bg-white dark:bg-black rounded-full"
 	>
 		<span class="text-xl"><Icon icon="ion:search-outline" /></span>
 		<input

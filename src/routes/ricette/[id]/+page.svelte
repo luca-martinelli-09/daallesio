@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Image from '$lib/components/Image.svelte';
 	import Ingredients from '$lib/components/Ingredients.svelte';
 	import SearchResult from '$lib/components/SearchResult.svelte';
 	import {
@@ -7,6 +8,7 @@
 		formatIngredientAmount,
 		formatIngredientName,
 		formatOriginPlace,
+		getIngredientList,
 		toHours
 	} from '$lib/utils';
 	import type { Ingredient, Recipe } from '$lib/utils/utils';
@@ -39,9 +41,9 @@
 			(e) => e
 		),
 		recipeCategory: info.type,
-		recipeIngredient: allIngredients.map(
+		recipeIngredient: getIngredientList(allIngredients, info.units, info.units).map(
 			(i) =>
-				formatIngredientAmount(i, info.units, info.units) +
+				formatIngredientAmount(i) +
 				' ' +
 				formatIngredientName(i) +
 				(i.info ? ' (' + i.info + ')' : '')
@@ -75,7 +77,7 @@
 	<section
 		class="flex flex-col-reverse md:flex-row bg-[#EDEDED] dark:bg-[#020205] dark:text-white 2xl:rounded-xl overflow-hidden"
 	>
-		<div class="flex flex-col py-10 px-5 md:px-10 gap-5">
+		<div class="flex-1 flex flex-col py-10 px-5 md:px-10 gap-5">
 			<h1 class="text-4xl md:text-5xl lg:text-6xl font-serif">{info.title}</h1>
 			<p class="text-justify text-sm">{info.description}</p>
 			<div class="flex flex-1 flex-row flex-wrap items-end gap-3">
@@ -119,9 +121,11 @@
 				</span>
 			</div>
 		</div>
-		<img
-			class="w-full md:w-1/2 object-cover object-center print:h-32"
+		<Image
+			class="flex-1 w-full print:h-40"
 			src={info.image}
+			srcSet={info.scrSet}
+			thumb={info.thumb}
 			alt={info.title}
 		/>
 	</section>

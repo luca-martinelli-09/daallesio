@@ -1,12 +1,15 @@
 <script lang="ts">
 	import type { Recipe } from '$lib/utils/utils';
+	import Image from './Image.svelte';
 
 	export let recipe: Recipe;
 </script>
 
 <a class="flex gap-3 no-underline" href="/ricette/{recipe.id}">
-	<img
+	<Image
 		src={recipe.image}
+		srcSet={recipe.scrSet}
+		thumb={recipe.thumb}
 		alt={recipe.title}
 		class="w-28 rounded-lg aspect-video object-cover object-center m-0"
 	/>

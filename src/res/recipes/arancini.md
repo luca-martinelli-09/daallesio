@@ -12,7 +12,7 @@ originPlace:
   area: europa mediterranea
   continent: europa
   lat: 37.599958
-  long: 14.015378
+  lon: 14.015378
 difficulty: 4
 references:
   - type: youtube

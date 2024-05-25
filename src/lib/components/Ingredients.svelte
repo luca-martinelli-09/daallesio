@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatIngredientAmount, formatIngredientName } from '$lib/utils';
+	import { formatIngredientAmount, formatIngredientName, getIngredientList } from '$lib/utils';
 	import type { IngredientsGroup } from '$lib/utils/utils';
 	import Icon from '@iconify/svelte';
 
@@ -35,9 +35,9 @@
 		<h3>{ingredientGroup.name}</h3>
 	{/if}
 	<ul>
-		{#each ingredientGroup.ingredients as ingredient}
+		{#each getIngredientList(ingredientGroup.ingredients, currentUnits, units) as ingredient}
 			<li>
-				{formatIngredientAmount(ingredient, currentUnits, units)}
+				{formatIngredientAmount(ingredient)}
 				<strong class="lowercase">
 					{formatIngredientName(ingredient)}
 				</strong>

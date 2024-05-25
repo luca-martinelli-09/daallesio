@@ -5,7 +5,6 @@ draft: false
 type: pane
 title: 'Brioche burger bun'
 description: "Il brioche bun è un particolare pane morbido e burroso, perfetto per gli hamburger o per essere mangiato a colazione. Come fa a rimanere così morbido? Grazie alla tecnica giapponese del Tangzhong, un preimpasto gelatinoso fatto di acqua, farina e latte che rende il pane soffice per molti giorni."
-image: https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/26fbeae4-0699-4a35-a517-844c5935ce53/Derivates/d39612fe-c867-4e86-95e3-ed38bc343565.jpg
 originPlace:
   nation: usa
   area: nord america

@@ -67,6 +67,8 @@ export interface Recipe {
 	title: string;
 	description: string;
 	image: string;
+	scrSet?: string;
+	thumb?: string;
 	originPlace?: OriginPlace;
 	difficulty: Difficulty;
 	time: PreparationTime;

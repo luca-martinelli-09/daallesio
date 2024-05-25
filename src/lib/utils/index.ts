@@ -17,9 +17,13 @@ export const fetchIngredients = async () => {
 	return allIngredients;
 };
 
-export const fetchRecipes = async (id: string | null = null) => {
+export const fetchRecipes = async (url: URL, id: string | null = null) => {
 	const allRecipesFiles = import.meta.glob('../../res/recipes/*.md');
-	const iterableRecipesFiles = Object.entries(allRecipesFiles);
+	let iterableRecipesFiles = Object.entries(allRecipesFiles);
+
+	if (id) {
+		iterableRecipesFiles = iterableRecipesFiles.filter(([e, f]) => e.endsWith(id + '.md'));
+	}
 
 	const allIngredients = Object.fromEntries((await fetchIngredients()).map((x: any) => [x.id, x]));
 
@@ -42,7 +46,27 @@ export const fetchRecipes = async (id: string | null = null) => {
 			let vegetarian = ingredients.map((i) => i.vegetarian).reduce((a, b) => a && b);
 			let vegan = ingredients.map((i) => i.vegan).reduce((a, b) => a && b);
 
-			return { ...recipe, vegetarian, vegan };
+			let image = recipe.image || 'img/ricette/' + recipe.id + '.png';
+
+			if (!image.startsWith('http')) {
+				if (!image.startsWith('/')) image = '/' + image;
+
+				if (!recipe.scrSet) {
+					recipe.scrSet = [
+						'/cdn-cgi/image/width=320,format=auto' + image + ' 320w',
+						'/cdn-cgi/image/width=480,format=auto' + image + ' 480w',
+						'/cdn-cgi/image/width=640,format=auto' + image + ' 640w'
+					].join(', ');
+				}
+
+				if (!recipe.thumb) {
+					recipe.thumb = '/cdn-cgi/image/width=5,format=auto' + image;
+				}
+
+				image = url.origin + image;
+			}
+
+			return { ...recipe, vegetarian, vegan, image };
 		})
 	);
 
@@ -66,8 +90,12 @@ export const fetchRecipes = async (id: string | null = null) => {
 	return allRecipes;
 };
 
-export const queryRecipes = async (query: string = '', options: SearchOptions | null = null) => {
-	const allRecipes = <Recipe[]>await fetchRecipes();
+export const queryRecipes = async (
+	url: URL,
+	query: string = '',
+	options: SearchOptions | null = null
+) => {
+	const allRecipes = <Recipe[]>await fetchRecipes(url);
 	query = query.toLowerCase();
 
 	let searchResults = allRecipes?.filter((r: Recipe) => {
@@ -114,18 +142,52 @@ export const formatDuration = (minutes: number) => {
 	return 'PT' + minutes + 'M';
 };
 
-export const formatIngredientAmount = (
+export const getIngredientList = (
+	ingredients: Ingredient[],
+	currentUnits: number,
+	units: number
+) => {
+	const parsedIngredients = ingredients.map((ingredient) => {
+		return {
+			...ingredient,
+			amount: calcIngredientAmount(ingredient, currentUnits, units)
+		};
+	});
+
+	const listIngredients = parsedIngredients.reduce(
+		(t, i) => {
+			const cI = t[i.id];
+
+			if (!cI) {
+				t[i.id] = i;
+
+				return t;
+			}
+
+			if (cI.amount && i.amount) cI.amount += i.amount;
+
+			return t;
+		},
+		{} as Record<string, Ingredient>
+	);
+
+	return Object.values(listIngredients);
+};
+
+export const calcIngredientAmount = (
 	ingredient: Ingredient,
 	currentUnits: number,
 	units: number
 ) => {
-	let amount = ingredient.amount
+	return ingredient.amount
 		? !ingredient.fixed
 			? Math.round((ingredient.amount * currentUnits * 100) / units) / 100
 			: ingredient.amount
-		: 'q.b.';
+		: undefined;
+};
 
-	return amount + (ingredient.unit || '');
+export const formatIngredientAmount = (ingredient: Ingredient) => {
+	return (ingredient.amount ?? 'q.b.') + (ingredient.unit || '');
 };
 
 export const formatIngredientName = (ingredient: Ingredient) => {

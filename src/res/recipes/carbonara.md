@@ -5,7 +5,6 @@ draft: false
 type: primo
 title: 'Pasta alla carbonara'
 description: "La pasta alla carbonara è un piatto caratteristico del Lazio e più in particolare di Roma, preparato con ingredienti popolari e dal gusto intenso. I tipi di pasta tradizionalmente più usati sono gli spaghetti e i rigatoni. Le origini del piatto sono incerte e al riguardo esistono diverse ipotesi, la più accreditata delle quali riconduce la sua comparsa ad un'origine laziale."
-image: https://blog.giallozafferano.it/dulcisinforno/wp-content/uploads/2021/03/Carbonara-ricetta-5328.jpg
 originPlace:
   city: roma
   region: lazio
