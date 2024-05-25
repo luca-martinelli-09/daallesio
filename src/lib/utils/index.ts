@@ -53,15 +53,15 @@ export const fetchRecipes = async (url: URL, id: string | null = null) => {
 
 				if (!recipe.scrSet) {
 					recipe.scrSet = [
-						'/cdn-cgi/image/width=320,format=auto' + image + ' 320w',
-						'/cdn-cgi/image/width=480,format=auto' + image + ' 480w',
-						'/cdn-cgi/image/width=640,format=auto' + image + ' 640w',
-						'/cdn-cgi/image/width=720,format=auto' + image + ' 720w'
+						'/cdn-cgi/image/width=320,format=webp' + image + ' 320w',
+						'/cdn-cgi/image/width=480,format=webp' + image + ' 480w',
+						'/cdn-cgi/image/width=640,format=webp' + image + ' 640w',
+						'/cdn-cgi/image/width=720,format=webp' + image + ' 720w'
 					].join(', ');
 				}
 
 				if (!recipe.thumb) {
-					recipe.thumb = '/cdn-cgi/image/width=5,format=auto' + image;
+					recipe.thumb = '/cdn-cgi/image/width=5,format=webp' + image;
 				}
 
 				image = url.origin + image;
