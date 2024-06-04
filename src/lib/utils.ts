@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge";
 import { UnitTypeEnum } from "./form/enums";
 import type { RecipeIngredientWithRelations } from "./types";
 import type { Image } from "@prisma/client";
-import { PUBLIC_S3_URL } from "$env/static/public";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -96,5 +95,5 @@ export function getIngredientRowString(ingredient: RecipeIngredientWithRelations
 }
 
 export function getImageUrl(image: Image) {
-  return PUBLIC_S3_URL + image.fileId + "/" + image.fileName;
+  return env.PUBLIC_S3_URL + image.fileId + "/" + image.fileName;
 }
