@@ -1,7 +1,6 @@
 import { loginSchema } from "$lib/form/schema";
-import { hashOptions, lucia, saltedPassword } from "$lib/server/auth";
+import { comparePassword, lucia } from "$lib/server/auth";
 import { prisma } from "$lib/server/prisma";
-import { hash, verify } from "@node-rs/argon2";
 import { fail, redirect } from "@sveltejs/kit";
 import { setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -30,7 +29,7 @@ export const actions: Actions = {
       return setError(form, "password", "Username o password errata");
     }
 
-    const validPassword = await verify(user.hashedPassword, saltedPassword(formData.password), hashOptions);
+    const validPassword = comparePassword(user.hashedPassword, formData.password);
     if (!validPassword) {
       return setError(form, "password", "Username o password errata");
     }

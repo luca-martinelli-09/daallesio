@@ -1,8 +1,7 @@
 import { env } from "$env/dynamic/private";
 import { registerSchema } from "$lib/form/schema";
-import { hashOptions, lucia, saltedPassword } from "$lib/server/auth";
+import { hashPassword, lucia } from "$lib/server/auth";
 import { prisma } from "$lib/server/prisma";
-import { hash } from "@node-rs/argon2";
 import { fail, redirect } from "@sveltejs/kit";
 import { setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -35,7 +34,7 @@ export const actions: Actions = {
       return setError(form, "username", "Username già esistente");
     }
 
-    const passwordHash = await hash(saltedPassword(formData.password), hashOptions);
+    const passwordHash = hashPassword(formData.password);
     const user = await prisma.user.create({
       data: {
         name: formData.name,

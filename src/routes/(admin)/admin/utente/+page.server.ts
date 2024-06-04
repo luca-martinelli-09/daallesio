@@ -1,8 +1,7 @@
 import { env } from "$env/dynamic/private";
 import { editUserSchema } from "$lib/form/schema";
-import { hashOptions, saltedPassword } from "$lib/server/auth";
+import { hashPassword } from "$lib/server/auth";
 import { prisma } from "$lib/server/prisma";
-import { hash } from "@node-rs/argon2";
 import { fail } from "@sveltejs/kit";
 import { message, setError, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -43,7 +42,7 @@ export const actions: Actions = {
     let passwordHash;
     if (formData.password?.length) {
       passwordHash = {
-        hashedPassword: await hash(saltedPassword(formData.password), hashOptions),
+        hashedPassword: hashPassword(formData.password),
       };
     }
 

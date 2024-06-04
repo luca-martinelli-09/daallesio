@@ -1,8 +1,7 @@
 import { dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import type { Options } from "@node-rs/argon2";
-import { hash } from "@node-rs/argon2";
+import crypto from "crypto";
 import { Lucia } from "lucia";
 import { prisma } from "./prisma";
 
@@ -36,13 +35,13 @@ interface DatabaseUserAttributes {
   name: string;
 }
 
-export const hashOptions: Options = {
-  memoryCost: 19456,
-  timeCost: 2,
-  outputLen: 32,
-  parallelism: 1,
-};
+export function hashPassword(password: string) {
+  return crypto
+    .createHash("sha256")
+    .update(password + env.SALT)
+    .digest("base64");
+}
 
-export function saltedPassword(password: string) {
-  return hash(password + env.SALT, hashOptions) + env.SALT;
+export function comparePassword(hashedPassword: string, password: string) {
+  return hashPassword(password) === hashedPassword;
 }
