@@ -6,7 +6,7 @@
   import SaveButton from "$lib/components/admin/ui/SaveButton.svelte";
   import * as Tabs from "$lib/components/ui/tabs";
   import { crudForm } from "$lib/utils";
-  import SuperDebug, { type SuperForm } from "sveltekit-superforms";
+  import { type SuperForm } from "sveltekit-superforms";
   import type { PageData } from "./$types.js";
 
   let { data } = $props();
@@ -43,5 +43,3 @@
     </Tabs.Content>
   </Tabs.Root>
 </form>
-
-<SuperDebug data={$formData} />

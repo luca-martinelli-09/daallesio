@@ -10,6 +10,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
+		"@aws-sdk/client-s3": "^3.588.0",
 		"@internationalized/date": "^3.5.4",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
@@ -20,7 +21,6 @@
 		"@tailwindcss/typography": "^0.5.13",
 		"@types/lodash": "^4.17.4",
 		"autoprefixer": "^10.4.19",
-		"aws-sdk": "^2.1633.0",
 		"lodash": "^4.17.21",
 		"lucia": "^3.2.0",
 		"postcss": "^8.4.38",

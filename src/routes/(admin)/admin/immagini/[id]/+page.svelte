@@ -6,7 +6,6 @@
   import Input from "$lib/components/ui/input/input.svelte";
   import { crudForm, getImageUrl } from "$lib/utils";
   import type { Image } from "@prisma/client";
-  import SuperDebug from "sveltekit-superforms";
 
   let { data } = $props();
 
