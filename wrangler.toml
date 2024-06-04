@@ -9,10 +9,10 @@ compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2024-05-25"
 
 [vars]
-PUBLIC_APP_NAME = Da Allesio
-ACCEPTED_USERNAMES = lucamartinelli,daallesio
+PUBLIC_APP_NAME = "Da Allesio"
+ACCEPTED_USERNAMES = "lucamartinelli,daallesio"
 PER_PAGE = 20
-S3_BUCKET_NAME = daallesio
-S3_ENDPOINT = https://53551e524f41d1b6fbe67a2b6e9645ab.r2.cloudflarestorage.com
-S3_REGION = auto
-PUBLIC_S3_URL = https://s3.daallesio.eu.org/
+S3_BUCKET_NAME = "daallesio"
+S3_ENDPOINT = "https://53551e524f41d1b6fbe67a2b6e9645ab.r2.cloudflarestorage.com"
+S3_REGION = "auto"
+PUBLIC_S3_URL = "https://s3.daallesio.eu.org/"
