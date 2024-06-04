@@ -1,18 +1,18 @@
-import { S3_ACCESS_KEY_ID, S3_ACCESS_KEY_SECRET, S3_BUCKET_NAME, S3_ENDPOINT, S3_REGION } from "$env/static/private";
-import { S3, type DeleteObjectRequest, type PutObjectRequest } from "@aws-sdk/client-s3";
+import { env } from "$env/dynamic/private";
+import { S3, type DeleteObjectRequest, type PutObjectCommandInput } from "@aws-sdk/client-s3";
 
 const s3 = new S3({
   credentials: {
-    accessKeyId: S3_ACCESS_KEY_ID,
-    secretAccessKey: S3_ACCESS_KEY_SECRET,
+    accessKeyId: env.S3_ACCESS_KEY_ID,
+    secretAccessKey: env.S3_ACCESS_KEY_SECRET,
   },
-  region: S3_REGION,
-  endpoint: S3_ENDPOINT,
+  region: env.S3_REGION,
+  endpoint: env.S3_ENDPOINT,
 });
 
 export const uploadToS3 = async (fileData: File, fileId: string) => {
-  const params: PutObjectRequest = {
-    Bucket: S3_BUCKET_NAME,
+  const params: PutObjectCommandInput = {
+    Bucket: env.S3_BUCKET_NAME,
     Key: fileId + "/" + fileData!.name,
     Body: new Uint8Array(await fileData.arrayBuffer()),
     ContentType: fileData.type,
@@ -25,7 +25,7 @@ export const uploadToS3 = async (fileData: File, fileId: string) => {
 
 export const deleteFromS3 = async (fileId: string) => {
   const params: DeleteObjectRequest = {
-    Bucket: S3_BUCKET_NAME,
+    Bucket: env.S3_BUCKET_NAME,
     Key: fileId,
   };
 
