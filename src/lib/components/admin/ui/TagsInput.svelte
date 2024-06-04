@@ -5,11 +5,11 @@
 
   let {
     form,
-    formData = $bindable([]) as string[],
+    formData = $bindable(),
     name,
   }: {
     form: SuperForm<F>;
-    formData: string[] | undefined;
+    formData: string[];
     name: FormPath<F>;
   } = $props();
 

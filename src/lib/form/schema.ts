@@ -124,7 +124,7 @@ export const editRecipeSchema = createRecipeSchema.merge(
     summary: z.string().nullable(),
     introduction: z.string().nullable(),
     conclusion: z.string().nullable(),
-    cookMode: z.nativeEnum(CookMode, { message: "Modalità di cottura non valida" }).array().nullable().default([]),
+    cookMode: z.nativeEnum(CookMode, { message: "Modalità di cottura non valida" }).array().default([]),
 
     typeId: z.string().nullable(),
     imageId: z.string().nullable(),
@@ -142,7 +142,7 @@ export const editImageSchema = z.object({
   base64: z.string().nullable(),
   caption: z.string().nullable(),
   alt: z.string().nullable(),
-  tags: z.string().array().default([]),
+  tags: tags,
 });
 
 export const editFullRecipeSchema = editRecipeSchema.merge(
