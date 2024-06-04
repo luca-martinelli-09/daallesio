@@ -1,7 +1,7 @@
 import { dev } from "$app/environment";
 import { env } from "$env/dynamic/private";
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { Lucia } from "lucia";
 import { prisma } from "./prisma";
 
