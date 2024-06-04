@@ -1,0 +1,44 @@
+import { editRecipeTypeSchema } from "$lib/form/schema";
+import { prisma } from "$lib/server/prisma";
+import { error, fail } from "@sveltejs/kit";
+import _ from "lodash";
+import { message, superValidate } from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
+import type { Actions, PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = async ({ params }) => {
+  let recipeType;
+
+  try {
+    recipeType = await prisma.recipeType.findUnique({
+      where: {
+        id: params.id,
+      },
+    });
+  } catch (error) {}
+
+  if (!recipeType) error(404);
+
+  return {
+    recipeType,
+    form: await superValidate(recipeType, zod(editRecipeTypeSchema)),
+  };
+};
+
+export const actions: Actions = {
+  default: async ({ request, params }) => {
+    const form = await superValidate(request, zod(editRecipeTypeSchema));
+    if (!form.valid) return fail(400, { form });
+
+    const formData = form.data;
+
+    await prisma.recipeType.update({
+      where: {
+        id: params.id,
+      },
+      data: _.omit(formData, "slug"),
+    });
+
+    return message(form, "Modifiche salvate con successo");
+  },
+};

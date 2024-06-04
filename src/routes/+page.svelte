@@ -1,23 +1,2 @@
-<script lang="ts">
-	import RecipeCard from '$lib/components/RecipeCard.svelte';
-	import type { Recipe } from '$lib/utils/utils';
-
-	export let data;
-
-	const recipes: Recipe[] = data.recipes;
-</script>
-
-<svelte:head>
-	<title>Home - Da Allesio</title>
-</svelte:head>
-
-<section
-	class="main-container min-h-screen p-5 md:p-10 bg-[#EDEDED] dark:bg-[#020205] dark:text-white md:mx-5 flex flex-col gap-5 md:gap-10 lg:gap-12 md:rounded-xl"
->
-	<RecipeCard recipe={recipes[0]} />
-	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5 xl:gap-10">
-		{#each recipes.slice(1, 6) as recipe}
-			<RecipeCard {recipe} mini={true} />
-		{/each}
-	</div>
-</section>
+<h1>Welcome to SvelteKit</h1>
+<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>

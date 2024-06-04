@@ -1,0 +1,312 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Users
+
+model User {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  username       String @unique
+  hashedPassword String
+
+  sessions Session[]
+}
+
+model Session {
+  sessionId String @id @default(auto()) @map("_id") @db.ObjectId
+
+  id        String   @unique
+  userId    String   @db.ObjectId
+  expiresAt DateTime
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// App
+
+model Image {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  fileId   String
+  fileName String
+  base64   String?
+  caption  String?
+  alt      String?
+  tags     String[] @default([])
+
+  recipes          Recipe[]
+  recipeStepImages RecipeStepImage[]
+}
+
+// Enums
+
+enum OriginArea {
+  NORTH_EUROPE
+  MEDITERRANEAN_EUROPE
+  EAST_EUROPE
+  NORTH_AMERICA
+  CENTRAL_AMERICA
+  SOUTH_AMERICA
+  EAST_ASIA
+  SOUTH_ASIA
+  NORTH_ASIA
+  WEST_ASIA
+  OCEANIA
+  NORTH_AFRICA
+  SOUTH_AFRICA
+  WEST_AFRICA
+  EAST_AFRICA
+}
+
+enum Continent {
+  ASIA
+  AFRICA
+  EUROPE
+  AMERICA
+  AUSTRALIA
+}
+
+enum Difficulty {
+  VERY_EASY
+  EASY
+  MEDIUM
+  DIFFICULT
+  VERY_DIFFICULT
+}
+
+enum Allergen {
+  GLUTEN
+  LUPIN
+  CELERY
+  CRUSTACEANS
+  MILK
+  SULPHUR_DIOXIDE
+  SESAME
+  MOLLUSCS
+  MUSTARD
+  TREE_NUTS
+  EGG
+  FISH
+  SOYBEANS
+  PEANUTS
+}
+
+enum SourceType {
+  YOUTUBE
+  TIKTOK
+  INSTAGRAM
+  REDDIT
+  BLOG
+  BOOK
+  GENERAL
+}
+
+enum RecipeIngredientType {
+  INGREDIENT
+  RECIPE
+}
+
+enum UnitType {
+  NONE
+
+  MILLIGRAMS
+  GRAMS
+  KILOGRAMS
+
+  MILLILITERS
+  LITERS
+
+  SPOONS
+
+  LEAVES
+
+  SACHET
+}
+
+enum CookMode {
+  GRILLED
+  BAKED
+  FRIED
+  MICROWAVED
+  STEWED
+  BOILED
+  STEAMED
+}
+
+// Recipes
+
+type OriginPlace {
+  city      String?
+  region    String?
+  country   String?
+  area      OriginArea?
+  continent Continent?
+  lat       Float?
+  lng       Float?
+}
+
+type PreparationTime {
+  preparation Int?
+  rest        Int?
+  cook        Int?
+  leavening   Int?
+}
+
+model RecipeType {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  slug  String @unique
+  title String
+  order Int    @default(0)
+
+  recipes Recipe[]
+}
+
+model Recipe {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  date         DateTime        @default(now())
+  draft        Boolean         @default(true)
+  typeId       String?         @db.ObjectId
+  title        String
+  slug         String          @unique
+  summary      String?
+  originPlace  OriginPlace
+  difficulty   Difficulty
+  time         PreparationTime
+  units        Int             @default(1)
+  vegan        Boolean         @default(false)
+  vegetarian   Boolean         @default(false)
+  allergens    Allergen[]      @default([])
+  tags         String[]        @default([])
+  introduction String?
+  conclusion   String?
+  cookMode     CookMode[]      @default([])
+
+  imageId String? @db.ObjectId
+
+  type  RecipeType? @relation(references: [id], fields: [typeId], onDelete: SetNull)
+  image Image?      @relation(references: [id], fields: [imageId], onDelete: SetNull)
+
+  ingredientGroups IngredientGroup[]
+  recipeSteps      RecipeStep[]
+  sources          Source[]
+
+  recipeIngredients RecipeIngredient[]
+
+  @@index([date])
+  @@index([draft])
+  @@index([vegan])
+  @@index([vegetarian])
+  @@index([imageId])
+  @@index([typeId])
+}
+
+// Sources
+
+model Source {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  recipeId String     @db.ObjectId
+  type     SourceType @default(GENERAL)
+  url      String
+  title    String
+
+  recipe Recipe @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+}
+
+// Ingredients
+
+model IngredientGroup {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title    String?
+  recipeId String  @db.ObjectId
+  order    Int     @default(0)
+
+  recipe      Recipe             @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+  ingredients RecipeIngredient[]
+
+  @@index([recipeId])
+}
+
+model RecipeIngredient {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  ingredientGroupId String               @db.ObjectId
+  name              String?
+  plural            String?
+  amount            Float?
+  fixed             Boolean              @default(false)
+  unit              UnitType?
+  moreInfo          String?
+  ingredientType    RecipeIngredientType
+  recipeId          String?              @db.ObjectId
+  ingredientId      String?              @db.ObjectId
+  order             Int                  @default(0)
+
+  ingredientGroup IngredientGroup @relation(references: [id], fields: [ingredientGroupId], onDelete: Cascade)
+  recipe          Recipe?         @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+  ingredient      Ingredient?     @relation(references: [id], fields: [ingredientId], onDelete: Cascade)
+
+  @@index([ingredientGroupId])
+  @@index([recipeId])
+  @@index([ingredientId])
+}
+
+model Ingredient {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name        String
+  slug        String     @unique
+  plural      String?
+  vegan       Boolean    @default(false)
+  vegetarian  Boolean    @default(false)
+  allergens   Allergen[]
+  tags        String[]   @default([])
+  defaultUnit UnitType?
+
+  recipeIngredients RecipeIngredient[]
+}
+
+// Recipe steps
+
+model RecipeStep {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  recipeId String @db.ObjectId
+  number   Int
+  text     String
+
+  recipe Recipe            @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+  images RecipeStepImage[]
+
+  @@index([recipeId])
+}
+
+model RecipeStepImage {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  recipeStepId String @db.ObjectId
+  imageId      String @db.ObjectId
+
+  recipeStep RecipeStep @relation(references: [id], fields: [recipeStepId], onDelete: Cascade)
+  image      Image      @relation(references: [id], fields: [imageId], onDelete: Cascade)
+
+  @@index([recipeStepId])
+  @@index([imageId])
+}

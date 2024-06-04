@@ -1,24 +1,12 @@
-<script lang="ts">
-	import Cursor from '$lib/components/Cursor.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import { keywords, description, title, author } from '$lib/info';
+<script>
+  import { env } from "$env/dynamic/public";
+  import "../app.css";
 
-	export const trailingSlash = 'never';
-
-	import '../app.css';
+  const {children} = $props()
 </script>
 
 <svelte:head>
-	<meta name="keywords" content={keywords.join(',')} />
-	<meta name="description" content={description} />
-	<meta name="author" content={author} />
-	<title>{title}</title>
+  <title>{env.PUBLIC_APP_NAME}</title>
 </svelte:head>
 
-<Header />
-
-<slot />
-
-<Footer />
-<Cursor />
+{@render children()}

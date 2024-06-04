@@ -1,11 +1,10 @@
-<script>
-  export let color = "#000";
-  export let size = "100%";
+<script lang="ts">
+  const { class: classname }: { class?: string } = $props();
 </script>
 
-<svg viewBox="0 0 512 512" width={size} height={size}>
+<svg viewBox="0 0 512 512" class={classname}>
   <path
-    fill={color}
+    fill="currentColor"
     d="M192.8,365L192.8,365c-8.2-5.6-15.5-12.5-21.3-20.5c-13.5-18.8-20.9-41.5-20.9-65v0
       c0-51.2,9.8-101.9,28.8-149.4l11.3-28.1c0.4-1.2,2.1-0.9,2.1,0.3v127.4c0,13.1,10.6,23.7,23.7,23.7c10.2,0,18.4-8.3,18.4-18.4
       l12.2-124.7c0.4-4.2,3.6-7.8,7.9-8.3c5-0.5,9.3,3.1,9.8,7.9l12.3,125.1c0,10.2,8.3,18.4,18.4,18.4c13.1,0,23.7-10.6,23.7-23.7V102.2
