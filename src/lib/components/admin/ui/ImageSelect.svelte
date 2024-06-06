@@ -26,7 +26,7 @@
 </script>
 
 <Dialog.Root bind:open>
-  <Dialog.Content class="max-w-screen-xl">
+  <Dialog.Content class="max-w-screen-xl max-h-screen overflow-auto">
     <Dialog.Header>
       <Dialog.Title>Seleziona un'immagine</Dialog.Title>
     </Dialog.Header>
@@ -41,7 +41,7 @@
       <Input placeholder="Cerca..." bind:value={query} />
     </form>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
       {#each images as image}
         <button class="grid border rounded-lg overflow-hidden" onclick={() => selectImage(image)} onkeydown={(e) => e.key === "Enter" && selectImage(image)} type="button">
           <img src={getImageUrl(image)} alt={image.alt} />

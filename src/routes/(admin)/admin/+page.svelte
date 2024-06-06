@@ -11,7 +11,7 @@
   <h2>{user.name}</h2>
 </div>
 
-<div class="grid grid-cols-4 gap-3">
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
   <Card.Root>
     <Card.Header>
       <Card.Title>Ricette</Card.Title>

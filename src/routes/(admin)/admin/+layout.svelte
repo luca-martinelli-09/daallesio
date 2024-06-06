@@ -15,6 +15,8 @@
   const { data, children } = $props();
   const { user } = data;
 
+  let open = $state(false);
+
   const menuItems = [
     { name: "Ricette", href: "/admin/ricette", icon: CookingPot },
     { name: "Ingredienti", href: "/admin/ingredienti", icon: ShoppingBasket },
@@ -52,7 +54,7 @@
   </div>
   <div class="flex-1 flex flex-col">
     <header class="flex items-center gap-4 border-b bg-muted/40 px-4 lg:px-6 py-3">
-      <Sheet.Root>
+      <Sheet.Root bind:open>
         <Sheet.Trigger asChild let:builder>
           <Button variant="outline" size="icon" class="shrink-0 md:hidden" builders={[builder]}>
             <Menu class="h-5 w-5" />
@@ -61,13 +63,14 @@
         </Sheet.Trigger>
         <Sheet.Content side="left" class="flex flex-col">
           <nav class="grid gap-2 text-lg font-medium">
-            <a href="/admin" class="flex items-center gap-2 text-lg font-semibold mb-5">
+            <a href="/admin" class="flex items-center gap-2 text-lg font-semibold mb-5" onclick={() => open = false}>
               <Logo class="h-6 w-6 text-primary" />
               <span class="">{env.PUBLIC_APP_NAME}</span>
             </a>
             {#each menuItems as menuItem}
               <a
                 href={menuItem.href}
+                onclick={() => open = false}
                 class={cn(
                   "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground",
                   ($page.url.pathname.startsWith(menuItem.href)) && "bg-primary/10 text-primary"
