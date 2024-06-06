@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LazyImage from "$lib/components/LazyImage.svelte";
   import DeleteModal from "$lib/components/admin/ui/DeleteModal.svelte";
   import DropDownActions from "$lib/components/admin/ui/DropDownActions.svelte";
   import Pagination from "$lib/components/admin/ui/Pagination.svelte";
@@ -9,7 +10,7 @@
   import * as Form from "$lib/components/ui/form";
   import Input from "$lib/components/ui/input/input.svelte";
   import type { DeleteModalData } from "$lib/types.js";
-  import { crudForm, getImageUrl } from "$lib/utils";
+  import { crudForm } from "$lib/utils";
 
   let { data } = $props();
 
@@ -103,7 +104,7 @@
         </Card.Title>
       </Card.Header>
       <Card.Footer class="grid gap-4">
-        <img src={getImageUrl(image)} alt={image.alt} />
+        <LazyImage {image} />
         <p class="text-opacity-80 text-sm">{image.caption}</p>
       </Card.Footer>
     </Card.Root>

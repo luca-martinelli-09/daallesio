@@ -9,7 +9,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import { cn } from "$lib/utils.js";
-  import { CookingPot, Home, Image, ShoppingBasket, Tag } from "lucide-svelte";
+  import { CookingPot, Image, ShoppingBasket, Tag } from "lucide-svelte";
   import { resetMode, setMode } from "mode-watcher";
 
   const { data, children } = $props();

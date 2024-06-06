@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LazyImage from "$lib/components/LazyImage.svelte";
   import SaveButton from "$lib/components/admin/ui/SaveButton.svelte";
   import TagsInput from "$lib/components/admin/ui/TagsInput.svelte";
   import * as Card from "$lib/components/ui/card";
@@ -20,9 +21,9 @@
 <form method="POST" use:enhance>
   <SaveButton {form} />
 
-  <input type="hidden" name="fileId" value={$formData.fileId}>
-  <input type="hidden" name="fileName" value={$formData.fileName}>
-  <input type="hidden" name="base64" value={$formData.base64}>
+  <input type="hidden" name="fileId" value={$formData.fileId} />
+  <input type="hidden" name="fileName" value={$formData.fileName} />
+  <input type="hidden" name="base64" value={$formData.base64} />
 
   <div class="edit-card-container">
     <div class="main-cards">
@@ -39,7 +40,7 @@
               </Form.Control>
               <Form.FieldErrors />
             </Form.Field>
-  
+
             <Form.Field {form} name="alt">
               <Form.Control let:attrs>
                 <Form.Label>Testo alternativo</Form.Label>
@@ -58,7 +59,7 @@
           <Card.Title>SEO</Card.Title>
         </Card.Header>
         <Card.Content class="grid gap-4">
-          <img src={getImageUrl($formData as Image)} alt={$formData.alt} />
+          <LazyImage image={$formData as Image} />
 
           <TagsInput {form} bind:formData={$formData.tags} name="tags" />
         </Card.Content>

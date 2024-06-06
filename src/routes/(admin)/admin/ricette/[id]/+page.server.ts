@@ -215,11 +215,9 @@ export const actions: Actions = {
       });
 
       formData.recipeSteps.forEach(async (s) => {
-        let step: RecipeStep;
-
         // Create if not exists
         if (!s.id) {
-          step = await prisma.recipeStep.create({
+          await prisma.recipeStep.create({
             data: {
               ..._.omit(s, ["id"]),
               recipeId: params.id,
@@ -227,7 +225,7 @@ export const actions: Actions = {
           });
         } else {
           // Update if exists
-          step = await prisma.recipeStep.update({
+          await prisma.recipeStep.update({
             where: {
               id: s.id,
             },

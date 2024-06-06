@@ -14,6 +14,7 @@
   import EnumSelect from "../ui/EnumSelect.svelte";
   import IngredientSelect from "../ui/IngredientSelect.svelte";
   import RecipeSelect from "../ui/RecipeSelect.svelte";
+  import { buttonVariants } from "$lib/components/ui/button";
 
   let { form }: { form: SuperForm<PageData["form"]["data"]> } = $props();
   let formData = form.form;
@@ -66,7 +67,7 @@
           <Card.Title>
             <div class="flex gap-4 items-center justify-between">
               <span>{group.title || `Gruppo ${i}`}</span>
-              <Button type="button" variant="ghost" on:click={(e) => removeGroup(e, i)}><Trash2Icon class="h-4 w-4" /></Button>
+              <Button type="button" variant="ghost" on:click={(e) => removeGroup(e, i)}><Trash2Icon class="h-4 w-4"></Trash2Icon></Button>
             </div>
           </Card.Title>
         </Card.Header>
@@ -98,9 +99,7 @@
 
                 <div class="flex gap-1">
                   <Dialog.Root>
-                    <Dialog.Trigger>
-                      <Button size="icon" type="button" variant="ghost"><PencilIcon class="h-4 w-4" /></Button>
-                    </Dialog.Trigger>
+                    <Dialog.Trigger class={buttonVariants({ variant: "ghost", size: "icon" })}><PencilIcon class="h-4 w-4" /></Dialog.Trigger>
                     <Dialog.Content class="max-w-screen-lg">
                       <Dialog.Header>
                         <Dialog.Title>{getIngredientName(i, j)}</Dialog.Title>
@@ -217,7 +216,7 @@
                     </Dialog.Content>
                   </Dialog.Root>
 
-                  <Button size="icon" type="button" variant="ghost" on:click={(e) => removeIngredient(e, i, j)}><Trash2Icon class="h-4 w-4" /></Button>
+                  <Button size="icon" type="button" variant="ghost" on:click={(e) => removeIngredient(e, i, j)}><Trash2Icon class="h-4 w-4"></Trash2Icon></Button>
                 </div>
               </div>
             {/each}
@@ -232,7 +231,7 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style scoped lang="postcss">
   .grid-field {
     @apply grid lg:grid-cols-2 gap-2;
   }

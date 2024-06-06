@@ -1,8 +1,10 @@
 <script lang="ts">
+  import LazyImage from "$lib/components/LazyImage.svelte";
   import CountrySelect from "$lib/components/admin/ui/CountrySelect.svelte";
   import EnumSelect from "$lib/components/admin/ui/EnumSelect.svelte";
   import TagsInput from "$lib/components/admin/ui/TagsInput.svelte";
   import { buttonVariants } from "$lib/components/ui/button";
+  import Button from "$lib/components/ui/button/button.svelte";
   import { Calendar } from "$lib/components/ui/calendar";
   import * as Card from "$lib/components/ui/card";
   import * as Form from "$lib/components/ui/form";
@@ -12,14 +14,13 @@
   import Switch from "$lib/components/ui/switch/switch.svelte";
   import Textarea from "$lib/components/ui/textarea/textarea.svelte";
   import { AllergenEnum, ContinentEnum, CookModeEnum, DifficultyEnum, OriginAreaEnum } from "$lib/form/enums";
-  import { cn, dateWithoutTime, getImageUrl } from "$lib/utils";
+  import { cn, dateWithoutTime } from "$lib/utils";
   import { DateFormatter, fromDate, getLocalTimeZone, today, type DateValue } from "@internationalized/date";
   import type { Image, RecipeType } from "@prisma/client";
   import type { Selected } from "bits-ui";
   import CalendarIcon from "lucide-svelte/icons/calendar";
   import type { SuperForm } from "sveltekit-superforms";
   import type { PageData } from "../../../../routes/(admin)/admin/ricette/[id]/$types";
-  import Button from "$lib/components/ui/button/button.svelte";
   import ImageSelect from "../ui/ImageSelect.svelte";
 
   let { form, recipeTypes }: { form: SuperForm<PageData["form"]["data"]>; recipeTypes: RecipeType[] } = $props();
@@ -284,7 +285,7 @@
         </Card.Header>
         <Card.Content class="grid gap-4">
           {#if $formData.image}
-            <img src={getImageUrl($formData.image as Image)} alt={$formData.image?.alt}>
+            <LazyImage image={$formData.image as Image} />
           {/if}
 
           <Button type="button" variant="secondary" onclick={() => (openImageSelect = true)}>Seleziona immagine</Button>

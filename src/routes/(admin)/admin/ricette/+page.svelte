@@ -76,7 +76,7 @@
         <Table.Row>
           <Table.Cell>{recipe.title}</Table.Cell>
           <Table.Cell>{recipe.slug}</Table.Cell>
-          <Table.Cell>{recipe.draft ? "Pubblicato" : "Bozza"}</Table.Cell>
+          <Table.Cell>{recipe.draft ? "Bozza" : "Pubblicata"}</Table.Cell>
           <Table.Cell class="hidden lg:table-cell">{df.format(recipe.date)}</Table.Cell>
           <Table.Cell>
             <DropDownActions
