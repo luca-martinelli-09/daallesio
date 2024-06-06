@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "ZT Talk";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-Regular.woff2) format("woff2");
+}
+@font-face {
+  font-family: "ZT Talk";
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-Italic.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "ZT Talk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-Medium.woff2) format("woff2");
+}
+@font-face {
+  font-family: "ZT Talk";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-MediumItalic.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "ZT Talk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-SemiBold.woff2) format("woff2");
+}
+@font-face {
+  font-family: "ZT Talk";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-SemiBoldItalic.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "ZT Talk";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-Bold.woff2) format("woff2");
+}
+@font-face {
+  font-family: "ZT Talk";
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(/fonts/zt-talk/ZTTalk-BoldItalic.woff2) format("woff2");
+}

@@ -97,3 +97,11 @@ export function getIngredientRowString(ingredient: RecipeIngredientWithRelations
 export function getImageUrl(image: Image) {
   return env.PUBLIC_S3_URL + image.fileId + "/" + image.fileName;
 }
+
+
+export const publishedScope = {
+  date: {
+    lt: new Date(),
+  },
+  draft: false,
+};

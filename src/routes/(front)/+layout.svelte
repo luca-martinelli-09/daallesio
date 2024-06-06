@@ -1,12 +1,13 @@
 <script>
     import "./app.css";
     import Footer from "$lib/components/front/Footer.svelte"
+  import Header from "$lib/components/front/Header.svelte";
 
     const {children} = $props()
 </script>
 
-<main class="max-w-screen-2xl mx-auto min-h-screen">
-    {@render children()}
-</main>
+<Header />
+
+{@render children()}
 
 <Footer/>
