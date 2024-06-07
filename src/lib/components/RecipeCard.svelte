@@ -18,6 +18,6 @@
 
   <div class="p-3 md:p-5 flex flex-col gap-2">
     <span class="text-sm">{df.format(recipe.date)}</span>
-    <h3 class="font-display font-bold text-2xl md:text-4xl lg:text-5xl">{recipe.title}</h3>
+    <h3 class="font-display font-bold text-2xl sm:text-4xl lg:text-3xl xl:text-4xl">{recipe.title}</h3>
   </div>
 </a>
