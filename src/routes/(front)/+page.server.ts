@@ -22,6 +22,10 @@ export const load: PageServerLoad = async ({ url }) => {
         },
       ],
     },
+    include: {
+      image: true,
+      type: true,
+    },
     orderBy: [{ date: "desc" }, { title: "asc" }],
     cacheStrategy: { ttl: 180 },
   });

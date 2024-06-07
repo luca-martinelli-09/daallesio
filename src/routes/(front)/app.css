@@ -71,4 +71,19 @@
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
   }
+
+  .recipe-grid {
+    @apply grid md:grid-cols-2 lg:grid-cols-3;
+    @apply gap-3 lg:gap-5 xl:gap-10;
+    @apply mb-14 p-3 lg:p-5 xl:p-10;
+    @apply 2xl:rounded-3xl;
+    @apply bg-secondary bg-opacity-40 dark:bg-background dark:bg-opacity-0;
+
+    background-image: radial-gradient(rgb(0 0 0 / 0.02) 30%, transparent 30%);
+    background-size: 10px 10px;
+  }
+
+  html.dark .recipe-grid {
+    background-image: radial-gradient(rgb(255 255 255 / 0.1) 30%, transparent 30%);
+  }
 }

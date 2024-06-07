@@ -4,7 +4,7 @@
   import type { Pagination as PaginationType } from "$lib/types";
   import { ChevronLeft, ChevronRight } from "lucide-svelte";
 
-  let { pagination, onchange }: { pagination: PaginationType; onchange?: (page: number) => void } = $props();
+  let { pagination, position = "end", onchange }: { pagination: PaginationType; position?: "start" | "center" | "end"; onchange?: (page: number) => void } = $props();
   let { count, perPage } = $derived(pagination);
 
   let currentPage = $state(pagination.page);
@@ -20,7 +20,15 @@
 </script>
 
 {#if count}
-  <Pagination.Root {count} {perPage} bind:page={currentPage} onPageChange={change} let:pages let:currentPage class="items-end">
+  <Pagination.Root
+    {count}
+    {perPage}
+    bind:page={currentPage}
+    onPageChange={change}
+    let:pages
+    let:currentPage
+    class={position === "start" ? "items-start" : position === "center" ? "items-center" : "items-end"}
+  >
     <Pagination.Content>
       <Pagination.Item>
         <Pagination.PrevButton>
