@@ -84,9 +84,8 @@
         <Drawer.Description class="text-justify">{drawerState.recipe.summary}</Drawer.Description>
       </Drawer.Header>
       <Drawer.Footer>
-        <div class="grid grid-cols-3 w-full gap-2">
-          <Button class="col-span-1" variant="ghost" on:click={() => (drawerState.open = false)}>Chiudi</Button>
-          <Button class="col-span-2" href="/ricette/{drawerState.recipe.slug}">Vai alla ricetta</Button>
+        <div class="grid w-full gap-2">
+          <Button href="/ricette/{drawerState.recipe.slug}">Vai alla ricetta</Button>
         </div>
       </Drawer.Footer>
     {/if}
