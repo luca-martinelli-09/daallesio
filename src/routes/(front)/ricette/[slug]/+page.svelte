@@ -221,7 +221,7 @@
 
         {#each recipe.recipeSteps as step}
         <div class="flex flex-col items-start justify-start mt-5 print:mt-0">
-          <span id="step{step.number}" class="rounded-full bg-secondary text-secondary-foreground py-1 px-3 font-semibold text-sm print:hidden">Passaggio #{step.number}</span>
+          <span id="step{step.number}" class="rounded-full bg-secondary text-secondary-foreground py-1 px-3 font-semibold text-sm print:hidden select-none">Passaggio #{step.number}</span>
           <div>{@html step.text}</div>
         </div>
         {/each}
