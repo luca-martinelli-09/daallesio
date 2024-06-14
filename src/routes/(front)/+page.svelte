@@ -1,11 +1,12 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import CustomLazyImage from "$lib/components/CustomLazyImage.svelte";
   import RecipeCard from "$lib/components/RecipeCard.svelte";
   import Pagination from "$lib/components/admin/ui/Pagination.svelte";
   import Button from "$lib/components/ui/button/button.svelte";
   import Input from "$lib/components/ui/input/input.svelte";
-  import bg from "$lib/images/bg.png";
   import type { Pagination as PaginationType, PartialRecipe } from "$lib/types";
+  import { getSrcSet } from "$lib/utils.js";
   import { ArrowRight, Search } from "lucide-svelte";
 
   let { data } = $props();
@@ -17,7 +18,16 @@
 
 <form bind:this={searchForm}>
   <div class="mb-16">
-    <img class="w-full h-32 object-cover object-center" src={bg} alt="Cerca" />
+    <CustomLazyImage
+      class="w-full h-32 object-cover object-center"
+      image={{
+        alt: "Cerca",
+        base64:
+          "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAKABQDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQGBf/EACQQAAEEAQQCAgMAAAAAAAAAAAECAwQRBQAGEiEiMRNBBxSR/8QAFQEBAQAAAAAAAAAAAAAAAAAABgT/xAAlEQACAgAFAgcAAAAAAAAAAAABAgMRAAQhMUEFEgYiMlFTcYH/2gAMAwEAAhEDEQA/AJvan5F3pIVGjo3I3MbjzG4ZW3HdkzH2nCCpfA9KSmh9gnyJq9N783AxsDcr8WRml5lqaHWlSC+CsPKPTnGqSASRxJodcfVF2LCjs4TIvNsNIdZioS04lACkArAISfqx11rMweJg5LDSpsyHHlTC26f2H2krcsfLXkRfVD+aOplllmMcoBWtqq/b0kbb4Vy9Py8UMD5ZFS3J27mAFUAzEnbTWxzWITNbfzuWyL0jEuPRMbZSy3OUGnKBIPSq65cu67N+jY0akJQEuZIcfHzOc65OeR9D7OjTOKDMhFCMlVzHZ/T36/eIpvDPTppGlkaS2JJ8y86/Hj//2Q==",
+        src: "/img/bg.png",
+        srcSet: getSrcSet("img/bg.png"),
+      }}
+    />
 
     <div class="px-3 w-full flex justify-center -mt-9">
       <div class="max-w-screen-md w-full relative search">

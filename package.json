@@ -11,6 +11,7 @@
 	},
 	"devDependencies": {
 		"@aws-sdk/client-s3": "^3.588.0",
+		"@iconify/svelte": "^4.0.2",
 		"@internationalized/date": "^3.5.4",
 		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
