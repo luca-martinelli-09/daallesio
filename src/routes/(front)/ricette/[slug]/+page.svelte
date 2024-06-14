@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import LazyImage from "$lib/components/LazyImage.svelte";
   import ShareButtons from "$lib/components/ShareButtons.svelte";
   import Button from "$lib/components/ui/button/button.svelte";
@@ -6,12 +7,9 @@
   import type { FullRecipe, RecipeIngredientWithRelations } from "$lib/types";
   import { calcAmountIngredients, formatDuration, formatTime, getImageUrl, getIngredientAmount, getIngredientName, getIngredientRowString, getRecipeAllergens, getRecipeLabels, mergeIngredients, removeTags, title } from "$lib/utils";
   import Icon from "@iconify/svelte";
-  import { DateFormatter, fromDate, getLocalTimeZone, parseDate, toCalendarDate } from "@internationalized/date";
+  import { fromDate, getLocalTimeZone, toCalendarDate } from "@internationalized/date";
   import { type Image } from "@prisma/client";
   import { BookIcon, GlobeIcon, LinkIcon, MinusIcon, PlusIcon } from "lucide-svelte";
-  import {page} from "$app/stores";
-
-    const df = new DateFormatter("en")
   
   let { data } = $props();
   let { recipe }: { recipe: FullRecipe } = $derived(data);
@@ -71,6 +69,9 @@
 	<meta property="og:title" content={title(recipe.title)} />
 	<meta property="og:description" content={recipe.summary} />
 	<meta property="og:type" content="article" />
+  {#each recipe.tags as tag}
+	<meta property="og:tag" content={tag} />
+  {/each}
 	<meta property="og:site_name" content="Da Allesio" />
 	<meta property="og:image" content={getImageUrl(recipe.image as Image)} />
 	<meta property="og:locale" content="it_IT" />

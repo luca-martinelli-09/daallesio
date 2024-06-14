@@ -28,6 +28,7 @@
 
 <svelte:head>
   <title>{title()}</title>
+
   {@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</script>`}
 </svelte:head>
 
