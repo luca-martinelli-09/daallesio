@@ -79,8 +79,8 @@
     {#if drawerState.recipe}
     <LazyImage class="aspect-video" image={drawerState.recipe.image as Image} />
     <Drawer.Header class="flex flex-col gap-5">
-        <Drawer.Title class="text-5xl font-bold font-display">{drawerState.recipe.title}</Drawer.Title>
-        <Drawer.Description>{drawerState.recipe.summary}</Drawer.Description>
+        <Drawer.Title class="text-5xl font-bold font-display text-left">{drawerState.recipe.title}</Drawer.Title>
+        <Drawer.Description class="text-justify">{drawerState.recipe.summary}</Drawer.Description>
       </Drawer.Header>
       <Drawer.Footer>
         <div class="grid grid-cols-3 w-full gap-2">
