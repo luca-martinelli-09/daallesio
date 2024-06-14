@@ -8,12 +8,12 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import { cn } from "$lib/utils.js";
-  import { CookingPot, SunMoon } from "lucide-svelte";
+  import { CookingPot, Map, SunMoon } from "lucide-svelte";
   import { resetMode, setMode } from "mode-watcher";
 
   let open = $state(false);
 
-  const menuItems: { name: string; href: string; icon: typeof CookingPot }[] = [];
+  const menuItems: { name: string; href: string; icon: typeof CookingPot }[] = [{ name: "Mappa", href: "/mappa", icon: Map }];
 </script>
 
 <header class="grid grid-cols-3 items-center justify-center py-5 px-3 print:hidden">
