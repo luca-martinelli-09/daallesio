@@ -2,13 +2,16 @@
   import LazyImage from "$lib/components/LazyImage.svelte";
   import ShareButtons from "$lib/components/ShareButtons.svelte";
   import Button from "$lib/components/ui/button/button.svelte";
-  import { DifficultyEnum, OriginAreaEnum } from "$lib/form/enums.js";
-  import type { FullRecipe } from "$lib/types";
-  import { calcAmountIngredients, formatTime, getIngredientAmount, getIngredientName, getRecipeAllergens, getRecipeLabels, mergeIngredients, title } from "$lib/utils";
+  import { DifficultyEnum, OriginAreaEnum } from "$lib/form/enums";
+  import type { FullRecipe, RecipeIngredientWithRelations } from "$lib/types";
+  import { calcAmountIngredients, formatDuration, formatTime, getImageUrl, getIngredientAmount, getIngredientName, getIngredientRowString, getRecipeAllergens, getRecipeLabels, mergeIngredients, removeTags, title } from "$lib/utils";
   import Icon from "@iconify/svelte";
+  import { DateFormatter, fromDate, getLocalTimeZone, parseDate, toCalendarDate } from "@internationalized/date";
   import { type Image } from "@prisma/client";
   import { BookIcon, GlobeIcon, LinkIcon, MinusIcon, PlusIcon } from "lucide-svelte";
+  import {page} from "$app/stores";
 
+    const df = new DateFormatter("en")
   
   let { data } = $props();
   let { recipe }: { recipe: FullRecipe } = $derived(data);
@@ -17,10 +20,62 @@
   function notEmpty(text?: string|null) {
     return text && text.replaceAll("<[^>]*>", "").trim().length > 0;
   }
+
+	const schemaOrg = $derived.by(()=> ({
+		'@context': 'https://schema.org/',
+		'@type': 'Recipe',
+		name: recipe.title,
+		image: [getImageUrl(recipe.image as Image)],
+		author: {
+			'@type': 'Organization',
+			name: 'Da Allesio'
+		},
+		datePublished: toCalendarDate(fromDate(recipe.date, getLocalTimeZone())).toString(),
+		description: recipe.summary,
+		recipeCuisine: recipe.originPlace?.area ? OriginAreaEnum[recipe.originPlace.area] : null,
+		prepTime: formatDuration(recipe.time?.preparation),
+		cookTime: formatDuration(recipe.time?.cook),
+		keywords: [recipe.vegan ? 'vegana' : null, recipe.vegetarian ? 'vegetariana' : null, ...recipe.tags].filter(
+			(e) => e
+		),
+		recipeCategory: recipe.type?.title,
+		recipeIngredient: mergeIngredients(
+      calcAmountIngredients(
+        recipe.ingredientGroups.reduce(
+          (pi, ci) => pi.concat(ci.ingredients),
+          [] as RecipeIngredientWithRelations[]
+        ), recipe.units, recipe.units)
+    ).map(
+			(i) => getIngredientRowString(i)
+		),
+		recipeYield: recipe.units,
+    recipeInstructions: recipe.recipeSteps.map((step)=>({
+      "@type": "HowToStep",
+      "text": removeTags(step.text),
+      "url": $page.url + `#step${step.number}`,
+    })),
+		totalTime: formatDuration(
+			(recipe.time?.cook || 0) +
+				(recipe.time?.leavening || 0) +
+				(recipe.time?.preparation ||0)+
+				(recipe.time?.rest || 0)
+		)
+	}));
 </script>
 
 <svelte:head>
-  <title>{title(recipe.title)}</title>
+	<title>{title(recipe.title)}</title>
+
+	<meta name="description" content={recipe.summary} />
+
+	<meta property="og:title" content={title(recipe.title)} />
+	<meta property="og:description" content={recipe.summary} />
+	<meta property="og:type" content="article" />
+	<meta property="og:site_name" content="Da Allesio" />
+	<meta property="og:image" content={getImageUrl(recipe.image as Image)} />
+	<meta property="og:locale" content="it_IT" />
+
+	{@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</script>`}
 </svelte:head>
 
 <main class="main-content mt-5">
@@ -165,7 +220,7 @@
 
         {#each recipe.recipeSteps as step}
         <div class="flex flex-col items-start justify-start mt-5 print:mt-0">
-          <span class="rounded-full bg-secondary text-secondary-foreground py-1 px-3 font-semibold text-sm print:hidden">Passaggio #{step.number}</span>
+          <span id="step{step.number}" class="rounded-full bg-secondary text-secondary-foreground py-1 px-3 font-semibold text-sm print:hidden">Passaggio #{step.number}</span>
           <div>{@html step.text}</div>
         </div>
         {/each}

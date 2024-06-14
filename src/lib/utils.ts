@@ -247,3 +247,14 @@ export function getRecipeAllergens(recipe: Recipe) {
 
   return recipeAllergens;
 }
+
+export function formatDuration(time: number | null) {
+  return time ? "PT" + time.toString() + "M" : "PT0M";
+}
+
+export function removeTags(str: string) {
+  if (str === null || str === "") return false;
+  else str = str.toString();
+
+  return str.replace(/(<([^>]+)>)/gi, "");
+}
