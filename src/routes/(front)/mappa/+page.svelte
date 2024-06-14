@@ -27,11 +27,9 @@
     // const { GestureHandling } = await import("leaflet-gesture-handling");
     // L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
-    await import("leaflet.markercluster");
-    const { MarkerClusterGroup } = await import("leaflet");
+    const L1:any = await import("leaflet.markercluster");
 
     const markerIcon = L.icon({ iconUrl: "/img/map-marker.png", iconSize: [32, 37], iconAnchor: [16, 37] });
-
 
     mapInstance = L.map(mapElement, {
       gestureHandling: true,
@@ -48,7 +46,7 @@
       maxZoom: 18,
     }).addTo(mapInstance);
 
-    const markers = new MarkerClusterGroup();
+    const markers = new L1.MarkerClusterGroup();
     for (let recipe of recipes) {
       if (recipe.originPlace.lat && recipe.originPlace.lng) {
         const mark = L.marker([recipe.originPlace.lat, recipe.originPlace.lng], { icon: markerIcon });
