@@ -70,6 +70,7 @@
 
 <svelte:head>
   <title>{title("Mappa")}</title>
+  <meta property="og:title" content={title("Mappa")} />
 </svelte:head>
 
 <div bind:this={mapElement} class="h-screen -z-0"></div>
