@@ -106,7 +106,7 @@
         <div><span class="font-thin">Origine</span> <a href="/area/{recipe.originPlace.area.toLowerCase().replace('_', '-')}" class="lowercase font-bold">{OriginAreaEnum[recipe.originPlace.area]}</a></div>
         {/if}
 
-        <div class="mt-5 flex gap-5 flex-wrap print:mt-0">
+        <div class="mt-5 flex gap-x-5 flex-wrap print:mt-0">
           {#if recipe.time.preparation}
             <div><span class="font-thin">Preparazione</span> <strong>{formatTime(recipe.time.preparation)}</strong></div>
           {/if}
