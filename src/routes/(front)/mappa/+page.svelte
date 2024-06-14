@@ -8,6 +8,7 @@
 
   import LazyImage from "$lib/components/LazyImage.svelte";
   import Button from "$lib/components/ui/button/button.svelte";
+  import { title } from "$lib/utils";
   import type { Image } from "@prisma/client";
   import type { Map, MapOptions } from "leaflet";
 
@@ -66,6 +67,10 @@
     loadMap();
   });
 </script>
+
+<svelte:head>
+  <title>{title("Mappa")}</title>
+</svelte:head>
 
 <div bind:this={mapElement} class="h-screen -z-0"></div>
 
