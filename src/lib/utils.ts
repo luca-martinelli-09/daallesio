@@ -74,7 +74,8 @@ export const flyAndScale = (node: Element, params: FlyAndScaleParams = { y: -8, 
   };
 };
 
-export function title(title: string) {
+export function title(title?: string) {
+  if (!title) return env.PUBLIC_APP_NAME;
   return title + " | " + env.PUBLIC_APP_NAME;
 }
 

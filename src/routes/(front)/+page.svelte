@@ -6,7 +6,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import Input from "$lib/components/ui/input/input.svelte";
   import type { Pagination as PaginationType, PartialRecipe } from "$lib/types";
-  import { getSrcSet } from "$lib/utils.js";
+  import { getSrcSet, title } from "$lib/utils.js";
   import { ArrowRight, Search } from "lucide-svelte";
 
   let { data } = $props();
@@ -14,7 +14,22 @@
 
   let searchForm: HTMLFormElement;
   let searchValue = $state($page.url.searchParams.get("q") || "");
+
+  const schemaOrg = $derived.by(() => ({
+    "@context": "https://schema.org/",
+    "@type": "ItemList",
+    itemListElement: recipes.map((recipe, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: $page.url.origin + "/ricette/" + recipe.slug,
+    })),
+  }));
 </script>
+
+<svelte:head>
+  <title>{title()}</title>
+  {@html `<script type="application/ld+json">${JSON.stringify(schemaOrg)}</script>`}
+</svelte:head>
 
 <form bind:this={searchForm}>
   <div class="mb-16">
