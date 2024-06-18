@@ -5,4 +5,4 @@
   let { recipes, category, pagination } = $derived(data);
 </script>
 
-<RecipeList {recipes} {pagination} listTitle="Categorie: {category.plural || category.title}" />
+<RecipeList {recipes} {pagination} listTitle="Categoria: {category.plural || category.title}" />

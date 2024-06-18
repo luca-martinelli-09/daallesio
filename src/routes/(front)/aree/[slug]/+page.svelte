@@ -6,4 +6,4 @@
   let { recipes, area, pagination } = $derived(data);
 </script>
 
-<RecipeList {recipes} {pagination} listTitle="Aree: {OriginAreaEnum[area]}" />
+<RecipeList {recipes} {pagination} listTitle="Area: {OriginAreaEnum[area]}" />
