@@ -9,12 +9,14 @@
   const srcSet = getSrcSet(src);
 </script>
 
-<CustomLazyImage
-  image={{
-    src: src,
-    alt: image.alt,
-    base64: image.base64,
-    srcSet: srcSet,
-  }}
-  class={classlist}
-/>
+{#if image}
+  <CustomLazyImage
+    image={{
+      src: src,
+      alt: image.alt,
+      base64: image.base64,
+      srcSet: srcSet,
+    }}
+    class={classlist}
+  />
+{/if}

@@ -13,7 +13,7 @@
   let query: string = $state("");
 
   async function fetchImages() {
-    const r = await (await fetch("/admin/api/images?" + new URLSearchParams({ query, page: (pagination?.page || 0).toString() }))).json();
+    const r = await (await fetch("/admin/api/images?" + new URLSearchParams({ q: query, page: (pagination?.page || 0).toString() }))).json();
 
     images = r.data as Image[];
     pagination = r.pagination as PaginationType;

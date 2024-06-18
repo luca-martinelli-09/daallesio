@@ -22,8 +22,8 @@ export const load: PageServerLoad = async ({ params }) => {
             ingredients: {
               orderBy: [{ order: "asc" }],
               include: {
-                ingredient: true,
-                recipe: true,
+                ingredient: { include: { image: true } },
+                recipe: { include: { image: true } },
               },
             },
           },

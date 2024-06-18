@@ -33,6 +33,14 @@
             <Form.FieldErrors />
           </Form.Field>
 
+          <Form.Field {form} name="plural">
+            <Form.Control let:attrs>
+              <Form.Label>Nome plurale</Form.Label>
+              <Input {...attrs} bind:value={$formData.plural} />
+            </Form.Control>
+            <Form.FieldErrors />
+          </Form.Field>
+
           <Form.Field {form} name="order">
             <Form.Control let:attrs>
               <Form.Label>Posizione di ordinamento</Form.Label>

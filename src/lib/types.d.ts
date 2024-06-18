@@ -12,7 +12,7 @@ export type DeleteModalData = {
 };
 
 const recipeIngredientWithRelations = Prisma.validator<Prisma.RecipeIngredientGetPayload>()({
-  include: { ingredient: true, recipe: true },
+  include: { ingredient: { include: { image: true } }, recipe: { include: { image: true } } },
 });
 export type RecipeIngredientWithRelations = Prisma.RecipeIngredientGetPayload<typeof recipeIngredientWithRelations>;
 
@@ -30,8 +30,8 @@ const fullRecipe = Prisma.validator<Prisma.RecipeGetPayload>()({
       include: {
         ingredients: {
           include: {
-            ingredient: true,
-            recipe: true,
+            ingredient: { include: { image: true } },
+            recipe: { include: { image: true } },
           },
         },
       },

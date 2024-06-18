@@ -9,7 +9,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import { cn } from "$lib/utils.js";
-  import { CookingPot, Image, ShoppingBasket, Tag } from "lucide-svelte";
+  import { Book, CookingPot, Image, ShoppingBasket, Tag } from "lucide-svelte";
   import { resetMode, setMode } from "mode-watcher";
 
   const { data, children } = $props();
@@ -20,6 +20,7 @@
   const menuItems = [
     { name: "Ricette", href: "/admin/ricette", icon: CookingPot },
     { name: "Ingredienti", href: "/admin/ingredienti", icon: ShoppingBasket },
+    { name: "Raccolte", href: "/admin/raccolte", icon: Book },
     { name: "Immagini", href: "/admin/immagini", icon: Image },
     { name: "Tipi di ricette", href: "/admin/tipi-ricette", icon: Tag },
   ];

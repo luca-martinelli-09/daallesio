@@ -158,6 +158,8 @@ export function calcAmountIngredients(ingredients: RecipeIngredientWithRelations
 }
 
 export function getImageUrl(image: Image) {
+  if (!image) return "";
+
   return env.PUBLIC_S3_URL + image.fileId + "/" + image.fileName;
 }
 
@@ -258,4 +260,11 @@ export function removeTags(str: string) {
   else str = str.toString();
 
   return str.replace(/(<([^>]+)>)/gi, "");
+}
+
+export function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
 }

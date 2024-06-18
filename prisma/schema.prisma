@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "library"
 }
 
@@ -52,6 +52,8 @@ model Image {
 
   recipes          Recipe[]
   recipeStepImages RecipeStepImage[]
+  Ingredient       Ingredient[]
+  Collection       Collection[]
 }
 
 // Enums
@@ -171,9 +173,10 @@ type PreparationTime {
 model RecipeType {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  slug  String @unique
-  title String
-  order Int    @default(0)
+  slug   String  @unique
+  title  String
+  plural String?
+  order  Int     @default(0)
 
   recipes Recipe[]
 }
@@ -209,6 +212,7 @@ model Recipe {
   sources          Source[]
 
   recipeIngredients RecipeIngredient[]
+  RecipeCollection  RecipeCollection[]
 
   @@index([date])
   @@index([draft])
@@ -281,8 +285,12 @@ model Ingredient {
   allergens   Allergen[]
   tags        String[]   @default([])
   defaultUnit UnitType?
+  imageId     String?    @db.ObjectId
 
   recipeIngredients RecipeIngredient[]
+  image             Image?             @relation(references: [id], fields: [imageId], onDelete: SetNull)
+
+  @@index([imageId])
 }
 
 // Recipe steps
@@ -311,4 +319,34 @@ model RecipeStepImage {
 
   @@index([recipeStepId])
   @@index([imageId])
+}
+
+// Collections
+
+model Collection {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title   String
+  summary String?
+  imageId String   @db.ObjectId
+  tags    String[] @default([])
+
+  image            Image              @relation(references: [id], fields: [imageId], onDelete: Cascade)
+  RecipeCollection RecipeCollection[]
+
+  @@index([imageId])
+}
+
+model RecipeCollection {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  recipeId     String @db.ObjectId
+  collectionId String @db.ObjectId
+  order        Int    @default(0)
+
+  recipe     Recipe     @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+  collection Collection @relation(references: [id], fields: [collectionId], onDelete: Cascade)
+
+  @@index([recipeId])
+  @@index([collectionId])
 }

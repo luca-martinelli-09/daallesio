@@ -60,6 +60,7 @@
     <Table.Header>
       <Table.Row>
         <Table.Head>Titolo</Table.Head>
+        <Table.Head>Titolo plurale</Table.Head>
         <Table.Head>Permalink</Table.Head>
         <Table.Head></Table.Head>
       </Table.Row>
@@ -68,6 +69,7 @@
       {#each recipeTypes as recipeType}
         <Table.Row>
           <Table.Cell>{recipeType.title}</Table.Cell>
+          <Table.Cell>{recipeType.plural}</Table.Cell>
           <Table.Cell>{recipeType.slug}</Table.Cell>
           <Table.Cell>
             <DropDownActions

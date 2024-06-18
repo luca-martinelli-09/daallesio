@@ -1,5 +1,6 @@
 <script lang="ts">
-  import DeleteModal from "$lib/components/admin/ui/DeleteModal.svelte";
+  import LazyImage from "$lib/components/LazyImage.svelte";
+import DeleteModal from "$lib/components/admin/ui/DeleteModal.svelte";
   import DropDownActions from "$lib/components/admin/ui/DropDownActions.svelte";
   import Pagination from "$lib/components/admin/ui/Pagination.svelte";
   import SaveButton from "$lib/components/admin/ui/SaveButton.svelte";
@@ -67,7 +68,14 @@
     <Table.Body>
       {#each ingredients as ingredient}
         <Table.Row>
-          <Table.Cell>{ingredient.name}</Table.Cell>
+          <Table.Cell>
+            <div class="flex items-center gap-2">
+              {#if ingredient.image}
+                <LazyImage class="h-7 w-7 rounded-full overflow-hidden" image={ingredient.image} />
+              {/if}
+              <span>{ingredient.name}</span>
+            </div>
+          </Table.Cell>
           <Table.Cell>{ingredient.slug}</Table.Cell>
           <Table.Cell>
             <DropDownActions

@@ -21,6 +21,9 @@ export const load: PageServerLoad = async ({ url }) => {
     orderBy: {
       name: "asc",
     },
+    include: {
+      image: true,
+    },
   });
 
   const count = await prisma.ingredient.count();

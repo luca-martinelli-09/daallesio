@@ -14,6 +14,9 @@ export const load: PageServerLoad = async ({ params }) => {
       where: {
         id: params.id,
       },
+      include: {
+        image: true,
+      },
     });
   } catch (error) {}
 
@@ -36,7 +39,7 @@ export const actions: Actions = {
       where: {
         id: params.id,
       },
-      data: _.omit(formData, "slug"),
+      data: _.omit(formData, ["slug", "image"]),
     });
 
     return message(form, "Modifiche salvate con successo");

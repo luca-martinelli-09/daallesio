@@ -5,7 +5,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import { DifficultyEnum, OriginAreaEnum } from "$lib/form/enums";
   import type { FullRecipe, RecipeIngredientWithRelations } from "$lib/types";
-  import { calcAmountIngredients, formatDuration, formatTime, getImageUrl, getIngredientAmount, getIngredientName, getIngredientRowString, getRecipeAllergens, getRecipeLabels, mergeIngredients, removeTags, title } from "$lib/utils";
+  import { calcAmountIngredients, formatDuration, formatTime, getImageUrl, getIngredientAmount, getIngredientName, getIngredientRowString, getRecipeAllergens, getRecipeLabels, mergeIngredients, removeTags, slugify, title } from "$lib/utils";
   import Icon from "@iconify/svelte";
   import { fromDate, getLocalTimeZone, toCalendarDate } from "@internationalized/date";
   import { type Image } from "@prisma/client";
@@ -13,7 +13,7 @@
   
   let { data } = $props();
   let { recipe }: { recipe: FullRecipe } = $derived(data);
-  let units:number = $state(data.recipe.units);
+  let units:number = $state(data.recipe?.units);
 
   function notEmpty(text?: string|null) {
     return text && text.replaceAll("<[^>]*>", "").trim().length > 0;
@@ -100,10 +100,10 @@
 
       <div class="mt-10 flex flex-col gap-3">
         {#if recipe.type}
-        <div><span class="font-thin">Categoria</span> <a href="/categoria/{recipe.type.slug}" class="lowercase font-bold">{recipe.type.title}</a></div>
+        <div><span class="font-thin">Categoria</span> <a href="/categorie/{recipe.type.slug}" class="lowercase font-bold">{recipe.type.title}</a></div>
         {/if}
         {#if recipe.originPlace?.area}
-        <div><span class="font-thin">Origine</span> <a href="/area/{recipe.originPlace.area.toLowerCase().replace('_', '-')}" class="lowercase font-bold">{OriginAreaEnum[recipe.originPlace.area]}</a></div>
+        <div><span class="font-thin">Origine</span> <a href="/aree/{slugify(OriginAreaEnum[recipe.originPlace.area])}" class="lowercase font-bold">{OriginAreaEnum[recipe.originPlace.area]}</a></div>
         {/if}
 
         <div class="mt-5 flex gap-x-5 flex-wrap print:mt-0">
@@ -183,7 +183,15 @@
           <ul class="flex flex-col gap-1">
             {#each mergeIngredients(calcAmountIngredients(group.ingredients, recipe.units, units)) as ingredient}
               <li class="my-1 flex items-center gap-3">
-                <span class="bg-muted text-muted-foreground w-10 h-10 rounded-full flex justify-center items-center select-none print:hidden">{getIngredientName(ingredient).charAt(0)}</span>
+                <div>
+                  {#if ingredient.ingredient?.image || ingredient.recipe?.image}
+                    <div class="w-10 h-10 rounded-full overflow-hidden select-none print:hidden">
+                      <LazyImage image={(ingredient.ingredient?.image || ingredient.recipe?.image) as Image} /> 
+                    </div>
+                  {:else}
+                    <span class="bg-muted text-muted-foreground w-10 h-10 rounded-full flex justify-center items-center select-none print:hidden">{getIngredientName(ingredient).charAt(0)}</span>
+                  {/if}
+                </div>
                 <div class="flex flex-col flex-1">
                   {#if ingredient.ingredientType === "RECIPE" && ingredient.recipe}
                     <a href="/ricette/{ingredient.recipe.slug}">{getIngredientName(ingredient)}</a>
@@ -238,7 +246,7 @@
       {#if recipe.tags?.length}
       <div class="flex items-center gap-2 text-xs mt-5 print:hidden">
         {#each recipe.tags as tag}
-          <a href="/tag/{tag.replace(' ', '-')}" class="before:content-['#'] px-2 py-1 rounded-full bg-primary text-primary-foreground font-semibold">{tag}</a>
+          <a href="/tag/{slugify(tag)}" class="before:content-['#'] px-2 py-1 rounded-full bg-primary text-primary-foreground font-semibold">{tag}</a>
         {/each}
       </div>
       {/if}

@@ -8,12 +8,19 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import { cn } from "$lib/utils.js";
-  import { CookingPot, Map, SunMoon } from "lucide-svelte";
+  import type { RecipeType } from "@prisma/client";
+  import { Book, CookingPot, Home, Map, SunMoon } from "lucide-svelte";
   import { resetMode, setMode } from "mode-watcher";
+
+  const { categories }: { categories: RecipeType[] } = $props();
 
   let open = $state(false);
 
-  const menuItems: { name: string; href: string; icon: typeof CookingPot }[] = [{ name: "Mappa", href: "/mappa", icon: Map }];
+  const menuItems: { title?: string; items: { name: string; href: string; icon: typeof CookingPot; exact?: boolean }[] }[] = [
+    { items: [{ name: "Home", href: "/", icon: Home, exact: true }] },
+    { items: [{ name: "Mappa", href: "/mappa", icon: Map }] },
+    { items: [{ name: "Raccolte", href: "/raccolte", icon: Book }] },
+  ];
 </script>
 
 <header class="grid grid-cols-3 items-center justify-center py-5 px-3 print:hidden">
@@ -26,23 +33,28 @@
         </Button>
       </Sheet.Trigger>
       <Sheet.Content side="left" class="flex flex-col">
-        <nav class="grid gap-2 text-lg font-medium">
+        <nav class="grid gap-1 text-lg font-medium">
           <a href="/" class="flex items-center gap-2 text-lg font-semibold mb-5" onclick={() => (open = false)}>
             <Logo class="h-6 w-6 text-primary" />
             <span class="font-display font-bold">{env.PUBLIC_APP_NAME}</span>
           </a>
-          {#each menuItems as menuItem}
-            <a
-              href={menuItem.href}
-              onclick={() => (open = false)}
-              class={cn(
-                "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground",
-                $page.url.pathname.startsWith(menuItem.href) && "bg-primary/10 text-primary"
-              )}
-            >
-              <svelte:component this={menuItem.icon} class="h-4 w-4" />
-              <span>{menuItem.name}</span>
-            </a>
+          {#each menuItems as menuGroup}
+            {#if menuGroup.title}
+              <h3 class="text-sm font-semibold my-3">{menuGroup.title}</h3>
+            {/if}
+            {#each menuGroup.items as menuItem}
+              <a
+                href={menuItem.href}
+                onclick={() => (open = false)}
+                class={cn(
+                  "mx-[-0.65rem] flex items-center gap-3 rounded-xl px-3 py-1 text-muted-foreground hover:text-foreground",
+                  ((menuItem.exact && $page.url.pathname === menuItem.href) || (!menuItem.exact && $page.url.pathname.startsWith(menuItem.href))) && "bg-primary/10 text-primary hover:text-primary"
+                )}
+              >
+                <svelte:component this={menuItem.icon} class="h-4 w-4" />
+                <span>{menuItem.name}</span>
+              </a>
+            {/each}
           {/each}
         </nav>
       </Sheet.Content>

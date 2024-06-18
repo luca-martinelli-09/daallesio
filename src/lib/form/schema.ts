@@ -38,6 +38,22 @@ export const editUserSchema = registerSchema.merge(
 
 export const loginSchema = registerSchema.omit({ name: true });
 
+// Images
+
+export const uploadImageSchema = z.object({
+  image: z.instanceof(File, { message: "Carica un file" }).refine((f) => f.type.startsWith("image/"), "Il file caricato non è un immagine"),
+  base64: z.string().nullable(),
+});
+
+export const editImageSchema = z.object({
+  fileId: z.string(),
+  fileName: z.string(),
+  base64: z.string().nullable(),
+  caption: z.string().nullable(),
+  alt: z.string().nullable(),
+  tags: tags,
+});
+
 // Ingredient
 
 export const createIngredientSchema = z.object({
@@ -54,6 +70,9 @@ export const editIngredientSchema = createIngredientSchema.merge(
     allergens: allergens,
     tags: tags,
     defaultUnit: unitType,
+
+    imageId: z.string().nullable(),
+    image: editImageSchema.nullable(),
   })
 );
 
@@ -67,6 +86,7 @@ export const createRecipeTypeSchema = z.object({
 export const editRecipeTypeSchema = createRecipeTypeSchema.merge(
   z.object({
     slug: slug.optional(),
+    plural: name.nullable(),
     order: order,
   })
 );
@@ -130,20 +150,6 @@ export const editRecipeSchema = createRecipeSchema.merge(
     imageId: z.string().nullable(),
   })
 );
-
-export const uploadImageSchema = z.object({
-  image: z.instanceof(File, { message: "Carica un file" }).refine((f) => f.type.startsWith("image/"), "Il file caricato non è un immagine"),
-  base64: z.string().nullable(),
-});
-
-export const editImageSchema = z.object({
-  fileId: z.string(),
-  fileName: z.string(),
-  base64: z.string().nullable(),
-  caption: z.string().nullable(),
-  alt: z.string().nullable(),
-  tags: tags,
-});
 
 export const editFullRecipeSchema = editRecipeSchema.merge(
   z.object({
