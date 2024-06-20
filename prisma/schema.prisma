@@ -327,12 +327,14 @@ model Collection {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   title   String
+  slug    String   @unique
   summary String?
-  imageId String   @db.ObjectId
+  imageId String?  @db.ObjectId
   tags    String[] @default([])
+  order   Int      @default(0)
 
-  image            Image              @relation(references: [id], fields: [imageId], onDelete: Cascade)
-  RecipeCollection RecipeCollection[]
+  image   Image?             @relation(references: [id], fields: [imageId], onDelete: Cascade)
+  recipes RecipeCollection[]
 
   @@index([imageId])
 }
@@ -340,11 +342,11 @@ model Collection {
 model RecipeCollection {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  recipeId     String @db.ObjectId
-  collectionId String @db.ObjectId
-  order        Int    @default(0)
+  recipeId     String? @db.ObjectId
+  collectionId String  @db.ObjectId
+  order        Int     @default(0)
 
-  recipe     Recipe     @relation(references: [id], fields: [recipeId], onDelete: Cascade)
+  recipe     Recipe?    @relation(references: [id], fields: [recipeId], onDelete: Cascade)
   collection Collection @relation(references: [id], fields: [collectionId], onDelete: Cascade)
 
   @@index([recipeId])

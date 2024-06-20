@@ -2,9 +2,9 @@
   import { OriginAreaEnum } from "$lib/form/enums";
   import { slugify } from "$lib/utils";
   import Icon from "@iconify/svelte";
-  import type { RecipeType } from "@prisma/client";
+  import type { Collection, RecipeType } from "@prisma/client";
 
-  const { categories }: { categories: RecipeType[] } = $props();
+  const { categories, collections }: { categories: RecipeType[]; collections: Collection[] } = $props();
 </script>
 
 <footer class="border-t mt-10">
@@ -20,7 +20,7 @@
           {/each}
         </ul>
       </div>
-  
+
       <div class="text-center">
         <h6 class="font-bold">Aree</h6>
         <ul class="mt-3">
@@ -35,11 +35,11 @@
       <div class="text-right">
         <h6 class="font-bold">Raccolte</h6>
         <ul class="mt-3">
-          <!-- {#each Object.entries(OriginAreaEnum) as [area, title]}
+          {#each collections as collection}
             <li class="py-1">
-              <a href="/raccolte/{slugify(title)}">{title}</a>
+              <a href="/raccolte/{collection.slug}">{collection.title}</a>
             </li>
-          {/each} -->
+          {/each}
         </ul>
       </div>
     </div>

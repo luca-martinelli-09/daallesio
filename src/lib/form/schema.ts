@@ -202,3 +202,34 @@ export const editFullRecipeSchema = editRecipeSchema.merge(
     image: editImageSchema.nullable(),
   })
 );
+
+// Collections
+
+export const createCollectionSchema = z.object({
+  title: name,
+  slug: slug,
+});
+
+export const editCollectionSchema = createCollectionSchema.merge(
+  z.object({
+    slug: slug.optional(),
+    summary: z.string().nullable(),
+    tags: tags,
+    order: order,
+    imageId: z.string().nullable(),
+
+    image: editImageSchema.nullable(),
+
+    recipes: z
+      .object({
+        id: z.string().nullable(),
+        recipeId: z.string().nullable(),
+        collectionId: z.string(),
+        order: order,
+
+        recipe: editRecipeSchema.merge(z.object({ id: z.string(), slug: slug, date: editRecipeSchema.shape.date.nullable() })).nullable(),
+      })
+      .array()
+      .default([]),
+  })
+);

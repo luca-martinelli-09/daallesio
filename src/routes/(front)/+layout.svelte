@@ -4,11 +4,11 @@
     import "./app.css";
 
     const {children, data} = $props()
-    const {categories} = $derived(data)
+    const {categories, collections} = $derived(data)
 </script>
 
 <Header {categories} />
 
 {@render children()}
 
-<Footer {categories} />
+<Footer {categories} {collections} />

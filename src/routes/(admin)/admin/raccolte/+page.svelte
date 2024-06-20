@@ -13,7 +13,7 @@
 
   let { data } = $props();
 
-  let { recipeTypes, pagination } = $derived(data);
+  let { collections, pagination } = $derived(data);
 
   let form = crudForm(data.form, true);
   let { form: formData, enhance } = form;
@@ -31,7 +31,7 @@
     </Dialog.Trigger>
     <Dialog.Content>
       <Dialog.Header>
-        <Dialog.Title>Nuovo tipo di ricetta</Dialog.Title>
+        <Dialog.Title>Nuova raccolta</Dialog.Title>
         <Dialog.Description>Inserisci le informazioni di base</Dialog.Description>
       </Dialog.Header>
       <form method="post" action="?/create" use:enhance>
@@ -60,30 +60,28 @@
     <Table.Header>
       <Table.Row>
         <Table.Head>Titolo</Table.Head>
-        <Table.Head>Titolo plurale</Table.Head>
         <Table.Head>Permalink</Table.Head>
-        <Table.Head></Table.Head>
+        <Table.Head class="w-0"></Table.Head>
       </Table.Row>
     </Table.Header>
     <Table.Body>
-      {#each recipeTypes as recipeType}
+      {#each collections as collection}
         <Table.Row>
-          <Table.Cell>{recipeType.title}</Table.Cell>
-          <Table.Cell>{recipeType.plural}</Table.Cell>
-          <Table.Cell>{recipeType.slug}</Table.Cell>
+          <Table.Cell>{collection.title}</Table.Cell>
+          <Table.Cell>{collection.slug}</Table.Cell>
           <Table.Cell>
             <DropDownActions
-              editHref="/admin/tipi-ricette/{recipeType.id}"
+              editHref="/admin/raccolte/{collection.id}"
               ondelete={() => {
-                deleteModal = { open: true, id: recipeType.id };
+                deleteModal = { open: true, id: collection.id };
               }}
             />
           </Table.Cell>
         </Table.Row>
       {/each}
-      {#if !recipeTypes.length}
+      {#if !collections.length}
         <Table.Row>
-          <Table.Cell colspan={3} class="no-data-cell">Nessuna tipologia di ricetta trovata</Table.Cell>
+          <Table.Cell colspan={5} class="no-data-cell">Nessuna raccolta trovata</Table.Cell>
         </Table.Row>
       {/if}
     </Table.Body>

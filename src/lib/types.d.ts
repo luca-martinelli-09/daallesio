@@ -49,3 +49,10 @@ const fullRecipe = Prisma.validator<Prisma.RecipeGetPayload>()({
   },
 });
 export type FullRecipe = Prisma.RecipeGetPayload<typeof fullRecipe>;
+
+const partialCollection = Prisma.validator<Prisma.CollectionGetPayload>()({
+  include: {
+    image: true,
+  },
+});
+export type PartialCollection = Prisma.CollectionGetPayload<typeof partialCollection>;

@@ -24,6 +24,8 @@
   });
 
   async function loadMap() {
+    if(!mapElement) return;
+
     const L = await import("leaflet");
     // const { GestureHandling } = await import("leaflet-gesture-handling");
     // L.Map.addInitHook("addHandler", "gestureHandling", GestureHandling);

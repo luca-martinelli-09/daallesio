@@ -7,7 +7,7 @@
 
   let { data } = $props();
 
-  const form = crudForm(data.form);
+  const form = crudForm(data.form, true);
   const { form: formData, enhance } = form;
 </script>
 
@@ -52,21 +52,23 @@
       </Card.Root>
     </div>
 
-    <div class="side-cards">
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>SEO</Card.Title>
-        </Card.Header>
-        <Card.Content>
-          <Form.Field {form} name="slug">
-            <Form.Control let:attrs>
-              <Form.Label>Permalink</Form.Label>
-              <Input {...attrs} bind:value={$formData.slug} readonly />
-            </Form.Control>
-            <Form.FieldErrors />
-          </Form.Field>
-        </Card.Content>
-      </Card.Root>
+    <div>
+      <div class="side-cards">
+        <Card.Root>
+          <Card.Header>
+            <Card.Title>SEO</Card.Title>
+          </Card.Header>
+          <Card.Content>
+            <Form.Field {form} name="slug">
+              <Form.Control let:attrs>
+                <Form.Label>Permalink</Form.Label>
+                <Input {...attrs} bind:value={$formData.slug} readonly />
+              </Form.Control>
+              <Form.FieldErrors />
+            </Form.Field>
+          </Card.Content>
+        </Card.Root>
+      </div>
     </div>
   </div>
 </form>

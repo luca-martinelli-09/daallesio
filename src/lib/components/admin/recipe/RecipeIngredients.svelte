@@ -130,7 +130,7 @@
                           {form}
                           bind:formData={ingredient.ingredientId}
                           onchange={(r) => {
-                            $formData.ingredientGroups[i].ingredients[j].ingredient = r ? { ...r } : null;
+                            $formData.ingredientGroups[i].ingredients[j].ingredient = r ? { ...r, image: null } : null;
                             $formData.ingredientGroups[i].ingredients[j].recipe = null;
                             $formData.ingredientGroups[i].ingredients[j].recipeId = null;
                           }}
