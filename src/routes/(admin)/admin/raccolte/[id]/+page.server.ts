@@ -58,7 +58,7 @@ export const actions: Actions = {
       });
 
       // Delete removed recipes
-      existingRecipes.forEach(async (s) => {
+      for (const s of existingRecipes) {
         if (formData.recipes.find((ss) => ss.id === s.id)) return;
 
         await prisma.recipeCollection.delete({
@@ -66,9 +66,9 @@ export const actions: Actions = {
             id: s.id,
           },
         });
-      });
+      }
 
-      formData.recipes.forEach(async (s) => {
+      for (const s of formData.recipes) {
         // Create if not exists
         if (!s.id) {
           await prisma.recipeCollection.create({
@@ -88,7 +88,7 @@ export const actions: Actions = {
           },
           data: _.omit(s, "id", "recipe"),
         });
-      });
+      }
     }
 
     return message(form, "Modifiche salvate con successo");

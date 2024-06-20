@@ -1,6 +1,6 @@
 import { editFullRecipeSchema } from "$lib/form/schema";
 import { prisma } from "$lib/server/prisma";
-import type { IngredientGroup, RecipeStep } from "@prisma/client";
+import type { IngredientGroup } from "@prisma/client";
 import { error, fail } from "@sveltejs/kit";
 import _ from "lodash";
 import { message, superValidate } from "sveltekit-superforms";
@@ -82,17 +82,17 @@ export const actions: Actions = {
       });
 
       // Delete removed groups
-      existingGroups.forEach(async (s) => {
-        if (formData.ingredientGroups.find((ss) => ss.id === s.id)) return;
+      for (const s of existingGroups) {
+        if (formData.ingredientGroups.find((ss) => ss.id === s.id)) continue;
 
         await prisma.ingredientGroup.delete({
           where: {
             id: s.id,
           },
         });
-      });
+      }
 
-      formData.ingredientGroups.forEach(async (g) => {
+      for (const g of formData.ingredientGroups) {
         let ingredientGroup: IngredientGroup;
 
         // Create if not exists
@@ -115,7 +115,25 @@ export const actions: Actions = {
 
         // Update ingredients
 
-        g.ingredients.forEach(async (i) => {
+        const existingIngredients = await prisma.recipeIngredient.findMany({
+          where: {
+            ingredientGroupId: ingredientGroup.id,
+          },
+        });
+
+        // Delete removed ingredients
+        for (const s of existingIngredients) {
+          if (g.ingredients.find((ss) => ss.id === s.id)) continue;
+
+          await prisma.recipeIngredient.delete({
+            where: {
+              id: s.id,
+              ingredientGroupId: ingredientGroup.id,
+            },
+          });
+        }
+
+        for (const i of g.ingredients) {
           // Create if not exists
           if (!i.id) {
             await prisma.recipeIngredient.create({
@@ -133,28 +151,8 @@ export const actions: Actions = {
               data: _.omit(i, ["id", "ingredient", "recipe"]),
             });
           }
-        });
-
-        await sleep(500);
-
-        const existingIngredients = await prisma.recipeIngredient.findMany({
-          where: {
-            ingredientGroupId: ingredientGroup.id,
-          },
-        });
-
-        // Delete removed ingredients
-        existingIngredients.forEach(async (s) => {
-          if (g.ingredients.find((ss) => ss.id === s.id)) return;
-
-          await prisma.recipeIngredient.delete({
-            where: {
-              id: s.id,
-              ingredientGroupId: ingredientGroup.id,
-            },
-          });
-        });
-      });
+        }
+      }
     }
 
     // Update sources
@@ -167,17 +165,17 @@ export const actions: Actions = {
       });
 
       // Delete removed sources
-      existingSources.forEach(async (s) => {
-        if (formData.sources.find((ss) => ss.id === s.id)) return;
+      for (const s of existingSources) {
+        if (formData.sources.find((ss) => ss.id === s.id)) continue;
 
         await prisma.source.delete({
           where: {
             id: s.id,
           },
         });
-      });
+      }
 
-      formData.sources.forEach(async (s) => {
+      for (const s of formData.sources) {
         // Create if not exists
         if (!s.id) {
           await prisma.source.create({
@@ -196,11 +194,10 @@ export const actions: Actions = {
           },
           data: _.omit(s, "id"),
         });
-      });
+      }
     }
 
     // Update steps
-
     if (formData.recipeSteps) {
       const existingSteps = await prisma.recipeStep.findMany({
         where: {
@@ -209,17 +206,17 @@ export const actions: Actions = {
       });
 
       // Delete removed steps
-      existingSteps.forEach(async (s) => {
-        if (formData.recipeSteps.find((ss) => ss.id === s.id)) return;
+      for (const s of existingSteps) {
+        if (formData.recipeSteps.find((ss) => ss.id === s.id)) continue;
 
         await prisma.recipeStep.delete({
           where: {
             id: s.id,
           },
         });
-      });
+      }
 
-      formData.recipeSteps.forEach(async (s) => {
+      for (const s of formData.recipeSteps) {
         // Create if not exists
         if (!s.id) {
           await prisma.recipeStep.create({
@@ -237,7 +234,7 @@ export const actions: Actions = {
             data: _.omit(s, ["id"]),
           });
         }
-      });
+      }
     }
 
     return message(form, "Modifiche salvate con successo");
