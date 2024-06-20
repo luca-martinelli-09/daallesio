@@ -151,9 +151,10 @@ export const actions: Actions = {
           }
         });
       });
+      
+      return message(form, JSON.stringify(formData.ingredientGroups));
     }
 
-    return message(form, JSON.stringify(formData.ingredientGroups));
 
     // Update sources
 
