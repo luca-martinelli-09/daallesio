@@ -152,8 +152,8 @@ export const actions: Actions = {
         });
       });
     }
-    
-    return message(form, formData.ingredientGroups);
+
+    return message(form, JSON.stringify(formData.ingredientGroups));
 
     // Update sources
 
