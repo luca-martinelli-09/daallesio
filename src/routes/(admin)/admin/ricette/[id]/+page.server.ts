@@ -168,6 +168,7 @@ export const actions: Actions = {
           await prisma.recipeIngredient.delete({
             where: {
               id: s.id,
+              ingredientGroupId: ingredientGroup.id,
             },
           });
         });
