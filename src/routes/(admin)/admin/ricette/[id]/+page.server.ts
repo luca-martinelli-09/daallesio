@@ -152,7 +152,7 @@ export const actions: Actions = {
         });
       });
 
-      return formData.ingredientGroups;
+      return message(form, formData.ingredientGroups);
     }
 
     // Update sources
