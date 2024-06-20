@@ -131,6 +131,8 @@ export const actions: Actions = {
           });
         });
 
+        return message(form, JSON.stringify(g.ingredients));
+
         g.ingredients.forEach(async (i) => {
           // Create if not exists
           if (!i.id) {
@@ -151,8 +153,6 @@ export const actions: Actions = {
           }
         });
       });
-      
-      return message(form, JSON.stringify(formData.ingredientGroups));
     }
 
 
