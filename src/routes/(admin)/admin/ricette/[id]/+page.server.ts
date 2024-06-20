@@ -132,8 +132,6 @@ export const actions: Actions = {
         });
 
         g.ingredients.forEach(async (i) => {
-          return g.ingredients;
-          
           // Create if not exists
           if (!i.id) {
             await prisma.recipeIngredient.create({
@@ -153,6 +151,8 @@ export const actions: Actions = {
           }
         });
       });
+
+      return formData.ingredientGroups;
     }
 
     // Update sources
