@@ -69,7 +69,7 @@
       <form method="post" action="?/create" use:enhance enctype="multipart/form-data">
         <Form.Field {form} name="image">
           <Form.Control let:attrs>
-            <Form.Label>Titolo</Form.Label>
+            <Form.Label>File</Form.Label>
             <Input {...attrs} type="file" accept="image/*" oninput={onFileChanged} />
           </Form.Control>
           <Form.FieldErrors />
