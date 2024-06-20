@@ -136,6 +136,8 @@ enum UnitType {
 
   SPOONS
 
+  GLASSES
+
   LEAVES
 
   SACHET

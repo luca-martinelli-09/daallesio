@@ -78,6 +78,8 @@ export const UnitTypeEnum: Record<UnitType, string> = {
 
   SPOONS: " cucchiaio",
 
+  GLASSES: " bicchiere",
+
   LEAVES: " foglia",
 
   SACHET: " bustina",
@@ -98,6 +100,8 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
   LITERS: "l",
 
   SPOONS: " cucchiai",
+
+  GLASSES: " bicchieri",
 
   LEAVES: " foglie",
 
