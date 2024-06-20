@@ -21,7 +21,7 @@
         </ul>
       </div>
 
-      <div class="text-center">
+      <div class="md:text-center">
         <h6 class="font-bold">Aree</h6>
         <ul class="mt-3">
           {#each Object.entries(OriginAreaEnum) as [_, title]}
@@ -32,7 +32,7 @@
         </ul>
       </div>
 
-      <div class="text-right">
+      <div class="md:text-right">
         <h6 class="font-bold">Raccolte</h6>
         <ul class="mt-3">
           {#each collections as collection}
