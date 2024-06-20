@@ -128,9 +128,9 @@
       </div>
 
       {#if recipe.sources?.length}
-      <div class="mt-10 flex items-center flex-wrap text-xs font-semibold print:hidden">
+      <div class="mt-10 flex items-center flex-wrap text-xs font-semibold print:hidden gap-4">
         {#each recipe.sources as source}
-        <a href={source.url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+        <a href={source.url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1">
           {#if source.type === "BLOG"}
           <GlobeIcon class="h-4 w-4" />
           {:else if source.type === "BOOK"}
