@@ -113,26 +113,6 @@ export const actions: Actions = {
 
         // Update ingredients
 
-        const existingIngredients = await prisma.recipeIngredient.findMany({
-          where: {
-            ingredientGroupId: ingredientGroup.id,
-          },
-        });
-
-        // Delete removed ingredients
-        existingIngredients.forEach(async (s) => {
-          if (g.ingredients.find((ss) => ss.id === s.id)) return;
-
-          await prisma.recipeIngredient.delete({
-            where: {
-              id: s.id,
-              ingredientGroupId: ingredientGroup.id,
-            },
-          });
-        });
-
-        return message(form, JSON.stringify(g.ingredients));
-
         g.ingredients.forEach(async (i) => {
           // Create if not exists
           if (!i.id) {
@@ -152,9 +132,26 @@ export const actions: Actions = {
             });
           }
         });
+
+        const existingIngredients = await prisma.recipeIngredient.findMany({
+          where: {
+            ingredientGroupId: ingredientGroup.id,
+          },
+        });
+
+        // Delete removed ingredients
+        existingIngredients.forEach(async (s) => {
+          if (g.ingredients.find((ss) => ss.id === s.id)) return;
+
+          await prisma.recipeIngredient.delete({
+            where: {
+              id: s.id,
+              ingredientGroupId: ingredientGroup.id,
+            },
+          });
+        });
       });
     }
-
 
     // Update sources
 
