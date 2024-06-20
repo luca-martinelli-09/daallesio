@@ -115,11 +115,13 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
 export const CookModeEnum: Record<CookMode, string> = {
   GRILLED: "Grigliata",
   BAKED: "In forno",
+  PAN: "In padela",
   FRIED: "Fritta",
   MICROWAVED: "In microonde",
   STEWED: "Stufata",
   BOILED: "Bollita",
   STEAMED: "Al vapore",
+  RICED: "Risottata",
 };
 
 export function createEnumSelect<T extends string | number | symbol>(en: Record<T, string>) {
