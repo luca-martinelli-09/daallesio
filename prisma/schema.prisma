@@ -139,6 +139,10 @@ enum UnitType {
   LEAVES
 
   SACHET
+
+  CLOVE
+
+  STEM
 }
 
 enum CookMode {

@@ -22,7 +22,7 @@ import SoyBean from "./components/icons/SoyBean.svelte";
 import Squid from "./components/icons/Squid.svelte";
 import Sulphites from "./components/icons/Sulphites.svelte";
 import Wheat from "./components/icons/Wheat.svelte";
-import { AllergenEnum, UnitTypeEnum } from "./form/enums";
+import { AllergenEnum, UnitTypeEnum, UnitTypeEnumPlural } from "./form/enums";
 import type { RecipeIngredientWithRelations } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
@@ -117,7 +117,8 @@ export function getIngredientAmount(ingredient: RecipeIngredientWithRelations) {
 
   const amount = amountNum || "q.b.";
   const unitType = ingredient.unit || (ingredient.ingredientType === "INGREDIENT" && ingredient.ingredient?.defaultUnit);
-  const unitTypeName = unitType && ingredient.amount && unitType !== "NONE" ? UnitTypeEnum[unitType] : "";
+  const unitTypePluralName = unitType && amount !== 1 ? UnitTypeEnumPlural[unitType] : null;
+  const unitTypeName = unitType && ingredient.amount && unitType !== "NONE" ? unitTypePluralName || UnitTypeEnum[unitType] : "";
 
   return `${amount}${unitTypeName}`;
 }

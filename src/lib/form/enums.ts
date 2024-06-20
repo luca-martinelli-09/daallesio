@@ -81,6 +81,31 @@ export const UnitTypeEnum: Record<UnitType, string> = {
   LEAVES: "foglia",
 
   SACHET: "bustina",
+
+  CLOVE: "spicchio",
+
+  STEM: "gambo",
+};
+
+export const UnitTypeEnumPlural: Record<UnitType, string> = {
+  NONE: "nessuna",
+
+  MILLIGRAMS: "mg",
+  GRAMS: "g",
+  KILOGRAMS: "kg",
+
+  MILLILITERS: "ml",
+  LITERS: "l",
+
+  SPOONS: "cucchiai",
+
+  LEAVES: "foglie",
+
+  SACHET: "bustine",
+
+  CLOVE: "spicchi",
+
+  STEM: "gambi",
 };
 
 export const CookModeEnum: Record<CookMode, string> = {
