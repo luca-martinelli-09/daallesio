@@ -7,6 +7,8 @@ import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 export const load: PageServerLoad = async ({ params }) => {
   let recipe;
 
@@ -132,6 +134,8 @@ export const actions: Actions = {
             });
           }
         });
+
+        await sleep(500);
 
         const existingIngredients = await prisma.recipeIngredient.findMany({
           where: {
