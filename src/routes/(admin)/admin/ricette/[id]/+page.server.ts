@@ -70,48 +70,6 @@ export const actions: Actions = {
       data: _.omit(formData, ["slug", "sources", "ingredientGroups", "recipeSteps", "image"]),
     });
 
-    // Update sources
-
-    if (formData.sources) {
-      const existingSources = await prisma.source.findMany({
-        where: {
-          recipeId: params.id,
-        },
-      });
-
-      // Delete removed sources
-      existingSources.forEach(async (s) => {
-        if (formData.sources.find((ss) => ss.id === s.id)) return;
-
-        await prisma.source.delete({
-          where: {
-            id: s.id,
-          },
-        });
-      });
-
-      formData.sources.forEach(async (s) => {
-        // Create if not exists
-        if (!s.id) {
-          await prisma.source.create({
-            data: {
-              ..._.omit(s, "id"),
-              recipeId: params.id,
-            },
-          });
-          return;
-        }
-
-        // Update if exists
-        await prisma.source.update({
-          where: {
-            id: s.id,
-          },
-          data: _.omit(s, "id"),
-        });
-      });
-    }
-
     // Update ingredient groups
 
     if (formData.ingredientGroups) {
@@ -191,6 +149,48 @@ export const actions: Actions = {
               data: _.omit(i, ["id", "ingredient", "recipe"]),
             });
           }
+        });
+      });
+    }
+
+    // Update sources
+
+    if (formData.sources) {
+      const existingSources = await prisma.source.findMany({
+        where: {
+          recipeId: params.id,
+        },
+      });
+
+      // Delete removed sources
+      existingSources.forEach(async (s) => {
+        if (formData.sources.find((ss) => ss.id === s.id)) return;
+
+        await prisma.source.delete({
+          where: {
+            id: s.id,
+          },
+        });
+      });
+
+      formData.sources.forEach(async (s) => {
+        // Create if not exists
+        if (!s.id) {
+          await prisma.source.create({
+            data: {
+              ..._.omit(s, "id"),
+              recipeId: params.id,
+            },
+          });
+          return;
+        }
+
+        // Update if exists
+        await prisma.source.update({
+          where: {
+            id: s.id,
+          },
+          data: _.omit(s, "id"),
         });
       });
     }
