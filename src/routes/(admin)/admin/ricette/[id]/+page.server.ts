@@ -151,9 +151,9 @@ export const actions: Actions = {
           }
         });
       });
-
-      return message(form, formData.ingredientGroups);
     }
+    
+    return message(form, formData.ingredientGroups);
 
     // Update sources
 
