@@ -76,15 +76,15 @@ export const UnitTypeEnum: Record<UnitType, string> = {
   MILLILITERS: "ml",
   LITERS: "l",
 
-  SPOONS: "cucchiaio",
+  SPOONS: " cucchiaio",
 
-  LEAVES: "foglia",
+  LEAVES: " foglia",
 
-  SACHET: "bustina",
+  SACHET: " bustina",
 
-  CLOVE: "spicchio",
+  CLOVE: " spicchio",
 
-  STEM: "gambo",
+  STEM: " gambo",
 };
 
 export const UnitTypeEnumPlural: Record<UnitType, string> = {
@@ -97,15 +97,15 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
   MILLILITERS: "ml",
   LITERS: "l",
 
-  SPOONS: "cucchiai",
+  SPOONS: " cucchiai",
 
-  LEAVES: "foglie",
+  LEAVES: " foglie",
 
-  SACHET: "bustine",
+  SACHET: " bustine",
 
-  CLOVE: "spicchi",
+  CLOVE: " spicchi",
 
-  STEM: "gambi",
+  STEM: " gambi",
 };
 
 export const CookModeEnum: Record<CookMode, string> = {
@@ -119,5 +119,5 @@ export const CookModeEnum: Record<CookMode, string> = {
 };
 
 export function createEnumSelect<T extends string | number | symbol>(en: Record<T, string>) {
-  return Object.entries(en).map(([value, label]) => ({ value, label: label as string }));
+  return Object.entries(en).map(([value, label]) => ({ value, label: (label as string).trim() }));
 }
