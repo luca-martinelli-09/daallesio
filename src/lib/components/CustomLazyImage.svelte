@@ -27,7 +27,7 @@
   function onError() {
     if (!imageSourceElement) return;
 
-    imageSourceElement.srcset = imageSourceElement?.src;
+    imageSourceElement.srcset = image.src;
   }
 </script>
 

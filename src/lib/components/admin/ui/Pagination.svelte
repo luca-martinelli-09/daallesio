@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { goto, invalidateAll } from "$app/navigation";
   import * as Pagination from "$lib/components/ui/pagination";
   import type { Pagination as PaginationType } from "$lib/types";
   import { ChevronLeft, ChevronRight } from "lucide-svelte";
@@ -15,7 +15,11 @@
       return;
     }
 
-    goto("?page=" + page);
+    goto("?page=" + page, {
+      replaceState: false,
+      invalidateAll: true,
+      noScroll: true,
+    });
   }
 </script>
 

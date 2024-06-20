@@ -194,7 +194,7 @@
                 </div>
                 <div class="flex flex-col flex-1">
                   {#if ingredient.ingredientType === "RECIPE" && ingredient.recipe}
-                    <a href="/ricette/{ingredient.recipe.slug}">{getIngredientName(ingredient)}</a>
+                    <a href="/ricette/{ingredient.recipe.slug}" data-sveltekit-reload>{getIngredientName(ingredient)}</a>
                   {:else}
                     <span class="text-lg">{getIngredientName(ingredient)}</span>
                   {/if}
