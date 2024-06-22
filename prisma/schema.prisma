@@ -145,6 +145,8 @@ enum UnitType {
   CLOVE
 
   STEM
+
+  BERRY
 }
 
 enum CookMode {
