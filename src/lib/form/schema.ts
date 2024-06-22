@@ -64,7 +64,7 @@ export const createIngredientSchema = z.object({
 export const editIngredientSchema = createIngredientSchema.merge(
   z.object({
     slug: slug.optional(),
-    plural: z.string().min(2, "Il nome plurale deve avere almeno 2 caratteri").nullable(),
+    plural: z.string().nullable(),
     vegan: z.boolean().default(false),
     vegetarian: z.boolean().default(false),
     allergens: allergens,
