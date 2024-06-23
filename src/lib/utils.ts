@@ -181,13 +181,16 @@ export function getSrcSet(src: string) {
 }
 
 export function formatTime(time: number) {
-  const hours = Math.floor(time / 60);
-  const minutes = time % 60;
+  const days = Math.floor(time / (60 * 24));
+  const restMinutes = time - days * 60 * 24;
+  const hours = Math.floor(restMinutes / 60);
+  const minutes = restMinutes % 60;
 
-  if (hours === 0) return `${minutes}m`;
-  if (minutes === 0) return `${hours}h`;
+  let dayString = days ? `${days} giorni` : "";
+  let hourString = hours ? `${hours}h` : "";
+  let minuteString = minutes ? `${minutes}m` : "";
 
-  return `${hours}h ${minutes}m`;
+  return `${dayString} ${hourString} ${minuteString}`.replace(/ +(?= )/g, "").trim();
 }
 
 export function getRecipeLabels(recipe: Recipe) {
