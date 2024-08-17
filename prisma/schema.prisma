@@ -153,6 +153,10 @@ enum UnitType {
 
   PIECE
   LITTLE_PIECE
+
+  DRIZZLE
+  
+  RIDE
 }
 
 enum CookMode {

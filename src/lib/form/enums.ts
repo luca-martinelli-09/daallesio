@@ -95,6 +95,10 @@ export const UnitTypeEnum: Record<UnitType, string> = {
 
   PIECE: " pezzo",
   LITTLE_PIECE: " pezzettino",
+
+  DRIZZLE: " filo",
+
+  RIDE: " giro",
 };
 
 export const UnitTypeEnumPlural: Record<UnitType, string> = {
@@ -125,6 +129,10 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
 
   PIECE: " pezzi",
   LITTLE_PIECE: " pezzettini",
+
+  DRIZZLE: " fili",
+
+  RIDE: " giri",
 };
 
 export const CookModeEnum: Record<CookMode, string> = {
