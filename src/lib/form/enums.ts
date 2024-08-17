@@ -92,6 +92,9 @@ export const UnitTypeEnum: Record<UnitType, string> = {
   STEM: " gambo",
 
   BERRY: " bacca",
+
+  PIECE: " pezzo",
+  LITTLE_PIECE: " pezzettino",
 };
 
 export const UnitTypeEnumPlural: Record<UnitType, string> = {
@@ -119,6 +122,9 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
   STEM: " gambi",
 
   BERRY: " bacche",
+
+  PIECE: " pezzi",
+  LITTLE_PIECE: " pezzettini",
 };
 
 export const CookModeEnum: Record<CookMode, string> = {

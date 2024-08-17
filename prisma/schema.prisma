@@ -150,6 +150,9 @@ enum UnitType {
   STEM
 
   BERRY
+
+  PIECE
+  LITTLE_PIECE
 }
 
 enum CookMode {
