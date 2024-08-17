@@ -7,6 +7,7 @@ export const OriginAreaEnum: Record<OriginArea, string> = {
   NORTH_AMERICA: "Nord America",
   CENTRAL_AMERICA: "Centro America",
   SOUTH_AMERICA: "Sud America",
+  MIDDLE_EAST: "Medio Oriente",
   EAST_ASIA: "Asia orientale",
   NORTH_ASIA: "Asia settentrionale",
   SOUTH_ASIA: "Asia meridionale",
