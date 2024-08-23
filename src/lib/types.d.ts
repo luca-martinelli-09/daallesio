@@ -11,10 +11,16 @@ export type DeleteModalData = {
   id: string | null;
 };
 
-const recipeIngredientWithRelations = Prisma.validator<Prisma.RecipeIngredientGetPayload>()({
-  include: { ingredient: { include: { image: true } }, recipe: { include: { image: true } } },
-});
-export type RecipeIngredientWithRelations = Prisma.RecipeIngredientGetPayload<typeof recipeIngredientWithRelations>;
+const recipeIngredientWithRelations =
+  Prisma.validator<Prisma.RecipeIngredientGetPayload>()({
+    include: {
+      ingredient: { include: { image: true } },
+      recipe: { include: { image: true } },
+    },
+  });
+export type RecipeIngredientWithRelations = Prisma.RecipeIngredientGetPayload<
+  typeof recipeIngredientWithRelations
+>;
 
 const partialRecipe = Prisma.validator<Prisma.RecipeGetPayload>()({
   include: {
@@ -55,4 +61,37 @@ const partialCollection = Prisma.validator<Prisma.CollectionGetPayload>()({
     image: true,
   },
 });
-export type PartialCollection = Prisma.CollectionGetPayload<typeof partialCollection>;
+export type PartialCollection = Prisma.CollectionGetPayload<
+  typeof partialCollection
+>;
+
+export type BaseEditorOption = {
+  id: string;
+  type: "toggle" | "multiple" | "color";
+  icon: typeof HighlighterIcon;
+  active: boolean;
+  isActive: () => boolean | undefined;
+};
+
+export type ToggleEditorOption = BaseEditorOption & {
+  type: "toggle";
+  click?: () => void;
+};
+
+export type MultipleEditorOption = BaseEditorOption & {
+  type: "multiple";
+  useActiveIcon?: boolean;
+  options: EditorOption[];
+};
+
+export type ColorEditorOption = BaseEditorOption & {
+  type: "color";
+  color: string;
+  selectedColor: (color: string) => void;
+  getColor: () => string | undefined;
+};
+
+export type EditorOption =
+  | ToggleEditorOption
+  | MultipleEditorOption
+  | ColorEditorOption;
