@@ -1,4 +1,13 @@
-import type { Allergen, Continent, CookMode, Difficulty, OriginArea, RecipeIngredientType, SourceType, UnitType } from "@prisma/client";
+import type {
+  Allergen,
+  Continent,
+  CookMode,
+  Difficulty,
+  OriginArea,
+  RecipeIngredientType,
+  SourceType,
+  UnitType,
+} from "@prisma/client";
 
 export const OriginAreaEnum: Record<OriginArea, string> = {
   NORTH_EUROPE: "Nord Europa",
@@ -138,7 +147,7 @@ export const UnitTypeEnumPlural: Record<UnitType, string> = {
 export const CookModeEnum: Record<CookMode, string> = {
   GRILLED: "Grigliata",
   BAKED: "In forno",
-  PAN: "In padela",
+  PAN: "In padella",
   FRIED: "Fritta",
   MICROWAVED: "In microonde",
   STEWED: "Stufata",
@@ -147,6 +156,11 @@ export const CookModeEnum: Record<CookMode, string> = {
   RICED: "Risottata",
 };
 
-export function createEnumSelect<T extends string | number | symbol>(en: Record<T, string>) {
-  return Object.entries(en).map(([value, label]) => ({ value, label: (label as string).trim() }));
+export function createEnumSelect<T extends string | number | symbol>(
+  en: Record<T, string>,
+) {
+  return Object.entries(en).map(([value, label]) => ({
+    value,
+    label: (label as string).trim(),
+  }));
 }
