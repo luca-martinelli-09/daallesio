@@ -192,11 +192,11 @@
                     <span class="bg-muted text-muted-foreground w-10 h-10 rounded-full flex justify-center items-center select-none print:hidden">{getIngredientName(ingredient).charAt(0)}</span>
                   {/if}
                 </div>
-                <div class="flex flex-col flex-1">
+                <div class="flex flex-col flex-1 text-lg">
                   {#if ingredient.ingredientType === "RECIPE" && ingredient.recipe}
-                    <a href="/ricette/{ingredient.recipe.slug}" data-sveltekit-reload>{getIngredientName(ingredient)}</a>
+                    <a class="underline" href="/ricette/{ingredient.recipe.slug}" title={`Vai alla ricetta per "${getIngredientName(ingredient)}"`} data-sveltekit-reload>{getIngredientName(ingredient)}</a>
                   {:else}
-                    <span class="text-lg">{getIngredientName(ingredient)}</span>
+                    <span>{getIngredientName(ingredient)}</span>
                   {/if}
                   <span class="text-sm text-muted-foreground">{ingredient.moreInfo}</span>
                 </div>
