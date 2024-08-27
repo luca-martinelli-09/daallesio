@@ -244,7 +244,7 @@
       <ShareButtons class="mt-10 print:hidden" />
 
       {#if recipe.tags?.length}
-      <div class="flex items-center gap-2 text-xs mt-5 print:hidden">
+      <div class="flex items-center gap-2 text-xs mt-5 print:hidden flex-wrap">
         {#each recipe.tags as tag}
           <a href="/tag/{tag}" class="before:content-['#'] px-2 py-1 rounded-full bg-primary text-primary-foreground font-semibold">{tag}</a>
         {/each}
