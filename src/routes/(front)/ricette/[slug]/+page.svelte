@@ -10,7 +10,7 @@
   import { fromDate, getLocalTimeZone, toCalendarDate } from "@internationalized/date";
   import { type Image } from "@prisma/client";
   import { BookIcon, GlobeIcon, LinkIcon, MinusIcon, PlusIcon } from "lucide-svelte";
-  
+
   let { data } = $props();
   let { recipe }: { recipe: FullRecipe } = $derived(data);
   let units:number = $state(data.recipe?.units);
@@ -87,7 +87,7 @@
 
     <div class="lg:col-span-2 p-5 lg:p-10 flex flex-col gap-5">
       <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold">{recipe.title}</h1>
-            
+
       <p class="text-justify leading-relaxed">{recipe.summary}</p>
       <div class="flex gap-2 items-center flex-wrap print:hidden">
         {#each getRecipeLabels(recipe) as recipeLabel}
@@ -110,7 +110,7 @@
           {#if recipe.time.preparation}
             <div><span class="font-thin">Preparazione</span> <strong>{formatTime(recipe.time.preparation)}</strong></div>
           {/if}
-          
+
           {#if recipe.time.cook}
             <div><span class="font-thin">Cottura</span> <strong>{formatTime(recipe.time.cook)}</strong></div>
           {/if}
@@ -158,15 +158,15 @@
     <div class="col-span-1 p-2 py-10 lg:pr-10">
       <div class="flex justify-between items-start">
         <h2 class="text-4xl font-display font-bold">Ingredienti</h2>
-  
+
         <div class="flex items-center gap-3">
           <Button variant="outline" size="icon" class="rounded-full print:hidden" on:click={() => units = Math.max(units - 1, 1)}>
             <MinusIcon class="h-5 w-5" />
           </Button>
-  
+
           <span class="text-xl select-none print:hidden">{units}</span>
           <span class="hidden print:block">per {units} persone</span>
-  
+
           <Button variant="outline" size="icon" class="rounded-full print:hidden" on:click={() => units++}>
             <PlusIcon class="h-5 w-5" />
           </Button>
@@ -186,7 +186,7 @@
                 <div>
                   {#if ingredient.ingredient?.image || ingredient.recipe?.image}
                     <div class="w-10 h-10 rounded-full overflow-hidden select-none print:hidden">
-                      <LazyImage image={(ingredient.ingredient?.image || ingredient.recipe?.image) as Image} /> 
+                      <LazyImage image={(ingredient.ingredient?.image || ingredient.recipe?.image) as Image} />
                     </div>
                   {:else}
                     <span class="bg-muted text-muted-foreground w-10 h-10 rounded-full flex justify-center items-center select-none print:hidden">{getIngredientName(ingredient).charAt(0)}</span>
@@ -240,13 +240,13 @@
         </div>
         {/if}
       </article>
-      
+
       <ShareButtons class="mt-10 print:hidden" />
 
       {#if recipe.tags?.length}
       <div class="flex items-center gap-2 text-xs mt-5 print:hidden">
         {#each recipe.tags as tag}
-          <a href="/tag/{slugify(tag)}" class="before:content-['#'] px-2 py-1 rounded-full bg-primary text-primary-foreground font-semibold">{tag}</a>
+          <a href="/tag/{tag}" class="before:content-['#'] px-2 py-1 rounded-full bg-primary text-primary-foreground font-semibold">{tag}</a>
         {/each}
       </div>
       {/if}
