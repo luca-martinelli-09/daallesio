@@ -43,7 +43,7 @@ export const GET: RequestHandler = async ({ url }) => {
       <url>
         <loc>${baseSite}</loc>
         <changefreq>daily</changefreq>
-        <priority>1</priority>
+        <priority>1.0</priority>
       </url>
       ${categories.map(
         (category) => `
