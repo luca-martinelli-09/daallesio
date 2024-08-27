@@ -84,7 +84,7 @@ export const GET: RequestHandler = async ({ url }) => {
       ${Object.entries(allTags).map(
         ([tag, _]) => `
         <url>
-          <loc>${baseSite}/tag/${tag}</loc>
+          <loc>${encodeURI(`${baseSite}/tag/${tag}`)}</loc>
           <changefreq>daily</changefreq>
           <priority>0.3</priority>
         </url>
