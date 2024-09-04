@@ -1,5 +1,9 @@
 import { env } from "$env/dynamic/private";
-import { createRecipeTypeSchema, deleteSchema } from "$lib/form/schema";
+import {
+  createRecipeTypeSchema,
+  deleteSchema,
+  reorderSchema,
+} from "$lib/form/schema";
 import { prisma } from "$lib/server/prisma";
 import type { Pagination } from "$lib/types";
 import { getPage } from "$lib/utils";
@@ -14,6 +18,7 @@ export const load: PageServerLoad = async ({ url }) => {
   let perPage = Number(env.PER_PAGE);
 
   const form = await superValidate(zod(createRecipeTypeSchema));
+  const reorderForm = await superValidate(zod(reorderSchema));
 
   const recipeTypes = await prisma.recipeType.findMany({
     take: perPage,
@@ -31,6 +36,7 @@ export const load: PageServerLoad = async ({ url }) => {
       perPage,
     } as Pagination,
     form,
+    reorderForm,
   };
 };
 
@@ -77,5 +83,27 @@ export const actions: Actions = {
     }
 
     return message(form, "Tipo di ricetta eliminata correttamente");
+  },
+  reorder: async ({ request }) => {
+    const formData = (await request.formData()).get("data")?.toString();
+
+    if (!formData) return fail(400);
+
+    const { data } = JSON.parse(formData) as {
+      data: { id: string }[];
+    };
+
+    for (let i = 0; i < data.length; i++) {
+      await prisma.recipeType.update({
+        where: {
+          id: data[i].id,
+        },
+        data: {
+          order: i,
+        },
+      });
+    }
+
+    return { success: true };
   },
 };

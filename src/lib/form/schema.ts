@@ -1,4 +1,13 @@
-import { Allergen, Continent, CookMode, Difficulty, OriginArea, RecipeIngredientType, SourceType, UnitType } from "@prisma/client";
+import {
+  Allergen,
+  Continent,
+  CookMode,
+  Difficulty,
+  OriginArea,
+  RecipeIngredientType,
+  SourceType,
+  UnitType,
+} from "@prisma/client";
 import { z } from "zod";
 
 // Reusables
@@ -10,12 +19,24 @@ const slug = z
 
 const name = z.string().min(2, "Il nome deve avere almeno 2 caratteri");
 const tags = z.string().min(2, "Il tag deve avere almeno 2 caratteri").array();
-const unitType = z.nativeEnum(UnitType, { message: "Unità di misura non valida" }).nullable();
-const allergens = z.nativeEnum(Allergen, { message: "Allergeni non validi" }).array();
+const unitType = z
+  .nativeEnum(UnitType, { message: "Unità di misura non valida" })
+  .nullable();
+const allergens = z
+  .nativeEnum(Allergen, { message: "Allergeni non validi" })
+  .array();
 const order = z.number().gte(0, "L'ordine deve essere positivo").default(0);
 
 export const deleteSchema = z.object({
   id: z.string(),
+});
+
+export const reorderSchema = z.object({
+  data: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
 });
 
 // User
@@ -26,14 +47,20 @@ export const registerSchema = z.object({
     .string()
     .min(3, "Lo username deve avere almeno 3 caratteri")
     .max(31, "Lo username deve eavere meno di 31 caratteri")
-    .regex(/^[a-z0-9_-]+$/, "Lo username può contenere solo numeri, lettere, _ e -"),
-  password: z.string().min(6, "La password deve avere almeno 6 caratteri").max(255, "La password deve avere meno di 255 caratteri"),
+    .regex(
+      /^[a-z0-9_-]+$/,
+      "Lo username può contenere solo numeri, lettere, _ e -",
+    ),
+  password: z
+    .string()
+    .min(6, "La password deve avere almeno 6 caratteri")
+    .max(255, "La password deve avere meno di 255 caratteri"),
 });
 
 export const editUserSchema = registerSchema.merge(
   z.object({
     password: registerSchema.shape.password.optional(),
-  })
+  }),
 );
 
 export const loginSchema = registerSchema.omit({ name: true });
@@ -41,7 +68,12 @@ export const loginSchema = registerSchema.omit({ name: true });
 // Images
 
 export const uploadImageSchema = z.object({
-  image: z.instanceof(File, { message: "Carica un file" }).refine((f) => f.type.startsWith("image/"), "Il file caricato non è un immagine"),
+  image: z
+    .instanceof(File, { message: "Carica un file" })
+    .refine(
+      (f) => f.type.startsWith("image/"),
+      "Il file caricato non è un immagine",
+    ),
   base64: z.string().nullable(),
 });
 
@@ -73,7 +105,7 @@ export const editIngredientSchema = createIngredientSchema.merge(
 
     imageId: z.string().nullable(),
     image: editImageSchema.nullable(),
-  })
+  }),
 );
 
 // Recipe types
@@ -88,7 +120,7 @@ export const editRecipeTypeSchema = createRecipeTypeSchema.merge(
     slug: slug.optional(),
     plural: name.nullable(),
     order: order,
-  })
+  }),
 );
 
 // Recipe
@@ -102,8 +134,12 @@ export const createRecipeSchema = z.object({
       city: z.string().nullable(),
       region: z.string().nullable(),
       country: z.string().min(3).max(3).nullable(),
-      area: z.nativeEnum(OriginArea, { message: "Area di origine non valida" }).nullable(),
-      continent: z.nativeEnum(Continent, { message: "Continente non valido" }).nullable(),
+      area: z
+        .nativeEnum(OriginArea, { message: "Area di origine non valida" })
+        .nullable(),
+      continent: z
+        .nativeEnum(Continent, { message: "Continente non valido" })
+        .nullable(),
       lat: z.number().nullable(),
       lng: z.number().nullable(),
     })
@@ -116,13 +152,31 @@ export const createRecipeSchema = z.object({
       lat: null,
       lng: null,
     }),
-  difficulty: z.nativeEnum(Difficulty, { message: "Difficolità non valida" }).default("MEDIUM"),
+  difficulty: z
+    .nativeEnum(Difficulty, { message: "Difficolità non valida" })
+    .default("MEDIUM"),
   time: z
     .object({
-      preparation: z.number().int().positive("Il tempo di preparazione deve essere positivo").nullable(),
-      rest: z.number().int().positive("Il tempo di riposo deve essere positivo").nullable(),
-      cook: z.number().int().positive("Il tempo di cottura deve essere positivo").nullable(),
-      leavening: z.number().int().positive("Il tempo di lievitazione deve essere positivo").nullable(),
+      preparation: z
+        .number()
+        .int()
+        .positive("Il tempo di preparazione deve essere positivo")
+        .nullable(),
+      rest: z
+        .number()
+        .int()
+        .positive("Il tempo di riposo deve essere positivo")
+        .nullable(),
+      cook: z
+        .number()
+        .int()
+        .positive("Il tempo di cottura deve essere positivo")
+        .nullable(),
+      leavening: z
+        .number()
+        .int()
+        .positive("Il tempo di lievitazione deve essere positivo")
+        .nullable(),
     })
     .default({
       preparation: null,
@@ -130,7 +184,11 @@ export const createRecipeSchema = z.object({
       cook: null,
       leavening: null,
     }),
-  units: z.number().int().positive("La quantità deve essere positiva").default(1),
+  units: z
+    .number()
+    .int()
+    .positive("La quantità deve essere positiva")
+    .default(1),
 });
 
 export const editRecipeSchema = createRecipeSchema.merge(
@@ -144,11 +202,14 @@ export const editRecipeSchema = createRecipeSchema.merge(
     summary: z.string().nullable(),
     introduction: z.string().nullable(),
     conclusion: z.string().nullable(),
-    cookMode: z.nativeEnum(CookMode, { message: "Modalità di cottura non valida" }).array().default([]),
+    cookMode: z
+      .nativeEnum(CookMode, { message: "Modalità di cottura non valida" })
+      .array()
+      .default([]),
 
     typeId: z.string().nullable(),
     imageId: z.string().nullable(),
-  })
+  }),
 );
 
 export const editFullRecipeSchema = editRecipeSchema.merge(
@@ -173,16 +234,31 @@ export const editFullRecipeSchema = editRecipeSchema.merge(
             id: z.string().nullable(),
             name: name.nullable(),
             plural: name.nullable(),
-            amount: z.number().positive("La quantità deve essere positiva").nullable(),
+            amount: z
+              .number()
+              .positive("La quantità deve essere positiva")
+              .nullable(),
             fixed: z.boolean().default(false),
             unit: z.nativeEnum(UnitType).nullable(),
             moreInfo: z.string().nullable(),
-            ingredientType: z.nativeEnum(RecipeIngredientType).default("INGREDIENT"),
+            ingredientType: z
+              .nativeEnum(RecipeIngredientType)
+              .default("INGREDIENT"),
             recipeId: z.string().nullable(),
             ingredientId: z.string().nullable(),
             order: order,
-            ingredient: editIngredientSchema.merge(z.object({ id: z.string(), slug: slug })).nullable(),
-            recipe: editRecipeSchema.merge(z.object({ id: z.string(), slug: slug, date: editRecipeSchema.shape.date.nullable() })).nullable(),
+            ingredient: editIngredientSchema
+              .merge(z.object({ id: z.string(), slug: slug }))
+              .nullable(),
+            recipe: editRecipeSchema
+              .merge(
+                z.object({
+                  id: z.string(),
+                  slug: slug,
+                  date: editRecipeSchema.shape.date.nullable(),
+                }),
+              )
+              .nullable(),
           })
           .array()
           .default([]),
@@ -200,7 +276,7 @@ export const editFullRecipeSchema = editRecipeSchema.merge(
       .default([]),
 
     image: editImageSchema.nullable(),
-  })
+  }),
 );
 
 // Collections
@@ -227,9 +303,17 @@ export const editCollectionSchema = createCollectionSchema.merge(
         collectionId: z.string(),
         order: order,
 
-        recipe: editRecipeSchema.merge(z.object({ id: z.string(), slug: slug, date: editRecipeSchema.shape.date.nullable() })).nullable(),
+        recipe: editRecipeSchema
+          .merge(
+            z.object({
+              id: z.string(),
+              slug: slug,
+              date: editRecipeSchema.shape.date.nullable(),
+            }),
+          )
+          .nullable(),
       })
       .array()
       .default([]),
-  })
+  }),
 );
