@@ -18,9 +18,21 @@ const recipeIngredientWithRelations =
       recipe: { include: { image: true } },
     },
   });
+
 export type RecipeIngredientWithRelations = Prisma.RecipeIngredientGetPayload<
   typeof recipeIngredientWithRelations
 >;
+
+const recipeIngredientWithRelationsAdmin =
+  Prisma.validator<Prisma.RecipeIngredientGetPayload>()({
+    include: {
+      ingredient: { include: { image: true } },
+      recipe: { include: { image: true } },
+    },
+  });
+
+export type AdminRecipeIngredientWithRelations =
+  Prisma.RecipeIngredientGetPayload<typeof recipeIngredientWithRelationsAdmin>;
 
 const partialRecipe = Prisma.validator<Prisma.RecipeGetPayload>()({
   include: {

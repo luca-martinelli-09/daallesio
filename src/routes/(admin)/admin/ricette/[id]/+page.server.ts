@@ -58,6 +58,10 @@ export const load: PageServerLoad = async ({ params }) => {
   };
 };
 
+function isNew(id: string | null) {
+  return !id || id.startsWith("new-");
+}
+
 export const actions: Actions = {
   default: async ({ request, params }) => {
     const form = await superValidate(request, zod(editFullRecipeSchema));
@@ -69,7 +73,13 @@ export const actions: Actions = {
       where: {
         id: params.id,
       },
-      data: _.omit(formData, ["slug", "sources", "ingredientGroups", "recipeSteps", "image"]),
+      data: _.omit(formData, [
+        "slug",
+        "sources",
+        "ingredientGroups",
+        "recipeSteps",
+        "image",
+      ]),
     });
 
     // Update ingredient groups
@@ -135,7 +145,7 @@ export const actions: Actions = {
 
         for (const i of g.ingredients) {
           // Create if not exists
-          if (!i.id) {
+          if (isNew(i.id)) {
             await prisma.recipeIngredient.create({
               data: {
                 ..._.omit(i, ["id", "ingredient", "recipe"]),
