@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import { page } from "$app/stores";
     import RecipeIngredients from "$lib/components/admin/recipe/RecipeIngredients.svelte";
     import RecipeSheet from "$lib/components/admin/recipe/RecipeSheet.svelte";
@@ -9,7 +10,6 @@
     import { crudForm } from "$lib/utils";
     import { type SuperForm } from "sveltekit-superforms";
     import type { PageData } from "./$types.js";
-    import { goto } from "$app/navigation";
 
     let { data } = $props();
 

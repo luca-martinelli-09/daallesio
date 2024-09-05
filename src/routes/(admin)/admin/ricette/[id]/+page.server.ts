@@ -145,7 +145,7 @@ export const actions: Actions = {
 
         for (const i of g.ingredients) {
           // Create if not exists
-          if (isNew(i.id)) {
+          if (!i.id || isNew(i.id)) {
             await prisma.recipeIngredient.create({
               data: {
                 ..._.omit(i, ["id", "ingredient", "recipe"]),

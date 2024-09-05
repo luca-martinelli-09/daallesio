@@ -6,7 +6,7 @@
     import Input from "$lib/components/ui/input/input.svelte";
     import Switch from "$lib/components/ui/switch/switch.svelte";
     import { RecipeIngredientTypeEnum, UnitTypeEnum } from "$lib/form/enums";
-    import type { AdminRecipeIngredientWithRelations } from "$lib/types";
+    import type { RecipeIngredientWithRelations } from "$lib/types";
     import { getIngredientRowString } from "$lib/utils";
     import { LucideGripVertical, PencilIcon, Trash2Icon } from "lucide-svelte";
     import { dndzone, type DndEvent } from "svelte-dnd-action";
@@ -29,7 +29,7 @@
             $formData.ingredientGroups[groupIndex].ingredients[j];
 
         return getIngredientRowString(
-            ingredient as AdminRecipeIngredientWithRelations,
+            ingredient as RecipeIngredientWithRelations,
         ).toLocaleLowerCase();
     }
 
@@ -44,7 +44,7 @@
     const flipDurationMs = 300;
 
     function handleDndConsider(
-        e: CustomEvent<DndEvent<AdminRecipeIngredientWithRelations>>,
+        e: CustomEvent<DndEvent<any>>,
     ) {
         $formData.ingredientGroups[groupIndex].ingredients = e.detail.items.map(
             (i, j) => ({ ...i, order: j }),
@@ -52,7 +52,7 @@
     }
 
     async function handleDndFinalize(
-        e: CustomEvent<DndEvent<AdminRecipeIngredientWithRelations>>,
+        e: CustomEvent<DndEvent<any>>,
     ) {
         $formData.ingredientGroups[groupIndex].ingredients = [
             ...e.detail.items.map((i, j) => ({ ...i, order: j })),
@@ -139,10 +139,7 @@
                                     $formData.ingredientGroups[
                                         groupIndex
                                     ].ingredients[j].ingredient = r
-                                        ? {
-                                              ...r,
-                                              image: null,
-                                          }
+                                        ? { ...r }
                                         : null;
                                     $formData.ingredientGroups[
                                         groupIndex
@@ -163,10 +160,7 @@
                                     $formData.ingredientGroups[
                                         groupIndex
                                     ].ingredients[j].recipe = r
-                                        ? {
-                                              ...r,
-                                              date: null,
-                                          }
+                                        ? { ...r }
                                         : null;
                                     $formData.ingredientGroups[
                                         groupIndex
