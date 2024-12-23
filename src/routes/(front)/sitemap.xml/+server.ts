@@ -34,15 +34,15 @@ export const GET: RequestHandler = async ({ url }) => {
   const tagsXml = Object.entries(allTags).map(([tag, _]) => `<url><loc>${encodeURI(`${baseSite}/tag/${tag}`)}</loc><changefreq>daily</changefreq><priority>0.3</priority></url>`);
 
   const response = new Response(
-    `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url><loc>${baseSite}</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-      ${categoriesXml.join("")}
-      ${collectionsXml.join("")}
-      ${areasXml.join("")}
-      ${recipesXml.join("")}
-      ${tagsXml.join("")}
-    </urlset>`
+    `<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>${baseSite}</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  ${categoriesXml.join("")}
+  ${collectionsXml.join("")}
+  ${areasXml.join("")}
+  ${recipesXml.join("")}
+  ${tagsXml.join("")}
+</urlset>`
   );
 
   response.headers.set("Cache-Control", "max-age=0, s-maxage=3600");
