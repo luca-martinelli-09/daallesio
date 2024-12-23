@@ -44,8 +44,6 @@ export const GET: RequestHandler = async ({ url }) => {
     pages.push({ url: `/categorie/${category.slug}`, changefreq: "daily", priority: 0.5 });
   }
 
-  console.log(Object.values(allTags));
-
   for (const area of Object.values(OriginAreaEnum)) {
     pages.push({ url: `/aree/${slugify(area)}`, changefreq: "daily", priority: 0.4 });
   }
