@@ -3,7 +3,7 @@ import { prisma } from "$lib/server/prisma";
 import { publishedScope, slugify } from "$lib/utils";
 import type { RequestHandler } from "./$types";
 import { SitemapStream, streamToPromise } from "sitemap";
-import { createGzip } from "zlib";
+import { createGzip } from "node:zlib";
 
 export const GET: RequestHandler = async ({ url }) => {
   const baseSite = url.origin;
