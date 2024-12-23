@@ -36,7 +36,7 @@
         <nav class="grid gap-1 text-lg font-medium">
           <a href="/" class="flex items-center gap-2 text-lg font-semibold mb-5" onclick={() => (open = false)}>
             <Logo class="h-6 w-6 text-primary" />
-            <span class="font-display font-bold">{env.PUBLIC_APP_NAME}</span>
+            <h1 class="font-display font-bold">{env.PUBLIC_APP_NAME}</h1>
           </a>
           {#each menuItems as menuGroup}
             {#if menuGroup.title}
@@ -63,7 +63,7 @@
 
   <a href="/" class="flex items-center gap-3 text-3xl justify-center">
     <Logo class="h-10 w-10 text-primary" />
-    <span class="font-display font-bold hidden md:block">Da Allesio</span>
+    <h1 class="font-display font-bold hidden md:block">Da Allesio</h1>
   </a>
 
   <div class="flex items-center justify-end">

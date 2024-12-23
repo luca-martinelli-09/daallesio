@@ -9,7 +9,8 @@ compatibility_flags = [ "nodejs_compat" ]
 compatibility_date = "2024-05-25"
 
 [vars]
-PUBLIC_APP_NAME = "Da Allesio"
+PUBLIC_APP_NAME = "Il ricettario di Da Allesio"
+PUBLIC_APP_URL = "https://daallesio.eu.org"
 ACCEPTED_USERNAMES = "lucamartinelli,daallesio,alessiozago,liviabusti"
 PER_PAGE = "20"
 S3_BUCKET_NAME = "daallesio"
@@ -18,7 +19,8 @@ S3_REGION = "auto"
 PUBLIC_S3_URL = "https://s3.daallesio.eu.org/"
 
 [env.production.vars]
-PUBLIC_APP_NAME = "Da Allesio"
+PUBLIC_APP_NAME = "Il ricettario di Da Allesio"
+PUBLIC_APP_URL = "https://daallesio.eu.org"
 ACCEPTED_USERNAMES = "lucamartinelli,daallesio,alessiozago,liviabusti"
 PER_PAGE = "20"
 S3_BUCKET_NAME = "daallesio"

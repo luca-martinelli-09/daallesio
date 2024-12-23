@@ -15,6 +15,8 @@
   
   <meta name="description" content="Il blog ufficiale con tante ricette dal vostro ristorante preferito Da Allesio." />
 
+   <link rel="canonical" href={env.PUBLIC_APP_URL} />
+
 	<meta property="og:title" content={title()} />
 	<meta property="og:description" content="Il blog ufficiale con tante ricette dal vostro ristorante preferito Da Allesio." />
 	<meta property="og:type" content="website" />

@@ -66,7 +66,9 @@
 
 <main class="main-content">
   {#if listTitle}
-    <h1 class="font-display text-4xl font-bold my-10 text-center">{listTitle}</h1>
+    <h2 class="font-display text-4xl font-bold my-10 text-center">{listTitle}</h2>
+  {:else}
+    <h2 class="sr-only">Tutte le ricette</h2>
   {/if}
 
   <div class="recipe-grid">
