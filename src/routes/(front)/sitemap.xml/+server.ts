@@ -2,7 +2,6 @@ import { OriginAreaEnum } from "$lib/form/enums";
 import { prisma } from "$lib/server/prisma";
 import { publishedScope, slugify } from "$lib/utils";
 import type { RequestHandler } from "./$types";
-import { SitemapStream, streamToPromise } from "sitemap";
 
 interface SitemapEntry {
   url: string;
