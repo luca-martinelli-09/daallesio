@@ -2,6 +2,8 @@ import { OriginAreaEnum } from "$lib/form/enums";
 import { prisma } from "$lib/server/prisma";
 import { publishedScope, slugify } from "$lib/utils";
 import type { RequestHandler } from "./$types";
+import { SitemapStream, streamToPromise } from "sitemap";
+import { createGzip } from "zlib";
 
 export const GET: RequestHandler = async ({ url }) => {
   const baseSite = url.origin;
@@ -27,71 +29,45 @@ export const GET: RequestHandler = async ({ url }) => {
     return tags;
   }, {} as Record<string, boolean>);
 
-  const collectionsXml = collections.map(
-    (collection) => `<url>
-  <loc>${baseSite}/raccolte/${collection.slug}</loc>
-  <changefreq>daily</changefreq>
-  <priority>0.7</priority>
-</url>`
-  );
+  const smStream = new SitemapStream({
+    hostname: baseSite,
+  });
+  const pipeline = smStream.pipe(createGzip());
 
-  const categoriesXml = categories.map(
-    (category) => `<url>
-  <loc>${baseSite}/categorie/${category.slug}</loc>
-  <changefreq>daily</changefreq>
-  <priority>0.5</priority>
-</url>`
-  );
+  const pages = [{ url: "/", changefreq: "daily", priority: 1 }];
 
-  const areasXml = Object.entries(OriginAreaEnum).map(
-    ([_, title]) => `<url>
-  <loc>${baseSite}/aree/${slugify(title)}</loc>
-  <changefreq>daily</changefreq>
-  <priority>0.4</priority>
-</url>`
-  );
+  for (const collection of collections) {
+    pages.push({ url: `/raccolte/${collection.slug}`, changefreq: "daily", priority: 0.7 });
+  }
 
-  const recipesXml = categories.map(
-    (recipe) => `<url>
-  <loc>${baseSite}/ricette/${recipe.slug}</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.9</priority>
-</url>`
-  );
+  for (const category of categories) {
+    pages.push({ url: `/categorie/${category.slug}`, changefreq: "daily", priority: 0.5 });
+  }
 
-  const tagsXml = Object.entries(allTags).map(
-    ([tag, _]) => `<url>
-  <loc>${encodeURI(`${baseSite}/tag/${tag}`)}</loc>
-  <changefreq>daily</changefreq>
-  <priority>0.3</priority>
-</url>`
-  );
+  console.log(Object.values(allTags));
 
-  const response = new Response(
-    `<?xml version="1.0" encoding="UTF-8" ?>
-<urlset
-  xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:news="https://www.google.com/schemas/sitemap-news/0.9"
-  xmlns:xhtml="https://www.w3.org/1999/xhtml"
-  xmlns:mobile="https://www.google.com/schemas/sitemap-mobile/1.0"
-  xmlns:image="https://www.google.com/schemas/sitemap-image/1.1"
-  xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"
->
-  <url>
-    <loc>${baseSite}</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  ${categoriesXml.join("")}
-  ${collectionsXml.join("")}
-  ${areasXml.join("")}
-  ${recipesXml.join("")}
-  ${tagsXml.join("")}
-</urlset>`
-  );
+  for (const area of Object.values(OriginAreaEnum)) {
+    pages.push({ url: `/aree/${slugify(area)}`, changefreq: "daily", priority: 0.4 });
+  }
 
-  response.headers.set("Cache-Control", "max-age=0, s-maxage=3600");
-  response.headers.set("Content-Type", "application/xml");
+  for (const recipe of recipes) {
+    pages.push({ url: `/ricette/${recipe.slug}`, changefreq: "weekly", priority: 0.9 });
+  }
 
-  return response;
+  for (const tag of Object.keys(allTags)) {
+    pages.push({ url: `/tag/${tag}`, changefreq: "daily", priority: 0.3 });
+  }
+
+  pages.forEach((page) => smStream.write(page));
+
+  smStream.end();
+
+  const sitemapBuffer = await streamToPromise(pipeline);
+
+  return new Response(sitemapBuffer, {
+    headers: {
+      "Content-Type": "application/xml",
+      "Content-Encoding": "gzip",
+    },
+  });
 };
